@@ -1,1 +1,2 @@
-crawlzilla bin
+#!/bin/bash
+echo "crawlzilla!"

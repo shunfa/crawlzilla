@@ -1,2 +1,13 @@
-this file for install shell
+#!/bin/bash
+
+# 1. chech env
+
+# 2. install and setup nutch
+
+# 3. install and setup solr, tomcat
+
+
+
+
+
 
