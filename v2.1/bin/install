@@ -1,13 +1,95 @@
 #!/bin/bash
 
-# 1. chech env
+if [ "`id -u`" != "0" ]; then
+  echo `whoami` > /tmp/username
+fi
 
-# 2. install and setup nutch
-
-# 3. install and setup solr, tomcat
-
-
-
+# change as root to run install
+[ "`id -u`" != "0" ] && exec sudo su -c "$0" "$@"
 
 
+####### parameter section ###########
+# env
+CRAWLZILLA_HOME="/opt/crawlzilla"
+PACKAGES_HOME="/opt/crawlzilla/packages"
+NUTCH_PKG="apache-nutch-1.6-bin.tar.gz"
+SOLR_PKG="apache-solr-4.0.0.tgz"
+CRAWLDB="/opt/crawlzilla/crawlDB"
+NUTCH_HOME="/opt/crawlzilla/nutch"
+TOMCAT_HOME="/opt/crawlzilla/tomcat"
+SOLR_HOME="/opt/crawlzilla/solr"
+URLS="/opt/crawlzilla/nutch/urls"
+WORK_PATH=`dirname "$0"`
+USERNAME=`cat /tmp/username`
 
+### check env
+
+# check package and create folders
+function check_package(){
+  echo "check_package() run.."
+
+  if [ ! -d $CRAWLDB ]; then
+    mkdir -p $CRAWLDB
+  fi
+
+  if [ ! -d $NUTCH_HOME ]; then
+    mkdir -p $NUTCH_HOME
+  fi
+
+  if [ ! -d $SOLR_HOME ]; then
+    mkdir -p $SOLR_HOME
+  fi
+
+  if [ ! -d $PACKAGES_HOME ]; then
+    mkdir -p $PACKAGES_HOME
+  fi
+
+  if [ ! -f $PACKAGES_HOME/$SOLR_PKG ]; then
+    wget "http://sourceforge.net/projects/crawlzilla/files/original-package/apache-solr-4.0.0.tgz/download" -O $SOLR_PKG
+    mv $SOLR_PKG $PACKAGES_HOME
+  fi
+
+  if [ ! -f $PACKAGES_HOME/$NUTCH_PKG ]; then
+    wget "http://sourceforge.net/projects/crawlzilla/files/original-package/apache-nutch-1.6-bin.tar.gz/download" -O $NUTCH_PKG
+    mv $NUTCH_PKG $PACKAGES_HOME
+  fi
+}
+
+# check JAVA
+# check SSH
+
+### install and setup nutch
+function install_nutch(){
+echo "install nutch ..."
+# extract tar
+tar zxvf $PACKAGES_HOME/$NUTCH_PKG -C $CRAWLZILLA_HOME 
+# rename folder
+mv $CRAWLZILLA_HOME/apache-nutch-1.6 $CRAWLZILLA_HOME/nutch
+# cp conf
+
+}
+
+
+### install and setup solr
+function install_solr(){
+echo "install solr.."
+## extract tar
+tar zxvf $PACKAGES_HOME/$SOLR_PKG -C $CRAWLZILLA_HOME
+# mv folder
+mv $CRAWLZILLA_HOME/apache-solr-4.0.0 $CRAWLZILLA_HOME/solr
+# cp conf
+}
+
+
+
+
+function main(){
+  echo "main function go.."
+  echo $USERNAME
+  check_package
+  install_nutch
+  install_solr
+  chown -R $USERNAME:$USERNAME $CRAWLZILLA_HOME
+}
+
+main
