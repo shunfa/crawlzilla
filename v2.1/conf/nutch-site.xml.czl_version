@@ -6,6 +6,6 @@
 <configuration>
 <property>
  <name>http.agent.name</name>
- <value>My Nutch Spider</value>
+ <value>My Crawlzilla Spider</value>
 </property>
 </configuration>

@@ -21,7 +21,7 @@ SOLR_HOME="/opt/crawlzilla/solr"
 URLS="/opt/crawlzilla/nutch/urls"
 WORK_PATH=`dirname "$0"`
 USERNAME=`cat /tmp/username`
-
+cd $WORK_PATH
 ### check env
 
 # check package and create folders
@@ -32,13 +32,17 @@ function check_package(){
     mkdir -p $CRAWLDB
   fi
 
-  if [ ! -d $NUTCH_HOME ]; then
-    mkdir -p $NUTCH_HOME
+  if [ ! -d $URLS ]; then
+    mkdir -p $URLS
   fi
 
-  if [ ! -d $SOLR_HOME ]; then
-    mkdir -p $SOLR_HOME
-  fi
+#  if [ ! -d $NUTCH_HOME ]; then
+#    mkdir -p $NUTCH_HOME
+#  fi
+
+#  if [ ! -d $SOLR_HOME ]; then
+#    mkdir -p $SOLR_HOME
+#  fi
 
   if [ ! -d $PACKAGES_HOME ]; then
     mkdir -p $PACKAGES_HOME
@@ -60,32 +64,39 @@ function check_package(){
 
 ### install and setup nutch
 function install_nutch(){
-echo "install nutch ..."
-# extract tar
-tar zxvf $PACKAGES_HOME/$NUTCH_PKG -C $CRAWLZILLA_HOME 
-# rename folder
-mv $CRAWLZILLA_HOME/apache-nutch-1.6 $CRAWLZILLA_HOME/nutch
-# cp conf
-
+  echo "install nutch ..."
+  # extract tar
+  tar zxvf $PACKAGES_HOME/$NUTCH_PKG -C $CRAWLZILLA_HOME 
+  # rename folder
+  mv $CRAWLZILLA_HOME/apache-nutch-1.6 $CRAWLZILLA_HOME/nutch
+  # cp conf
+  cp ../conf/nutch-site.xml.czl_version  $NUTCH_HOME/nutch-site.xml
 }
 
 
 ### install and setup solr
 function install_solr(){
-echo "install solr.."
-## extract tar
-tar zxvf $PACKAGES_HOME/$SOLR_PKG -C $CRAWLZILLA_HOME
-# mv folder
-mv $CRAWLZILLA_HOME/apache-solr-4.0.0 $CRAWLZILLA_HOME/solr
-# cp conf
+  echo "install solr.."
+  ## extract tar
+  tar zxvf $PACKAGES_HOME/$SOLR_PKG -C $CRAWLZILLA_HOME
+  # mv folder
+  mv $CRAWLZILLA_HOME/apache-solr-4.0.0 $CRAWLZILLA_HOME/solr
+  # cp conf
+  cp ../conf/schema.xml.czl_version $SOLR_HOME/example/solr/collection1/conf/schema.xml
+
 }
 
+function startup_services(){
+  # solr
+  java -jar $SOLR_HOME/example/start.jar & 
 
+}
 
 
 function main(){
   echo "main function go.."
   echo $USERNAME
+  echo $WORK_PATH
   check_package
   install_nutch
   install_solr
