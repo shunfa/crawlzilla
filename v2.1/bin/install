@@ -32,9 +32,9 @@ function check_package(){
     mkdir -p $CRAWLDB
   fi
 
-  if [ ! -d $URLS ]; then
-    mkdir -p $URLS
-  fi
+#  if [ ! -d $URLS ]; then
+#    mkdir -p $URLS
+#  fi
 
 #  if [ ! -d $NUTCH_HOME ]; then
 #    mkdir -p $NUTCH_HOME
@@ -68,9 +68,14 @@ function install_nutch(){
   # extract tar
   tar zxvf $PACKAGES_HOME/$NUTCH_PKG -C $CRAWLZILLA_HOME 
   # rename folder
-  mv $CRAWLZILLA_HOME/apache-nutch-1.6 $CRAWLZILLA_HOME/nutch
+  mv $CRAWLZILLA_HOME/apache-nutch-1.6 $NUTCH_HOME
+  echo "mv $CRAWLZILLA_HOME/apache-nutch-1.6 $NUTCH_HOME"
   # cp conf
-  cp ../conf/nutch-site.xml.czl_version  $NUTCH_HOME/nutch-site.xml
+  cp ../conf/nutch-site.xml.czl_version  $NUTCH_HOME/conf/nutch-site.xml
+  if [ ! -d $URLS ]; then
+    mkdir -p $URLS
+  fi
+  # set JAVA_HOME /etc/profile
 }
 
 
