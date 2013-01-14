@@ -1,0 +1,17 @@
+#!/bin/bash
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+
+# export path
+. ../conf/crawlzilla-env.sh
+
+# nutch crawl
+echo $NUTCH_HOME
+
+echo "test"
+
+# nutch solrindex
+
+# create collection of solr
+
+# create webmanager of crawlzilla
