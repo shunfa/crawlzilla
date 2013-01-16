@@ -7,6 +7,9 @@ bin=`cd "$bin"; pwd`
 
 function nutch_crawl_job(){
     # nutch crawl
+    s_time=`date '+%s'`
+    mkdir -p $CRAWLDB/$crawl_DB_name/meta/
+    echo $s_time > $CRAWLDB/$crawl_DB_name/meta/start_time
     show_echo "$NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000"
     show_echo "nutch solr index ..."
     nutch_solr_index
@@ -31,7 +34,7 @@ function main(){
         crawl_DB_name=$2
         depth=$3
         if [ "$crawl_DB_name" != "" ] && [ "$depth" != "" ] ; then
-	    nutch_crawl_job $crawl_DB_name $depth
+	   nutch_crawl_job $crawl_DB_name $depth
         else
             show_echo "Please key in crawl DB name and depth!"
         fi
