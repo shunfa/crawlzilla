@@ -14,3 +14,7 @@ export NUTCH_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original
 export SOLR_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-solr-4.0.0.tgz/download"
 export TOMCAT_LINK=""
 export CZL_WEB_LINK=""
+
+function show_echo(){
+  echo -e "\033[1;32;40m $1 \033[0m"
+}

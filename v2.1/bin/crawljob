@@ -5,13 +5,40 @@ bin=`cd "$bin"; pwd`
 # export path
 . ../conf/crawlzilla-env.sh
 
-# nutch crawl
-echo $NUTCH_HOME
+function nutch_crawl_job(){
+    # nutch crawl
+    show_echo "$NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000"
+    show_echo "nutch solr index ..."
+    nutch_solr_index
+}
 
-echo "test"
+function nutch_solr_index(){
+    show_echo "/bin/nutch solrindex http://127.0.0.1:8983/solr/***TODO*** $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/*"
+
+}
 
 # nutch solrindex
 
 # create collection of solr
 
 # create webmanager of crawlzilla
+
+
+function main(){
+  case $1 in
+    "crawljob")
+        show_echo "crawljob"
+        crawl_DB_name=$2
+        depth=$3
+        if [ "$crawl_DB_name" != "" ] && [ "$depth" != "" ] ; then
+	    nutch_crawl_job $crawl_DB_name $depth
+        else
+            show_echo "Please key in crawl DB name and depth!"
+        fi
+    ;;
+  *)
+    exit 1
+  esac
+}
+
+main $1 $2 $3

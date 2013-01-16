@@ -30,7 +30,7 @@ cd $WORK_PATH
 
 # check package and create folders
 function check_package(){
-  echo "check_package() run.."
+  show_echo "check_package() run.."
 
   if [ ! -d $CRAWLDB ]; then
     mkdir -p $CRAWLDB
@@ -68,12 +68,12 @@ function check_package(){
 
 ### install and setup nutch
 function install_nutch(){
-  echo "install nutch ..."
+  show_echo "install nutch ..."
   # extract tar
   tar zxvf $PACKAGES_HOME/$NUTCH_PKG -C $CRAWLZILLA_HOME 
   # rename folder
   mv $CRAWLZILLA_HOME/apache-nutch-1.6 $NUTCH_HOME
-  echo "mv $CRAWLZILLA_HOME/apache-nutch-1.6 $NUTCH_HOME"
+  show_echo "mv $CRAWLZILLA_HOME/apache-nutch-1.6 $NUTCH_HOME"
   # cp conf
   cp ../conf/nutch-site.xml.czl_version  $NUTCH_HOME/conf/nutch-site.xml
   if [ ! -d $URLS ]; then
@@ -85,7 +85,7 @@ function install_nutch(){
 
 ### install and setup solr
 function install_solr(){
-  echo "install solr.."
+  show_echo "install solr.."
   ## extract tar
   tar zxvf $PACKAGES_HOME/$SOLR_PKG -C $CRAWLZILLA_HOME
   # mv folder
@@ -103,9 +103,9 @@ function startup_services(){
 
 
 function main(){
-  echo "main function go.."
-  echo $USERNAME
-  echo $WORK_PATH
+  show_echo "main function go.."
+  show_echo $USERNAME
+  show_echo $WORK_PATH
   check_package
   install_nutch
   install_solr
