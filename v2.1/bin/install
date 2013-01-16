@@ -1,5 +1,9 @@
 #!/bin/bash
 
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+. ../conf/crawlzilla-env.sh
+
 if [ "`id -u`" != "0" ]; then
   echo `whoami` > /tmp/username
 fi
@@ -49,12 +53,12 @@ function check_package(){
   fi
 
   if [ ! -f $PACKAGES_HOME/$SOLR_PKG ]; then
-    wget "http://sourceforge.net/projects/crawlzilla/files/original-package/apache-solr-4.0.0.tgz/download" -O $SOLR_PKG
+    wget $SOLR_PKG_LINK -O $SOLR_PKG
     mv $SOLR_PKG $PACKAGES_HOME
   fi
 
   if [ ! -f $PACKAGES_HOME/$NUTCH_PKG ]; then
-    wget "http://sourceforge.net/projects/crawlzilla/files/original-package/apache-nutch-1.6-bin.tar.gz/download" -O $NUTCH_PKG
+    wget $NUTCH_PKG_LINK -O $NUTCH_PKG
     mv $NUTCH_PKG $PACKAGES_HOME
   fi
 }
