@@ -16,13 +16,16 @@ function nutch_crawl_job(){
 }
 
 function nutch_solr_index(){
+    ## add solr collection
+    # cp collection
+    # cp -r $SOLR_HOME/example/solr/collection1 $SOLR_HOME/example/solr/$crawl_DB_name
+    # add describe to solr.xml
+    Solr_Str = "<core schema=\"schema.xml\" instanceDir="$crawl_DB_name/" name="$crawl_DB_name" config=\"solrconfig.xml\" dataDir=\"data\"/>"
+    # run..
     show_echo "/bin/nutch solrindex http://127.0.0.1:8983/solr/***TODO*** $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/*"
-
+    f_time = `date '+%s'`
+    echo $f_time > $CRAWLDB/$crawl_DB_name/meta/finish_time
 }
-
-# nutch solrindex
-
-# create collection of solr
 
 # create webmanager of crawlzilla
 
@@ -40,6 +43,7 @@ function main(){
         fi
     ;;
   *)
+    show_echo "Welcome to Use CrawlJob Shell!"
     exit 1
   esac
 }

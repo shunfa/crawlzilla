@@ -92,11 +92,12 @@ function install_solr(){
   mv $CRAWLZILLA_HOME/apache-solr-4.0.0 $CRAWLZILLA_HOME/solr
   # cp conf
   cp ../conf/schema.xml.czl_version $SOLR_HOME/example/solr/collection1/conf/schema.xml
-
+  cp ../conf/solr.xml.czl_version $SOLR_HOME/example/solr/solr.xml
 }
 
 function startup_services(){
   # solr
+  cd $SOLR_HOME/example/
   java -jar $SOLR_HOME/example/start.jar & 
 
 }
@@ -110,6 +111,7 @@ function main(){
   install_nutch
   install_solr
   chown -R $USERNAME:$USERNAME $CRAWLZILLA_HOME
+  #startup_services
 }
 
 main

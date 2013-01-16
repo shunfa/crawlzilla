@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<solr persistent="true">
+  <cores defaultCoreName="collection1" adminPath="/admin/cores" zkClientTimeout="${zkClientTimeout:15000}" hostPort="8983" hostContext="solr">
+    <core instanceDir="collection1/" name="collection1"/>
+	<!-- crawlzilla_add --!>
+        <!-- crawlzilla_end --!>
+	<!-- <core schema="schema.xml" instanceDir="nchc-from-bean/" name="nchc-from-bean" config="solrconfig.xml" dataDir="data"/> --!>
+  </cores>
+</solr>
