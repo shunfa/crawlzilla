@@ -111,7 +111,7 @@ function main(){
   install_nutch
   install_solr
   chown -R $USERNAME:$USERNAME $CRAWLZILLA_HOME
-  #startup_services
+  startup_services
 }
 
 main
