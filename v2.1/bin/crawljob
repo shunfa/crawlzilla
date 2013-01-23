@@ -44,6 +44,7 @@ function main(){
     ;;
   *)
     show_echo "Welcome to Use CrawlJob Shell!"
+    show_echo "Usage: crawljob DBName depth"
     exit 1
   esac
 }
