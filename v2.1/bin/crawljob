@@ -10,10 +10,12 @@ function nutch_crawl_job(){
     s_time=`date '+%s'`
     mkdir -p $CRAWLDB/$crawl_DB_name/meta/
     echo $s_time > $CRAWLDB/$crawl_DB_name/meta/start_time
+    cp -r $URLS $CRAWLDB/$crawl_DB_name/meta
     show_echo "$NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000"
+    $NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000
     show_echo "nutch solr index ..."
     nutch_solr_index
-    f_time = `date '+%s'`
+    f_time=`date '+%s'`
     echo $f_time > $CRAWLDB/$crawl_DB_name/meta/finish_time
 
 }
@@ -24,7 +26,7 @@ function nutch_solr_index(){
     # cp -r $SOLR_HOME/example/solr/collection1 $SOLR_HOME/example/solr/$crawl_DB_name
     # add describe to solr.xml
     # sed -i ...
-    Solr_Str = "<core schema=\"schema.xml\" instanceDir="$crawl_DB_name/" name="$crawl_DB_name" config=\"solrconfig.xml\" dataDir=\"data\"/>"
+    Solr_Str="<core schema=\"schema.xml\" instanceDir="$crawl_DB_name/" name="$crawl_DB_name" config=\"solrconfig.xml\" dataDir=\"data\"/>"
     # run..
     show_echo "/bin/nutch solrindex http://127.0.0.1:8983/solr/***TODO*** $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/*"
 }

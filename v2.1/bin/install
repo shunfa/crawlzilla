@@ -110,7 +110,7 @@ function main(){
   check_package
   install_nutch
   install_solr
-  chown -R $USERNAME:$USERNAME $CRAWLZILLA_HOME
+  sudo chown -R $USERNAME:$USERNAME $CRAWLZILLA_HOME
   startup_services
 }
 
