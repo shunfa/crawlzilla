@@ -5,15 +5,40 @@ bin=`cd "$bin"; pwd`
 
 # tomcat 
 
-# solr
-solr_flag=0;
-solr_pid=`ps aux | grep "$SOLR_HOME/example/start.jar" | awk 'NR==1 {print " " $2}'`
-solr_temp_pid=`ps aux | grep "$SOLR_HOME/example/start.jar" | awk 'NR==1 {print " " $2}'`
-if [ "$solr_pid" == "$solr_temp_pid" ];then
-    solr_flag=1;
-    echo $solr_pid
-fi
+# check solr service
+function check_solr_service(){
+    solr_flag=0;
+    solr_pid=`ps aux | grep "solr/example/start.jar" | awk 'NR==1 {print " " $2}'`
+    solr_temp_pid=`ps aux | grep "solr/example/start.jar" | awk 'NR==1 {print " " $2}'`
+    if [ "$solr_pid" == "$solr_temp_pid" ];then
+      solr_flag=1;
+      echo $solr_pid
+    fi
 
-if [ "$solr_flag" == "1" ]; then
-    show_echo "Solr Started !"
-fi
+    if [ "$solr_flag" == "1" ]; then
+      show_echo "Solr Started !"
+    fi
+}
+
+function restart_solr(){
+    check_solr_service
+    if [ "$solr_flag" == "1" ]; then
+      show_echo "Solr Started, process will kill it first."
+      kill -9 $solr_pid
+      show_echo "Start Solr......"
+      cd $SOLR_HOME/example/
+      java -jar $SOLR_HOME/example/start.jar &
+    fi
+}
+
+function main(){
+    check_solr_service
+
+    show_echo $1 $2
+#    restart_solr
+    if [ "$1" == "solr" ]  && [ "$2" == "restart" ]; then
+      restart_solr
+    fi
+}
+
+main $1 $2
