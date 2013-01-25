@@ -95,6 +95,12 @@ function install_solr(){
   cp ../conf/solr.xml.czl_version $SOLR_HOME/example/solr/solr.xml
 }
 
+function integrate_tomcat_solr(){
+
+
+
+}
+
 function startup_services(){
   # solr
   cd $SOLR_HOME/example/
