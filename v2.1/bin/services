@@ -8,8 +8,8 @@ bin=`cd "$bin"; pwd`
 # check solr service
 function check_solr_service(){
     solr_flag=0;
-    solr_pid=`ps aux | grep "solr/example/start.jar" | awk 'NR==1 {print " " $2}'`
-    solr_temp_pid=`ps aux | grep "solr/example/start.jar" | awk 'NR==1 {print " " $2}'`
+    solr_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
+    solr_temp_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
     if [ "$solr_pid" == "$solr_temp_pid" ];then
       solr_flag=1;
       echo $solr_pid
