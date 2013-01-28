@@ -48,6 +48,12 @@ function nutch_solr_index(){
 
 # create webmanager of crawlzilla
 
+# delete search engine
+function delete_search(){
+  show_echo "delete"
+  # sed solr.xml
+  # crawlDB
+}
 
 function main(){
   case $1 in
@@ -60,6 +66,10 @@ function main(){
         else
             show_echo "Please key in crawl DB name and depth!"
         fi
+    ;;
+    "delete")
+        show_echo "delete search engine: $2"
+        DB_name=$2
     ;;
   *)
     show_echo "Welcome to Use CrawlJob Shell!"
