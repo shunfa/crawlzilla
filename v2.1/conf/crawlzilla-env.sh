@@ -7,7 +7,9 @@ export CRAWLDB="/opt/crawlzilla/crawlDB"
 export NUTCH_HOME="/opt/crawlzilla/nutch"
 export TOMCAT_HOME="/opt/crawlzilla/tomcat"
 export SOLR_HOME="/opt/crawlzilla/solr"
+export META_HOME="/opt/crawlzilla/.meta"
 export URLS="/opt/crawlzilla/nutch/urls"
+
 
 ## Package URLs
 export NUTCH_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-nutch-1.6-bin.tar.gz/download"
