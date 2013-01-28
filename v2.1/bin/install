@@ -14,18 +14,18 @@ fi
 
 ####### parameter section ###########
 # env
-CRAWLZILLA_HOME="/opt/crawlzilla"
-PACKAGES_HOME="/opt/crawlzilla/packages"
-NUTCH_PKG="apache-nutch-1.6-bin.tar.gz"
-SOLR_PKG="apache-solr-4.0.0.tgz"
-CRAWLDB="/opt/crawlzilla/crawlDB"
-NUTCH_HOME="/opt/crawlzilla/nutch"
-TOMCAT_HOME="/opt/crawlzilla/tomcat"
-SOLR_HOME="/opt/crawlzilla/solr"
-URLS="/opt/crawlzilla/nutch/urls"
-WORK_PATH=`dirname "$0"`
-USERNAME=`cat /tmp/username`
-cd $WORK_PATH
+#CRAWLZILLA_HOME="/opt/crawlzilla"
+#PACKAGES_HOME="/opt/crawlzilla/packages"
+#NUTCH_PKG="apache-nutch-1.6-bin.tar.gz"
+#SOLR_PKG="apache-solr-4.0.0.tgz"
+#CRAWLDB="/opt/crawlzilla/crawlDB"
+#NUTCH_HOME="/opt/crawlzilla/nutch"
+#TOMCAT_HOME="/opt/crawlzilla/tomcat"
+#SOLR_HOME="/opt/crawlzilla/solr"
+#URLS="/opt/crawlzilla/nutch/urls"
+#WORK_PATH=`dirname "$0"`
+#USERNAME=`cat /tmp/username`
+#cd $WORK_PATH
 ### check env
 
 # check package and create folders
@@ -36,6 +36,9 @@ function check_package(){
     mkdir -p $CRAWLDB
   fi
 
+  if [ ! -d $META_HOME ]; then
+    mkdir -p $META_HOME
+  fi
 #  if [ ! -d $URLS ]; then
 #    mkdir -p $URLS
 #  fi
