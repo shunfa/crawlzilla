@@ -38,6 +38,8 @@ function check_package(){
 
   if [ ! -d $META_HOME ]; then
     mkdir -p $META_HOME
+    echo "cd6c8f619fe02d9ea5d283cea1dfdefc" >> $META_HOME/passwd
+    # crawler
   fi
 #  if [ ! -d $URLS ]; then
 #    mkdir -p $URLS

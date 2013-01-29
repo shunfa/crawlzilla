@@ -59,28 +59,30 @@
 
 	<header class="ink-container ink-for-m ink-for-s">
 		<div class="ink-vspace">
-			<h1 class="">Login		</h1>
+			<h1 class="">Login</h1>
 		</div>
 	</header>
 
 	<div class="ink-container ink-vspace">
-	 
-	  <table width="100%" border="0">
-	    <tr>
-	      <td align="center">
-           <h4>Please Typing Admin's Password:	  </h4>
-          <form id="login" method="post" action="login.do">
-	      <input type="password" name="admin_password" id="admin_password">
-	      </p>
-          <p>
-            <input type="submit" name="submit" id="submit" value="送出">
-            </form>
-          </p></td>
-        </tr>
-      </table>
-	  <p><br>
-      </p>
-</div>
+
+		<table width="100%" border="0">
+			<tr>
+				<td align="center">
+					<h4>Please Typing Admin's Password:</h4>
+					<form id="login" method="post" action="login.do">
+						<input type="password" name="admin_password" id="admin_password">
+						</p>
+						<p>
+							<input type="submit" name="submit" id="submit" value="Submit">
+					</form>
+					</p>
+				</td>
+			</tr>
+		</table>
+		<p>
+			<br>
+		</p>
+	</div>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">
