@@ -65,17 +65,30 @@
 	</header>
 
 	<div class="ink-container ink-vspace">
-		<h4>Welcome to Use Crawlzilla!</h4>
-		<p>Functions as following:</p>
-		<br>
-		<p>1. CrawlJob</p>
-		<br>
-		<p>2. Scheduling</p>
-		<br>
-		<p>3. Index Pool</p>
-		<br>
-		<p>4. Settings</p>
-		<br>
+		<h4>Settings		</h4>
+		<table width="70%" height="113" border="0">
+		  <tr>
+		    <td align="center" valign="middle">What You Want to Change?</td>
+            <form id="change" method="post" action="change.do" >
+		    <td align="center" valign="middle"><label>
+		      <select name="opers" id="opers">
+		        <option value="0">Choose</option>
+		        <option value="1">Language</option>
+		        <option value="2">Password</option>
+	          </select>
+	        </label>
+	        <input type="submit" name="submit" id="submit" value="Submit"></td></form>
+	      </tr>
+		  <tr>
+		    <td align="center" valign="middle">&nbsp;</td>
+		    <td align="center" valign="middle">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td align="center" valign="middle">&nbsp;</td>
+		    <td align="center" valign="middle">&nbsp;</td>
+	      </tr>
+	  </table>
+<br>
 	</div>
 	<footer>
 		<div class="ink-container">

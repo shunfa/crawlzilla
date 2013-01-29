@@ -65,17 +65,49 @@
 	</header>
 
 	<div class="ink-container ink-vspace">
-		<h4>Welcome to Use Crawlzilla!</h4>
-		<p>Functions as following:</p>
-		<br>
-		<p>1. CrawlJob</p>
-		<br>
-		<p>2. Scheduling</p>
-		<br>
-		<p>3. Index Pool</p>
-		<br>
-		<p>4. Settings</p>
-		<br>
+		<h4>Create Search Engine:</h4>
+        <form id="crawljob" method="post" action="crawljob.do">
+		<table width="53%" height="258" border="0">
+		  <tr>
+		    <td align="center" valign="middle">DB Name：</td>
+		    <td align="center" valign="middle"><label>
+		      <input type="text" name="db_name" id="db_name">
+	        </label></td>
+	      </tr>
+		  <tr>
+		    <td align="center" valign="middle">Crawl URLs：</td>
+		    <td align="center" valign="middle"><textarea name="crawl_urls" id="crawl_urls" cols="30" rows="5"></textarea></td>
+	      </tr>
+		  <tr>
+		    <td align="center" valign="middle">Depth：</td>
+		    <td align="center" valign="middle"><label>
+		      <select name="depth" id="depth">
+		        <option value="1">1</option>
+		        <option value="2">2</option>
+		        <option value="3">3</option>
+		        <option value="4">4</option>
+		        <option value="5">5</option>
+		        <option value="6">6</option>
+		        <option value="7">7</option>
+	          </select>
+	        </label></td>
+	      </tr>
+		  <tr>
+		    <td align="center" valign="middle">Mode：</td>
+		    <td align="center" valign="middle"><label>
+		      <input type="radio" name="radio" id="mode_www" value="mode_www">
+		      WWW Mode
+		      <br>
+		      <input type="radio" name="radio" id="mode_local" value="mode_local">
+		    Local Mode</label></td>
+	      </tr>
+          <tr>
+		    <td colspan="2" align="center" valign="middle"><input type="submit" name="submit" id="submit" value="Submit">
+	        <input type="reset" name="reset" id="reset" value="Reset"></td>
+	      </tr>
+	  </table></form>
+		<p><br>
+	</p>
 	</div>
 	<footer>
 		<div class="ink-container">

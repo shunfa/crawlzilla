@@ -59,24 +59,94 @@
 
 	<header class="ink-container ink-for-m ink-for-s">
 		<div class="ink-vspace">
-			<h1 class="">Crawlzilla Management</h1>
-			<p>Make Your Own Search Engine Friendly!</p>
-		</div>
+			
+        </div>
 	</header>
 
 	<div class="ink-container ink-vspace">
-		<h4>Welcome to Use Crawlzilla!</h4>
-		<p>Functions as following:</p>
-		<br>
-		<p>1. CrawlJob</p>
-		<br>
-		<p>2. Scheduling</p>
-		<br>
-		<p>3. Index Pool</p>
-		<br>
-		<p>4. Settings</p>
-		<br>
-	</div>
+    <h1 class="">Seaech Engine List</h1>
+<table width="100%" height="121" border="0">
+<tr>
+			    <td align="center" valign="middle"><strong>CrawlDB Name</strong></td>
+			    <td align="center" valign="middle"><strong>Create Time</strong></td>
+			    <td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
+			    <td align="center" valign="middle"><strong>Depth</strong></td>
+			    <td align="center" valign="middle"><strong>Operation</strong></td>
+		      </tr>
+              <tr>
+			  <form id="db_opera" method="post" action="dbopera.do">
+			    <td align="center" valign="middle">NCHC_3</td>
+			    <td align="center" valign="middle">2012-12-25 18:30</td>
+			    <td align="center" valign="middle">2:04:30</td>
+			    <td align="center" valign="middle">3</td>
+                <td align="center" valign="middle">
+			    <label>
+			      <select name="operation" id="operation">
+			        <option value="0">Choose</option>
+			        <option value="1">Detial</option>
+			        <option value="2">Re-Crawl</option>
+			        <option value="3">Schdeule</option>
+			        <option value="4">Delete</option>
+		          </select>
+		          <input type="submit" name="opera_submit" id="opera_submit" value="Submit">
+			    </label></td>
+		      </form></tr>
+			  <tr>
+			  <form id="db_opera" method="post" action="dbopera.do">
+			    <td align="center" valign="middle">NCHC_4</td>
+			    <td align="center" valign="middle">2012-12-26 10:30</td>
+			    <td align="center" valign="middle">5:05:30</td>
+			    <td align="center" valign="middle">4</td>
+                <td align="center" valign="middle">
+			    <label>
+			      <select name="operation" id="operation">
+			        <option value="0">Choose</option>
+			        <option value="1">Detial</option>
+			        <option value="2">Re-Crawl</option>
+			        <option value="3">Schdeule</option>
+			        <option value="4">Delete</option>
+		          </select>
+		          <input type="submit" name="opera_submit" id="opera_submit" value="Submit">
+			    </label></td>
+		      </form></tr>
+		  </table>
+</div>
+    <div class="ink-container ink-vspace">
+    <h1 class="">Running Jobs</h1>
+    <table width="100%" height="121" border="0">
+      <tr>
+        <td align="center" valign="middle"><strong>CrawlDB Name</strong></td>
+        <td align="center" valign="middle"><strong>Create Time</strong></td>
+        <td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
+        <td align="center" valign="middle"><strong>Depth</strong></td>
+        <td align="center" valign="middle"><strong>Status</strong></td>
+      </tr>
+      <tr>
+        <form id="db_opera2" method="post" action="dbopera.do">
+          <td align="center" valign="middle">NCHC_3</td>
+          <td align="center" valign="middle">2012-12-25 18:30</td>
+          <td align="center" valign="middle">2:04:30</td>
+          <td align="center" valign="middle">3</td>
+          <td align="center" valign="middle"><label>
+            Rinning
+            <input type="submit" name="opera_submit2" id="opera_submit2" value="Delete">
+          </label></td>
+        </form>
+      </tr>
+      <tr>
+        <form id="db_opera2" method="post" action="dbopera.do">
+          <td align="center" valign="middle">NCHC_4</td>
+          <td align="center" valign="middle">2012-12-26 10:30</td>
+          <td align="center" valign="middle">5:05:30</td>
+          <td align="center" valign="middle">4</td>
+          <td align="center" valign="middle"><label>Scussed
+              <input type="submit" name="opera_submit2" id="opera_submit2" value="Delete">
+          </label></td>
+        </form>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+</div>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">

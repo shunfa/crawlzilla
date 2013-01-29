@@ -59,24 +59,28 @@
 
 	<header class="ink-container ink-for-m ink-for-s">
 		<div class="ink-vspace">
-			<h1 class="">Crawlzilla Management</h1>
-			<p>Make Your Own Search Engine Friendly!</p>
+			<h1 class="">Login		</h1>
 		</div>
 	</header>
 
 	<div class="ink-container ink-vspace">
-		<h4>Welcome to Use Crawlzilla!</h4>
-		<p>Functions as following:</p>
-		<br>
-		<p>1. CrawlJob</p>
-		<br>
-		<p>2. Scheduling</p>
-		<br>
-		<p>3. Index Pool</p>
-		<br>
-		<p>4. Settings</p>
-		<br>
-	</div>
+	 
+	  <table width="100%" border="0">
+	    <tr>
+	      <td align="center">
+           <h4>Please Typing Admin's Password:	  </h4>
+          <form id="login" method="post" action="login.do">
+	      <input type="password" name="admin_password" id="admin_password">
+	      </p>
+          <p>
+            <input type="submit" name="submit" id="submit" value="送出">
+            </form>
+          </p></td>
+        </tr>
+      </table>
+	  <p><br>
+      </p>
+</div>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">
