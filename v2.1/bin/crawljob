@@ -58,6 +58,7 @@ function delete_search_DB(){
   if [ $db_exist_flag = 1  ]; then
     show_echo "db exist, delete DB $DB_name"
     echo "rm -rf $CRAWLDB/$DB_name"
+    echo "rm -rf /opt/crawlzilla/solr/example/solr/$DB_name"
     delete_line_NO=`cat -n /opt/crawlzilla/solr/example/solr/solr.xml | grep $DB_name | awk 'NR==1 {print "" $1}'`
     echo $delete_line_NO
     echo "sed -i "$delete_line_NO"d $SOLR_HOME/example/solr/solr.xml"
