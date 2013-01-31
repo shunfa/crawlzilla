@@ -21,7 +21,6 @@ function nutch_crawl_job(){
     nutch_solr_index
     f_time=`date '+%s'`
     echo $f_time > $CRAWLDB/$crawl_DB_name/meta/finish_time
-
 }
 
 function nutch_solr_index(){

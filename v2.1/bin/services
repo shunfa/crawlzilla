@@ -7,23 +7,28 @@ bin=`cd "$bin"; pwd`
 
 # check solr service
 function check_solr_service(){
+    log_echo "check solr service" $LOG_HOME/System.log
     solr_flag=0;
     solr_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
     solr_temp_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
     if [ "$solr_pid" == "$solr_temp_pid" ];then
       solr_flag=1;
       echo $solr_pid
+      log_echo "solr pid: $solr_pid" $LOG_HOME/System.log
     fi
 
     if [ "$solr_flag" == "1" ]; then
+      log_echo "Solr Started!" $LOG_HOME/System.log
       show_echo "Solr Started !"
     fi
 }
 
 function restart_solr(){
     check_solr_service
+    log_echo "Restart Solr Section" $LOG_HOME/System.log
     if [ "$solr_flag" == "1" ]; then
       show_echo "Solr Started, process will kill it first."
+      log_echo "check solr service" $LOG_HOME/System.log
       kill -9 $solr_pid
       show_echo "Start Solr......"
       cd $SOLR_HOME/example/
@@ -33,12 +38,15 @@ function restart_solr(){
 
 function start_solr(){
     check_solr_service
+    log_echo "Solr start section" $LOG_HOME/System.log
     if [ "$solr_flag" == "0" ]; then
       show_echo "Start Solr......"
+      log_echo "Staring Solr" $LOG_HOME/System.log
       cd $SOLR_HOME/example/
       java -jar $SOLR_HOME/example/start.jar &
     else 
       show_echo "Solr already started!"
+      log_echo "Solr already started!" $LOG_HOME/System.log
     fi
 }
 
@@ -46,30 +54,43 @@ function stop_solr(){
     check_solr_service
     if [ "$solr_flag" == "1" ]; then
       show_echo "Stop Solr......"
+      log_echo "Stoppping Solr..." $LOG_HOME/System.log
       kill -9 $solr_pid
     else
-      show_echo "Solr already stoped!"
+      log_echo "Solr already stopped!" $LOG_HOME/System.log
+      show_echo "Solr already stopped!"
     fi
 }
 
 
 function main(){
-    check_solr_service
-
+#    log_echo "call service shell." $LOG_HOME/System.log
+#    check_solr_service
+    if [ "$2" == "" ]; then
+      show_echo "please typing: ./service service_name job"
+      show_echo "e.g.: ./service solr check"
+    fi
 #    restart_solr
+
+    if [ "$1" == "solr" ]  && [ "$2" == "check" ]; then
+      log_echo "call service shell." $LOG_HOME/System.log
+      check_solr_service
+    fi
+
     if [ "$1" == "solr" ]  && [ "$2" == "restart" ]; then
+      log_echo "call service shell." $LOG_HOME/System.log
       restart_solr
     fi
 
     if [ "$1" == "solr" ]  && [ "$2" == "start" ]; then
+      log_echo "call service shell." $LOG_HOME/System.log
       start_solr
     fi
    
     if [ "$1" == "solr" ]  && [ "$2" == "stop" ]; then
+      log_echo "call service shell." $LOG_HOME/System.log
       stop_solr
     fi
-
-
 }
 
 main $1 $2

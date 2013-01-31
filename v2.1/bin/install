@@ -11,27 +11,10 @@ fi
 # change as root to run install
 [ "`id -u`" != "0" ] && exec sudo su -c "$0" "$@"
 
-
-####### parameter section ###########
-# env
-#CRAWLZILLA_HOME="/opt/crawlzilla"
-#PACKAGES_HOME="/opt/crawlzilla/packages"
-#NUTCH_PKG="apache-nutch-1.6-bin.tar.gz"
-#SOLR_PKG="apache-solr-4.0.0.tgz"
-#CRAWLDB="/opt/crawlzilla/crawlDB"
-#NUTCH_HOME="/opt/crawlzilla/nutch"
-#TOMCAT_HOME="/opt/crawlzilla/tomcat"
-#SOLR_HOME="/opt/crawlzilla/solr"
-#URLS="/opt/crawlzilla/nutch/urls"
-#WORK_PATH=`dirname "$0"`
-#USERNAME=`cat /tmp/username`
-#cd $WORK_PATH
-### check env
-
 # check package and create folders
 function check_package(){
   show_echo "check_package() run.."
-
+  log_echo "cheak package .." $LOG_HOME/System.log
   if [ ! -d $CRAWLDB ]; then
     mkdir -p $CRAWLDB
   fi
@@ -41,17 +24,6 @@ function check_package(){
     echo "cd6c8f619fe02d9ea5d283cea1dfdefc" >> $META_HOME/passwd
     # crawler
   fi
-#  if [ ! -d $URLS ]; then
-#    mkdir -p $URLS
-#  fi
-
-#  if [ ! -d $NUTCH_HOME ]; then
-#    mkdir -p $NUTCH_HOME
-#  fi
-
-#  if [ ! -d $SOLR_HOME ]; then
-#    mkdir -p $SOLR_HOME
-#  fi
 
   if [ ! -d $PACKAGES_HOME ]; then
     mkdir -p $PACKAGES_HOME
@@ -59,11 +31,13 @@ function check_package(){
 
   if [ ! -f $PACKAGES_HOME/$SOLR_PKG ]; then
     wget $SOLR_PKG_LINK -O $SOLR_PKG
+    log_echo "wget solr package: $SOLR_PKG_LINK" $LOG_HOME/System.log
     mv $SOLR_PKG $PACKAGES_HOME
   fi
 
   if [ ! -f $PACKAGES_HOME/$NUTCH_PKG ]; then
     wget $NUTCH_PKG_LINK -O $NUTCH_PKG
+    log_echo "wget nutch package: $NUTCH_PKG_LINK" $LOG_HOME/System.log
     mv $NUTCH_PKG $PACKAGES_HOME
   fi
 }
@@ -74,6 +48,7 @@ function check_package(){
 ### install and setup nutch
 function install_nutch(){
   show_echo "install nutch ..."
+  log_echo "install and setting nutch .." $LOG_HOME/System.log
   # extract tar
   tar zxvf $PACKAGES_HOME/$NUTCH_PKG -C $CRAWLZILLA_HOME 
   # rename folder
@@ -91,6 +66,7 @@ function install_nutch(){
 ### install and setup solr
 function install_solr(){
   show_echo "install solr.."
+  log_echo "install and setting solr .." $LOG_HOME/System.log
   ## extract tar
   tar zxvf $PACKAGES_HOME/$SOLR_PKG -C $CRAWLZILLA_HOME
   # mv folder
@@ -108,22 +84,30 @@ function integrate_tomcat_solr(){
 
 function startup_services(){
   # solr
+  log_echo "Startup Solr .." $LOG_HOME/System.log
   cd $SOLR_HOME/example/
   java -jar $SOLR_HOME/example/start.jar & 
-
 }
 
 
 function main(){
-  show_echo "main function go.."
+  if [ ! -d $LOG_HOME ]; then
+     mkdir -p $LOG_HOME
+  fi
+  log_echo "Start Install .." $LOG_HOME/System.log
+  show_echo "Start Install .."
+  log_echo "Username: $USERNAME" $LOG_HOME/System.log
   show_echo $USERNAME
+  log_echo "Work path: $WORK_PATH" $LOG_HOME/System.log
   show_echo $WORK_PATH
   check_package
   install_nutch
   install_solr
   cp $bin $CRAWLZILLA_HOME
   sudo chown -R $USERNAME:$USERNAME $CRAWLZILLA_HOME
+  sudo chown -R $USERNAME:$USERNAME $LOG_HOME
   startup_services
+  log_echo "Crawlzilla Install Finish!" $LOG_HOME/System.log
 }
 
 main

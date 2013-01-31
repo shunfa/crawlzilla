@@ -23,6 +23,9 @@ function show_echo(){
 
 function log_echo(){
   # $1= message
-  # $2= log file path 
+  # $2= log file path
+  if [  -f $2 ]; then
+      touch $2
+  fi 
   echo `date +%Y-%m-%d" "%H:%M:%S" - "`$1 >> $2
 }
