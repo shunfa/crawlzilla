@@ -7,6 +7,8 @@ cd $bin
 
 function nutch_crawl_job(){
     # nutch crawl
+    
+    log_echo "Start CrawlJob: $crawl_DB_name" $LOG_HOME/$crawl_DB_name.log
     s_time=`date '+%s'`
     create_time=`date '+%Y-%m-%d %R'`
     mkdir -p $CRAWLDB/$crawl_DB_name/.meta/
