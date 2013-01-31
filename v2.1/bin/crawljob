@@ -7,47 +7,50 @@ cd $bin
 
 function nutch_crawl_job(){
     # nutch crawl
-    
-    log_echo "Start CrawlJob: $crawl_DB_name" $LOG_HOME/$crawl_DB_name.log
+    create_time=`date '+%Y-%m-%d-%R'`    
+    log_echo "Start CrawlJob: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
     s_time=`date '+%s'`
-    create_time=`date '+%Y-%m-%d %R'`
     mkdir -p $CRAWLDB/$crawl_DB_name/.meta/
     echo $s_time > $CRAWLDB/$crawl_DB_name/.meta/start_time
     echo $create_time > $CRAWLDB/$crawl_DB_name/.meta/create_time
     echo $depth > $CRAWLDB/$crawl_DB_name/.meta/depth
+    echo "crawling" >> $CRAWLDB/$crawl_DB_name/.meta/status
     cp -r $URLS $CRAWLDB/$crawl_DB_name/.meta/
     show_echo "$NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000"
     echo "$NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000" >> /tmp/log
-    $NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000
+    $NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000 | tee $LOG_HOME/$crawl_DB_name-$create_time-nutch-std.log
     show_echo "nutch solr index ..."
+    echo "indexing" >> $CRAWLDB/$crawl_DB_name/.meta/status
+    log_echo "Start Solr Index ..." $LOG_HOME/$crawl_DB_name-$create_time.log
     nutch_solr_index
     f_time=`date '+%s'`
-    echo $f_time > $CRAWLDB/$crawl_DB_name/meta/finish_time
+    echo "finish" >> $CRAWLDB/$crawl_DB_name/.meta/status
+    echo $f_time > $CRAWLDB/$crawl_DB_name/.meta/finish_time
+    log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
 }
 
 function nutch_solr_index(){
     ## add solr collection
     # cp collection
+    log_echo "Solr Index: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
     cp -r $SOLR_HOME/example/solr/collection1 $SOLR_HOME/example/solr/$crawl_DB_name
     # add describe to solr.xml
     # sed -i ...
     insertLineNO=`cat -n /opt/crawlzilla/solr/example/solr/solr.xml | grep crawlzilla_end | awk 'NR==1 {print "" $1}'`
     insertLineNO=$(($insertLineNO-1))
     show_echo $insertLineNO
-
+    log_echo "Edit solr.xml Line: $insertLineNO" $LOG_HOME/$crawl_DB_name-$create_time.log
     Solr_Str="<core schema=\"schema.xml\" instanceDir="$crawl_DB_name/" name="$crawl_DB_name" config=\"solrconfig.xml\" dataDir=\"data\"/>"
 
     sed -i ''$insertLineNO'a  <core schema=\"schema.xml\" instanceDir="'$crawl_DB_name'/" name="'$crawl_DB_name'" config=\"solrconfig.xml\" dataDir=\"data\"/> ' $SOLR_HOME/example/solr/solr.xml
     show_echo "sed -i ''$insertLineNO'a '$Solr_Str'' $SOLR_HOME/example/solr/solr.xml"
 
     # run..
-    show_echo "/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB$crawl_DB_name/crawldb -linkdb $CRAWLDB$crawl_DB_name/linkdb $CRAWLDB$crawl_DB_name/segments/*"
         
    # restart solr 
     $bin/services solr restart
 
-   echo "$NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB$crawl_DB_name/crawldb -linkdb $CRAWLDB$crawl_DB_name/linkdb $CRAWLDB$crawl_DB_name/segments/*"  >> /tmp/log
-   $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/*
+   $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/* | tee $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log
 }
 
 # create webmanager of crawlzilla
@@ -55,6 +58,8 @@ function nutch_solr_index(){
 # delete search engine
 function delete_search_DB(){
   show_echo "delete crawlDB!"
+  create_time=`cat $CRAWLDB/$crawl_DB_name/.meta/create_time`
+  log_echo "delete: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
   check_DB_exist
   if [ $db_exist_flag = 1  ]; then
     show_echo "db exist, delete DB $DB_name"
@@ -66,9 +71,8 @@ function delete_search_DB(){
   
   else
     show_echo "db not exist!"
+    log_echo "delete fail: db not found!" $LOG_HOME/$crawl_DB_name-$create_time.log
   fi
-
-
 
   show_echo $db_exist_flag
   # crawlDB
