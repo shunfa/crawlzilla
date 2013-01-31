@@ -58,22 +58,25 @@ function nutch_solr_index(){
 # delete search engine
 function delete_search_DB(){
   show_echo "delete crawlDB!"
-  create_time=`cat $CRAWLDB/$crawl_DB_name/.meta/create_time`
-  log_echo "delete: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+  create_time=`cat $CRAWLDB/$DB_name/.meta/create_time`
+  log_echo "delete: $DB_name" $LOG_HOME/$DB_name-$create_time.log
   check_DB_exist
   if [ $db_exist_flag = 1  ]; then
     show_echo "db exist, delete DB $DB_name"
-    echo "rm -rf $CRAWLDB/$DB_name"
-    echo "rm -rf /opt/crawlzilla/solr/example/solr/$DB_name"
+    log_echo "rm -rf $CRAWLDB/$DB_name" $LOG_HOME/$DB_name-$create_time.log
+    rm -rf $CRAWLDB/$DB_name
+    log_echo "rm -rf /opt/crawlzilla/solr/example/solr/$DB_name" $LOG_HOME/$DB_name-$create_time.log
+    rm -rf /opt/crawlzilla/solr/example/solr/$DB_name
     delete_line_NO=`cat -n /opt/crawlzilla/solr/example/solr/solr.xml | grep $DB_name | awk 'NR==1 {print "" $1}'`
-    echo $delete_line_NO
-    echo "sed -i "$delete_line_NO"d $SOLR_HOME/example/solr/solr.xml"
-  
+    log_echo "delete solr line: $delete_line_NO" $LOG_HOME/$DB_name-$create_time.log
+    log_echo "sed -i "$delete_line_NO"d $SOLR_HOME/example/solr/solr.xml" $LOG_HOME/$DB_name-$create_time.log
+    sed -i "$delete_line_NO"d $SOLR_HOME/example/solr/solr.xml
+    log_echo "Restart Solr" $LOG_HOME/$DB_name-$create_time.log
+    $bin/services solr restart  
   else
     show_echo "db not exist!"
     log_echo "delete fail: db not found!" $LOG_HOME/$crawl_DB_name-$create_time.log
   fi
-
   show_echo $db_exist_flag
   # crawlDB
   # check exist
@@ -102,9 +105,13 @@ function main(){
         fi
     ;;
     "delete")
-        DB_name=$2
-        show_echo "delete search engine: $DB_name"
-        delete_search_DB
+        if [ "$2" = "" ]; then
+            echo "please typing db name!"
+        else
+            DB_name=$2
+            show_echo "delete search engine: $DB_name"
+            delete_search_DB
+        fi
     ;;
   *)
     show_echo "Welcome to Use CrawlJob Shell!"
