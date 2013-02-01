@@ -11,20 +11,21 @@ function nutch_crawl_job(){
     log_echo "Start CrawlJob: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
     s_time=`date '+%s'`
     mkdir -p $CRAWLDB/$crawl_DB_name/.meta/
+    echo "1" >> $CRAWLDB/$crawl_DB_name/.meta/show_status_flag
     echo $s_time > $CRAWLDB/$crawl_DB_name/.meta/start_time
     echo $create_time > $CRAWLDB/$crawl_DB_name/.meta/create_time
     echo $depth > $CRAWLDB/$crawl_DB_name/.meta/depth
-    echo "crawling" >> $CRAWLDB/$crawl_DB_name/.meta/status
+    echo "crawling" > $CRAWLDB/$crawl_DB_name/.meta/status
     cp -r $URLS $CRAWLDB/$crawl_DB_name/.meta/
     show_echo "$NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000"
     echo "$NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000" >> /tmp/log
     $NUTCH_HOME/bin/nutch crawl $URLS -dir $CRAWLDB/$crawl_DB_name -depth $depth -topN 5000 | tee $LOG_HOME/$crawl_DB_name-$create_time-nutch-std.log
     show_echo "nutch solr index ..."
-    echo "indexing" >> $CRAWLDB/$crawl_DB_name/.meta/status
+    echo "indexing" > $CRAWLDB/$crawl_DB_name/.meta/status
     log_echo "Start Solr Index ..." $LOG_HOME/$crawl_DB_name-$create_time.log
     nutch_solr_index
     f_time=`date '+%s'`
-    echo "finish" >> $CRAWLDB/$crawl_DB_name/.meta/status
+    echo "finish" > $CRAWLDB/$crawl_DB_name/.meta/status
     echo $f_time > $CRAWLDB/$crawl_DB_name/.meta/finish_time
     log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
 }
