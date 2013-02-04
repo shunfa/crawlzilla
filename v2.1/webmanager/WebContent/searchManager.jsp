@@ -123,7 +123,7 @@
 		</table>
 	</div>
 	<div class="ink-container ink-vspace">
-		<h1 class="">Running Jobs</h1>
+		<h1 class="">Job Status</h1>
 		<table width="100%" height="121" border="0">
 			<tr>
 				<td align="center" valign="middle"><strong>CrawlDB
@@ -133,30 +133,28 @@
 				<td align="center" valign="middle"><strong>Depth</strong></td>
 				<td align="center" valign="middle"><strong>Status</strong></td>
 			</tr>
+			<%
+				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
+					if (getDBInfoBean.getMessage(dbName[i].getName(),
+							"show_status_flag").equals("true")) {
+			%>
 			<tr>
 				<form id="db_opera2" method="post" action="dbopera.do">
-					<td align="center" valign="middle">NCHC_3</td>
-					<td align="center" valign="middle">2012-12-25 18:30</td>
-					<td align="center" valign="middle">2:04:30</td>
-					<td align="center" valign="middle">3</td>
-					<td align="center" valign="middle"><label> Rinning <input
-							type="submit" name="opera_submit2" id="opera_submit2"
-							value="Delete">
-					</label></td>
+					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
+							"create_time")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
+							"depth")%></td>
+					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
+							"status")%><input type="submit" name="opera_submit2"
+							id="opera_submit2" value="Hide"> </label></td>
 				</form>
 			</tr>
-			<tr>
-				<form id="db_opera2" method="post" action="dbopera.do">
-					<td align="center" valign="middle">NCHC_4</td>
-					<td align="center" valign="middle">2012-12-26 10:30</td>
-					<td align="center" valign="middle">5:05:30</td>
-					<td align="center" valign="middle">4</td>
-					<td align="center" valign="middle"><label>Scussed <input
-							type="submit" name="opera_submit2" id="opera_submit2"
-							value="Delete">
-					</label></td>
-				</form>
-			</tr>
+			<%
+				}
+				}
+			%>
 		</table>
 		<p>&nbsp;</p>
 	</div>
