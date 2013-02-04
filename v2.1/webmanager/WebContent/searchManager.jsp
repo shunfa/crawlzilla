@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="java.io.File"%>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -30,16 +31,19 @@
 
 <!-- Stylesheets -->
 <link rel="stylesheet" href="./css/ink.css">
-
+<jsp:useBean id="getDBListBean"
+	class="nchc.fslab.crawlzilla.bean.getDBListBean" scope="session" />
+<jsp:useBean id="getDBInfoBean"
+	class="nchc.fslab.crawlzilla.bean.infoOperBean" scope="session" />
 <!--[if IE]>
 			<link rel="stylesheet" href="./css/ink-ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<![endif]-->
 
 </head>
 <body>
-
-	<!-- Add your site or application content here -->
-
+	<%
+		File dbName[] = getDBListBean.getFolders();
+	%>
 	<header class="ink-container ink-for-l">
 		<div class="ink-vspace">
 			<h1 class="">Crawlzilla Management</h1>
@@ -51,102 +55,111 @@
 		<ul class="horizontal menu">
 			<li><a href="index.jsp">Home</a></li>
 			<li><a href="crawljob.jsp">Crawl Job</a></li>
-			<li class="active"><a href="searchManager.jsp">Search Engine Manager</a></li>
+			<li class="active"><a href="searchManager.jsp">Search Engine
+					Manager</a></li>
 			<li><a href="settings.jsp">Settings</a></li>
 			<li><a href="login.jsp">Login/Logout</a></li>
 		</ul>
 	</nav>
 
 	<header class="ink-container ink-for-m ink-for-s">
-		<div class="ink-vspace">
-			
-        </div>
+		<div class="ink-vspace"></div>
 	</header>
 
 	<div class="ink-container ink-vspace">
-    <h1 class="">Seaech Engine List</h1>
-<table width="100%" height="121" border="0">
-<tr>
-			    <td align="center" valign="middle"><strong>CrawlDB Name</strong></td>
-			    <td align="center" valign="middle"><strong>Create Time</strong></td>
-			    <td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
-			    <td align="center" valign="middle"><strong>Depth</strong></td>
-			    <td align="center" valign="middle"><strong>Operation</strong></td>
-		      </tr>
-              <tr>
-			  <form id="db_opera" method="post" action="dbopera.do">
-			    <td align="center" valign="middle">NCHC_3</td>
-			    <td align="center" valign="middle">2012-12-25 18:30</td>
-			    <td align="center" valign="middle">2:04:30</td>
-			    <td align="center" valign="middle">3</td>
-                <td align="center" valign="middle">
-			    <label>
-			      <select name="operation" id="operation">
-			        <option value="0">Choose</option>
-			        <option value="1">Detial</option>
-			        <option value="2">Re-Crawl</option>
-			        <option value="3">Schdeule</option>
-			        <option value="4">Delete</option>
-		          </select>
-		          <input type="submit" name="opera_submit" id="opera_submit" value="Submit">
-			    </label></td>
-		      </form></tr>
-			  <tr>
-			  <form id="db_opera" method="post" action="dbopera.do">
-			    <td align="center" valign="middle">NCHC_4</td>
-			    <td align="center" valign="middle">2012-12-26 10:30</td>
-			    <td align="center" valign="middle">5:05:30</td>
-			    <td align="center" valign="middle">4</td>
-                <td align="center" valign="middle">
-			    <label>
-			      <select name="operation" id="operation">
-			        <option value="0">Choose</option>
-			        <option value="1">Detial</option>
-			        <option value="2">Re-Crawl</option>
-			        <option value="3">Schdeule</option>
-			        <option value="4">Delete</option>
-		          </select>
-		          <input type="submit" name="opera_submit" id="opera_submit" value="Submit">
-			    </label></td>
-		      </form></tr>
-		  </table>
-</div>
-    <div class="ink-container ink-vspace">
-    <h1 class="">Running Jobs</h1>
-    <table width="100%" height="121" border="0">
-      <tr>
-        <td align="center" valign="middle"><strong>CrawlDB Name</strong></td>
-        <td align="center" valign="middle"><strong>Create Time</strong></td>
-        <td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
-        <td align="center" valign="middle"><strong>Depth</strong></td>
-        <td align="center" valign="middle"><strong>Status</strong></td>
-      </tr>
-      <tr>
-        <form id="db_opera2" method="post" action="dbopera.do">
-          <td align="center" valign="middle">NCHC_3</td>
-          <td align="center" valign="middle">2012-12-25 18:30</td>
-          <td align="center" valign="middle">2:04:30</td>
-          <td align="center" valign="middle">3</td>
-          <td align="center" valign="middle"><label>
-            Rinning
-            <input type="submit" name="opera_submit2" id="opera_submit2" value="Delete">
-          </label></td>
-        </form>
-      </tr>
-      <tr>
-        <form id="db_opera2" method="post" action="dbopera.do">
-          <td align="center" valign="middle">NCHC_4</td>
-          <td align="center" valign="middle">2012-12-26 10:30</td>
-          <td align="center" valign="middle">5:05:30</td>
-          <td align="center" valign="middle">4</td>
-          <td align="center" valign="middle"><label>Scussed
-              <input type="submit" name="opera_submit2" id="opera_submit2" value="Delete">
-          </label></td>
-        </form>
-      </tr>
-    </table>
-    <p>&nbsp;</p>
-</div>
+		<h1 class="">Seaech Engine List</h1>
+		<table width="100%" height="121" border="0">
+			<tr>
+				<td align="center" valign="middle"><strong>CrawlDB
+						Name</strong></td>
+				<td align="center" valign="middle"><strong>Create Time</strong></td>
+				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
+				<td align="center" valign="middle"><strong>Depth</strong></td>
+				<td align="center" valign="middle"><strong>Operation</strong></td>
+			</tr>
+			<%
+				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
+			%>
+			<tr>
+				<form id="db_opera" method="post" action="dbopera.do">
+					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
+						"create_time")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(), "depth")%></td>
+					<td align="center" valign="middle"><label> <select
+							name="operation" id="operation">
+								<option value="0">Choose</option>
+								<option value="1">Detial</option>
+								<option value="2">Re-Crawl</option>
+								<option value="3">Schdeule</option>
+								<option value="4">Delete</option>
+						</select> <input type="submit" name="opera_submit" id="opera_submit"
+							value="Submit">
+					</label></td>
+				</form>
+			</tr>
+			<%
+				}
+			%>
+			<tr>
+				<form id="db_opera" method="post" action="dbopera.do">
+					<td align="center" valign="middle">NCHC_4</td>
+					<td align="center" valign="middle">2012-12-26 10:30</td>
+					<td align="center" valign="middle">5:05:30</td>
+					<td align="center" valign="middle">4</td>
+					<td align="center" valign="middle"><label> <select
+							name="operation" id="operation">
+								<option value="0">Choose</option>
+								<option value="1">Detial</option>
+								<option value="2">Re-Crawl</option>
+								<option value="3">Schdeule</option>
+								<option value="4">Delete</option>
+						</select> <input type="submit" name="opera_submit" id="opera_submit"
+							value="Submit">
+					</label></td>
+				</form>
+			</tr>
+		</table>
+	</div>
+	<div class="ink-container ink-vspace">
+		<h1 class="">Running Jobs</h1>
+		<table width="100%" height="121" border="0">
+			<tr>
+				<td align="center" valign="middle"><strong>CrawlDB
+						Name</strong></td>
+				<td align="center" valign="middle"><strong>Create Time</strong></td>
+				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
+				<td align="center" valign="middle"><strong>Depth</strong></td>
+				<td align="center" valign="middle"><strong>Status</strong></td>
+			</tr>
+			<tr>
+				<form id="db_opera2" method="post" action="dbopera.do">
+					<td align="center" valign="middle">NCHC_3</td>
+					<td align="center" valign="middle">2012-12-25 18:30</td>
+					<td align="center" valign="middle">2:04:30</td>
+					<td align="center" valign="middle">3</td>
+					<td align="center" valign="middle"><label> Rinning <input
+							type="submit" name="opera_submit2" id="opera_submit2"
+							value="Delete">
+					</label></td>
+				</form>
+			</tr>
+			<tr>
+				<form id="db_opera2" method="post" action="dbopera.do">
+					<td align="center" valign="middle">NCHC_4</td>
+					<td align="center" valign="middle">2012-12-26 10:30</td>
+					<td align="center" valign="middle">5:05:30</td>
+					<td align="center" valign="middle">4</td>
+					<td align="center" valign="middle"><label>Scussed <input
+							type="submit" name="opera_submit2" id="opera_submit2"
+							value="Delete">
+					</label></td>
+				</form>
+			</tr>
+		</table>
+		<p>&nbsp;</p>
+	</div>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">

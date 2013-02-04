@@ -2,7 +2,6 @@ package nchc.fslab.crawlzilla.bean;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,17 +10,18 @@ public class infoOperBean {
 
 	public String getSpendTime(String dbName) throws IOException {
 		String spendTime = "0";
-		int startTime, finishTime;
-		startTime = Integer.parseInt(new String(
-				getMessage(dbName, "start_time")));
-		finishTime = Integer.parseInt(new String(getMessage(dbName,
-				"finish_time")));
-		if (startTime > 0 && finishTime > 0) {
-			int sHr, sMin, sSec;
-			System.out.println("" + (finishTime - startTime));
-			sHr = (finishTime - startTime) / 3600;
-			sMin = (finishTime - startTime) / 60;
-			sSec = (finishTime - startTime) % 60;
+		String startTime, finishTime;
+		startTime = getMessage(dbName, "start_time");
+		finishTime = new String(getMessage(dbName, "finish_time"));
+		System.out.println(spendTime);
+		if (!startTime.equals("null") && !finishTime.equals("null")) {
+			int sHr, sMin, sSec, start, finish;
+			start = Integer.parseInt(startTime);
+			finish = Integer.parseInt(finishTime);
+			System.out.println("" + (finish - start));
+			sHr = (finish - start) / 3600;
+			sMin = (finish - start) / 60;
+			sSec = (finish - start) % 60;
 			spendTime = (sHr > 0 ? sHr : "0" + sHr) + ":"
 					+ (sMin > 0 ? sMin : "0" + sMin) + ":"
 					+ (sSec > 0 ? sSec : "0" + sSec);
@@ -42,13 +42,13 @@ public class infoOperBean {
 	public String getMessage(String DBName, String fileName) throws IOException {
 		String filePath = "/opt/crawlzilla/crawlDB/" + DBName + "/.meta/"
 				+ fileName;
-		String retMes = null;
+		String retMes = "null";
 		if (_checkDB(DBName, fileName)) {
 			FileReader fileNameReader = new FileReader(filePath);
 			@SuppressWarnings("resource")
-			String strCreateTime = new String(
+			String strTemp = new String(
 					new BufferedReader(fileNameReader).readLine());
-			retMes = strCreateTime;
+			retMes = strTemp;
 		}
 		return retMes;
 	}
@@ -76,7 +76,7 @@ public class infoOperBean {
 	public static void main(String args[]) throws IOException {
 		infoOperBean iOB = new infoOperBean();
 		System.out.println(iOB.getMessage("NCHC_20130131-2", "status"));
-		System.out.println(iOB.getSpendTime("NCHC_20130131-2"));
+		System.out.println(iOB.getSpendTime("NCHC_3"));
 		iOB.changeHideInfoFlag("NCHC_20130131-2", true);
 	}
 }

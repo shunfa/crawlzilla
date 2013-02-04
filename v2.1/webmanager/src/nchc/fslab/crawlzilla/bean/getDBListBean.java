@@ -7,7 +7,12 @@ public class getDBListBean {
 	private File files[];
 	private File folders[];
 	private int num;
+	String strWebDBList, strWebRunningJobs;
 
+	public getDBListBean() throws IOException {
+		setFolders("/opt/crawlzilla/crawlDB");
+		setNum("/opt/crawlzilla/crawlDB");
+	}
 	public void setFiles(String path) {
 		File filePath = new File(path);
 		files = filePath.listFiles();
@@ -39,13 +44,15 @@ public class getDBListBean {
 	public File[] getFolders() {
 		return folders;
 	}
+	
+	public int getDBNum(){
+		return num;
+	}
 
 	public static void main(String args[]) throws IOException {
 		getDBListBean abc = new getDBListBean();
-		abc.setFolders("/opt/crawlzilla/crawlDB");
 		File abcName[] = abc.getFolders();
-		int a = abc.setNum("/opt/crawlzilla/crawlDB");
-		for (int i = 0; i < a; i++) {
+		for (int i = 0; i < abc.getDBNum(); i++) {
 			System.out.println(abcName[i].getName());
 		}
 	}
