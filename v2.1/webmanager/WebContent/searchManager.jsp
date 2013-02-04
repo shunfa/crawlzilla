@@ -102,24 +102,6 @@
 			<%
 				}
 			%>
-			<tr>
-				<form id="db_opera" method="post" action="dbopera.do">
-					<td align="center" valign="middle">NCHC_4</td>
-					<td align="center" valign="middle">2012-12-26 10:30</td>
-					<td align="center" valign="middle">5:05:30</td>
-					<td align="center" valign="middle">4</td>
-					<td align="center" valign="middle"><label> <select
-							name="operation" id="operation">
-								<option value="0">Choose</option>
-								<option value="1">Detial</option>
-								<option value="2">Re-Crawl</option>
-								<option value="3">Schdeule</option>
-								<option value="4">Delete</option>
-						</select> <input type="submit" name="opera_submit" id="opera_submit"
-							value="Submit">
-					</label></td>
-				</form>
-			</tr>
 		</table>
 	</div>
 	<div class="ink-container ink-vspace">
@@ -147,8 +129,10 @@
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
 					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"status")%><input type="submit" name="opera_submit2"
-							id="opera_submit2" value="Hide"> </label></td>
+							"status")%>
+							<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" />
+							<input type="submit" name="oper"
+							id="opera_submit2" value="Hide"></label></td>
 				</form>
 			</tr>
 			<%

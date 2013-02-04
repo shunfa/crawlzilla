@@ -13,7 +13,6 @@ public class infoOperBean {
 		String startTime, finishTime;
 		startTime = getMessage(dbName, "start_time");
 		finishTime = new String(getMessage(dbName, "finish_time"));
-		System.out.println(spendTime);
 		if (!startTime.equals("null") && !finishTime.equals("null")) {
 			int sHr, sMin, sSec, start, finish;
 			start = Integer.parseInt(startTime);
