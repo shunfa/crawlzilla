@@ -13,20 +13,24 @@ public class infoOperBean {
 		String startTime, finishTime;
 		startTime = getMessage(dbName, "start_time");
 		finishTime = new String(getMessage(dbName, "finish_time"));
-		if (finishTime.equals("null")) {
-			finishTime = System.currentTimeMillis() + "";
-		}
+
 		if (!startTime.equals("null")) {
 			int sHr, sMin, sSec, start, finish;
+			if (finishTime.equals("null")) {
+				finishTime = System.currentTimeMillis() / 1000 + "";
+				System.out.println("F: " + finishTime);
+				System.out.println("S: " + startTime);
+			}
+
 			start = Integer.parseInt(startTime);
 			finish = Integer.parseInt(finishTime);
 			System.out.println("" + (finish - start));
-			sHr = (finish - start) / 3600;
-			sMin = (finish - start) / 60;
-			sSec = (finish - start) % 60;
-			spendTime = (sHr > 0 ? sHr : "0" + sHr) + ":"
-					+ (sMin > 0 ? sMin : "0" + sMin) + ":"
-					+ (sSec > 0 ? sSec : "0" + sSec);
+			sHr = (int) ((finish - start) / 3600);
+			sMin = (int) ((finish - start) / 60);
+			sSec = (int) ((finish - start) % 60);
+			spendTime = (sHr > 10 ? sHr : "0" + sHr) + ":"
+					+ (sMin > 10 ? sMin : "0" + sMin) + ":"
+					+ (sSec > 10 ? sSec : "0" + sSec);
 		}
 		return spendTime;
 	}
@@ -47,10 +51,10 @@ public class infoOperBean {
 		String retMes = "null";
 		if (_checkDB(DBName, fileName)) {
 			FileReader fileNameReader = new FileReader(filePath);
-			@SuppressWarnings("resource")
 			String strTemp = new String(
 					new BufferedReader(fileNameReader).readLine());
 			retMes = strTemp;
+			fileNameReader.close();
 		}
 		return retMes;
 	}
@@ -77,8 +81,8 @@ public class infoOperBean {
 
 	public static void main(String args[]) throws IOException {
 		infoOperBean iOB = new infoOperBean();
-		System.out.println(iOB.getMessage("jspTest3", "status"));
-		System.out.println(iOB.getSpendTime("jspTest3"));
-		iOB.changeHideInfoFlag("NCHC_20130131-2", true);
+		System.out.println(iOB.getMessage("jspTest4", "status"));
+		System.out.println(iOB.getSpendTime("jspTest4"));
+		// iOB.changeHideInfoFlag("NCHC_20130131-2", true);
 	}
 }
