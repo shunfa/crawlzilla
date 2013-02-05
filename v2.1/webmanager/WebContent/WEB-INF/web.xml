@@ -15,4 +15,15 @@
     <servlet-name>dbOperation</servlet-name>
     <url-pattern>/dbopera.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description>Crawl Job</description>
+    <display-name>crawl job</display-name>
+    <servlet-name>crawlJob</servlet-name>
+    <servlet-class>nchc.fslab.crawlzilla.servlet.crawlJob</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>crawlJob</servlet-name>
+    <url-pattern>/crawljob.do</url-pattern>
+  </servlet-mapping>
 </web-app>

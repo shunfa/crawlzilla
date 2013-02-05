@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class crawlBean {
 
-	boolean crawlJob(String DBName, String urlsText, String depth)
+	public boolean crawlJob(String DBName, String urlsText, String depth)
 			throws IOException {
 		String urlFile = "/opt/crawlzilla/nutch/urls/seeds.txt";
 		String cmd = "/opt/crawlzilla/bin/crawljob crawljob " + DBName + " "

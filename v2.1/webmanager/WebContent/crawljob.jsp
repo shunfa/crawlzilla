@@ -96,15 +96,17 @@
 				<tr>
 					<td align="center" valign="middle">Mode:</td>
 					<td align="center" valign="middle"><label> <input
-							type="radio" name="radio" id="mode_www" value="mode_www">
+							type="radio" name="mode" id="mode" value="mode_www">
 							WWW Mode
 					</label> <br>
-					<label> <input type="radio" name="radio" id="mode_local"
+					<label> <input type="radio" name="mode" id="mode_local"
 							value="mode_local"> Local Mode
 					</label></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center" valign="middle"><input
+					<td colspan="2" align="center" valign="middle">
+					<input type="hidden" name="oper" value="crawljob" />
+					<input
 						type="submit" name="submit" id="submit" value="Submit"> <input
 						type="reset" name="reset" id="reset" value="Reset"></td>
 				</tr>

@@ -23,13 +23,16 @@ function nutch_crawl_job(){
     show_echo "nutch solr index ..."
     echo "indexing" > $CRAWLDB/$crawl_DB_name/.meta/status
     echo "true" >> $CRAWLDB/$crawl_DB_name/.meta/show_status_flag
+    check_nutch_result
     log_echo "Start Solr Index ..." $LOG_HOME/$crawl_DB_name-$create_time.log
     nutch_solr_index
     f_time=`date '+%s'`
     echo "finish" > $CRAWLDB/$crawl_DB_name/.meta/status
     echo "true" >> $CRAWLDB/$crawl_DB_name/.meta/show_status_flag
     echo $f_time > $CRAWLDB/$crawl_DB_name/.meta/finish_time
-    log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+#    log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+    check_nutch_result
+    check_solr_result
 }
 
 function nutch_solr_index(){
@@ -91,6 +94,40 @@ function check_DB_exist(){
     show_echo $CRAWLDB/$DB_name
     if [  -d $CRAWLDB/$DB_name ]; then
       db_exist_flag=1
+    fi
+}
+
+function check_nutch_result(){
+    nutch_result=`cat $LOG_HOME/$crawl_DB_name-$create_time-nutch-std.log | grep finished`
+    if [ $nutch_result != ""  ]; then
+        log_echo "CrawlJob Sucess: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+    else
+        log_echo "CrawlJob fail: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+    fi
+}
+
+
+function check_nutch_result(){
+    nutch_result=`cat $LOG_HOME/$crawl_DB_name-$create_time-nutch-std.log | grep finished`
+    if [ $nutch_result != ""  ]; then
+        log_echo "CrawlJob Success: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+        echo "crawl job success" > $CRAWLDB/$crawl_DB_name/.meta/status
+        log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+    else
+        log_echo "CrawlJob fail: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+        echo "crawl job fail" > $CRAWLDB/$crawl_DB_name/.meta/status
+    fi
+}
+
+function check_solr_result(){
+    solr_result=`cat $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log | grep finished`
+    if [ $solr_result != ""  ]; then
+        log_echo "Solr Index Success: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+        echo "solr index success" > $CRAWLDB/$crawl_DB_name/.meta/status
+        log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+    else
+        log_echo "Solr Index fail: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+        echo "solr index fail" > $CRAWLDB/$crawl_DB_name/.meta/status
     fi
 }
 

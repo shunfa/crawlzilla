@@ -1,4 +1,5 @@
 #!/bin/bash
+export JAVA_HOME="/usr/lib/jvm/java-6-sun/"
 export CRAWLZILLA_HOME="/opt/crawlzilla"
 export PACKAGES_HOME="/opt/crawlzilla/packages"
 export NUTCH_PKG="apache-nutch-1.6-bin.tar.gz"
