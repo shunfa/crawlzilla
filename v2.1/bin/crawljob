@@ -4,10 +4,10 @@ bin=`cd "$bin"; pwd`
 cd $bin
 # export path
 . ../conf/crawlzilla-env.sh
+create_time=`date '+%Y-%m-%d-%R'`
 
 function nutch_crawl_job(){
     # nutch crawl
-    create_time=`date '+%Y-%m-%d-%R'`    
     log_echo "Start CrawlJob: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
     s_time=`date '+%s'`
     mkdir -p $CRAWLDB/$crawl_DB_name/.meta/
@@ -109,26 +109,35 @@ function check_nutch_result(){
 
 function check_nutch_result(){
     nutch_result=`cat $LOG_HOME/$crawl_DB_name-$create_time-nutch-std.log | grep finished`
-    if [ $nutch_result = ""  ]; then
+    if [ "$nutch_result" != ""  ]; then
         log_echo "CrawlJob Success: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
         echo "crawl job success" > $CRAWLDB/$crawl_DB_name/.meta/status
         log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
     else
         log_echo "CrawlJob fail: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
-        echo "crawl job fail" > $CRAWLDB/$crawl_DB_name/.meta/status
+        echo "fail" > $CRAWLDB/$crawl_DB_name/.meta/status
     fi
 }
 
 function check_solr_result(){
     solr_result=`cat $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log | grep finished`
-    if [ $solr_result = ""  ]; then
+    if [ "$solr_result" != ""  ]; then
         log_echo "Solr Index Success: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
         echo "solr index success" > $CRAWLDB/$crawl_DB_name/.meta/status
-        log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+        echo "finish" > $CRAWLDB/$crawl_DB_name/.meta/status
+        log_echo "Solr Index Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
     else
         log_echo "Solr Index fail: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
-        echo "solr index fail" > $CRAWLDB/$crawl_DB_name/.meta/status
+        echo "fail" > $CRAWLDB/$crawl_DB_name/.meta/status
+        log_echo "Try to fix: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
+        reindex_db
     fi
+}
+
+function reindex_db(){
+  echo "fixing solr index" > $CRAWLDB/$crawl_DB_name/.meta/status
+  $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/* | tee $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log
+  check_solr_result
 }
 
 
@@ -153,6 +162,16 @@ function main(){
             delete_search_DB
         fi
     ;;
+   "reindex")
+        if [ "$2" = "" ]; then
+            echo "please typing db name!"
+        else
+            crawl_DB_name=$2
+            show_echo "re-indexing: $DB_name"
+            reindex_db
+        fi
+    ;;
+
   *)
     show_echo "Welcome to Use CrawlJob Shell!"
     show_echo "Usage: crawljob DBName depth"

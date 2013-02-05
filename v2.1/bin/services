@@ -71,7 +71,6 @@ function main(){
       show_echo "e.g.: ./service solr check"
     fi
 #    restart_solr
-
     if [ "$1" == "solr" ]  && [ "$2" == "check" ]; then
       log_echo "call service shell." $LOG_HOME/System.log
       check_solr_service
@@ -90,6 +89,12 @@ function main(){
     if [ "$1" == "solr" ]  && [ "$2" == "stop" ]; then
       log_echo "call service shell." $LOG_HOME/System.log
       stop_solr
+    fi
+#   check update
+    if [ "$1" == "update" ] && [ "$2" == "check" ]; then
+       show_echo "check update"
+       timestamp=`cat .timestamp`
+       show_echo $timestamp
     fi
 }
 

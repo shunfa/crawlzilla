@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class infoOperBean {
 
@@ -25,12 +27,13 @@ public class infoOperBean {
 			start = Integer.parseInt(startTime);
 			finish = Integer.parseInt(finishTime);
 			System.out.println("" + (finish - start));
-			sHr = (int) ((finish - start) / 3600);
-			sMin = (int) ((finish - start) / 60);
-			sSec = (int) ((finish - start) % 60);
-			spendTime = (sHr > 10 ? sHr : "0" + sHr) + ":"
-					+ (sMin > 10 ? sMin : "0" + sMin) + ":"
-					+ (sSec > 10 ? sSec : "0" + sSec);
+			sHr = ((finish - start) / 3600);
+			sMin = ((finish - start) / 60);
+			sSec = ((finish - start) % 60);
+			// System.out.println("H: "+ sHr + ", M: " + sMin + ", S: " + sSec);
+			spendTime = (sHr >= 10 ? sHr : "0" + sHr) + ":"
+					+ (sMin >= 10 ? sMin : "0" + sMin) + ":"
+					+ (sSec >= 10 ? sSec : "0" + sSec);
 		}
 		return spendTime;
 	}
@@ -77,6 +80,17 @@ public class infoOperBean {
 			fr.close();
 			fw.close();
 		}
+	}
+
+	public String getIPAddr() {
+		InetAddress addr = null;
+		try {
+			addr = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		String ipAddr = addr.getHostAddress().toString();
+		return ipAddr;
 	}
 
 	public static void main(String args[]) throws IOException {

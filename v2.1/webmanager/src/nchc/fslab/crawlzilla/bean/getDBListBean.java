@@ -4,15 +4,16 @@ import java.io.File;
 import java.io.IOException;
 
 public class getDBListBean {
-	private File files[];
-	private File folders[];
-	private int num;
+	public File files[];
+	public File folders[];
+	public int num;
 	String strWebDBList, strWebRunningJobs;
 
 	public getDBListBean() throws IOException {
 		setFolders("/opt/crawlzilla/crawlDB");
 		setNum("/opt/crawlzilla/crawlDB");
 	}
+
 	public void setFiles(String path) {
 		File filePath = new File(path);
 		files = filePath.listFiles();
@@ -44,8 +45,8 @@ public class getDBListBean {
 	public File[] getFolders() {
 		return folders;
 	}
-	
-	public int getDBNum(){
+
+	public int getDBNum() {
 		return num;
 	}
 

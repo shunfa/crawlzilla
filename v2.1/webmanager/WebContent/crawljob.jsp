@@ -30,7 +30,8 @@
 
 <!-- Stylesheets -->
 <link rel="stylesheet" href="./css/ink.css">
-
+<jsp:useBean id="getDBInfoBean"
+	class="nchc.fslab.crawlzilla.bean.infoOperBean" scope="session" />
 <!--[if IE]>
 			<link rel="stylesheet" href="./css/ink-ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<![endif]-->
@@ -53,6 +54,8 @@
 			<li class="active"><a href="crawljob.jsp">Crawl Job</a></li>
 			<li><a href="searchManager.jsp">Search Engine Manager</a></li>
 			<li><a href="settings.jsp">Settings</a></li>
+			<li><a href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
+				target="_blank">Solr Admin</a></li>
 			<li><a href="login.jsp">Login/Logout</a></li>
 		</ul>
 	</nav>
@@ -96,17 +99,15 @@
 				<tr>
 					<td align="center" valign="middle">Mode:</td>
 					<td align="center" valign="middle"><label> <input
-							type="radio" name="mode" id="mode" value="mode_www">
-							WWW Mode
-					</label> <br>
-					<label> <input type="radio" name="mode" id="mode_local"
-							value="mode_local"> Local Mode
+							type="radio" name="mode" id="mode" value="mode_www"> WWW
+							Mode
+					</label> <br> <label> <input type="radio" name="mode"
+							id="mode_local" value="mode_local"> Local Mode
 					</label></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center" valign="middle">
-					<input type="hidden" name="oper" value="crawljob" />
-					<input
+					<td colspan="2" align="center" valign="middle"><input
+						type="hidden" name="oper" value="crawljob" /> <input
 						type="submit" name="submit" id="submit" value="Submit"> <input
 						type="reset" name="reset" id="reset" value="Reset"></td>
 				</tr>

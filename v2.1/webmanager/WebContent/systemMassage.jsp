@@ -30,7 +30,8 @@
 
 <!-- Stylesheets -->
 <link rel="stylesheet" href="./css/ink.css">
-
+<jsp:useBean id="getDBInfoBean"
+	class="nchc.fslab.crawlzilla.bean.infoOperBean" scope="session" />
 <!--[if IE]>
 			<link rel="stylesheet" href="./css/ink-ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<![endif]-->
@@ -53,6 +54,9 @@
 			<li><a href="crawljob.jsp">Crawl Job</a></li>
 			<li><a href="searchManager.jsp">Search Engine Manager</a></li>
 			<li><a href="settings.jsp">Settings</a></li>
+			<li><a
+				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
+				target="_blank">Solr Admin</a></li>
 			<li><a href="login.jsp">Login/Logout</a></li>
 		</ul>
 	</nav>
@@ -65,17 +69,8 @@
 	</header>
 
 	<div class="ink-container ink-vspace">
-		<h4>Welcome to Use Crawlzilla!</h4>
-		<p>Functions as following:</p>
-		<br>
-		<p>1. CrawlJob</p>
-		<br>
-		<p>2. Scheduling</p>
-		<br>
-		<p>3. Index Pool</p>
-		<br>
-		<p>4. Settings</p>
-		<br>
+		<h4>System Message:</h4>
+		<p>Message here</p>
 	</div>
 	<footer>
 		<div class="ink-container">

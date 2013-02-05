@@ -30,7 +30,8 @@
 
 <!-- Stylesheets -->
 <link rel="stylesheet" href="./css/ink.css">
-
+<jsp:useBean id="getDBInfoBean"
+	class="nchc.fslab.crawlzilla.bean.infoOperBean" scope="session" />
 <!--[if IE]>
 			<link rel="stylesheet" href="./css/ink-ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<![endif]-->
@@ -53,6 +54,9 @@
 			<li><a href="crawljob.jsp">Crawl Job</a></li>
 			<li><a href="searchManager.jsp">Search Engine Manager</a></li>
 			<li><a href="settings.jsp">Settings</a></li>
+			<li><a
+				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
+				target="_blank">Solr Admin</a></li>
 			<li><a href="login.jsp">Login/Logout</a></li>
 		</ul>
 	</nav>
