@@ -109,7 +109,7 @@ function check_nutch_result(){
 
 function check_nutch_result(){
     nutch_result=`cat $LOG_HOME/$crawl_DB_name-$create_time-nutch-std.log | grep finished`
-    if [ $nutch_result != ""  ]; then
+    if [ $nutch_result = ""  ]; then
         log_echo "CrawlJob Success: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
         echo "crawl job success" > $CRAWLDB/$crawl_DB_name/.meta/status
         log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
@@ -121,7 +121,7 @@ function check_nutch_result(){
 
 function check_solr_result(){
     solr_result=`cat $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log | grep finished`
-    if [ $solr_result != ""  ]; then
+    if [ $solr_result = ""  ]; then
         log_echo "Solr Index Success: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log
         echo "solr index success" > $CRAWLDB/$crawl_DB_name/.meta/status
         log_echo "CrawlJob Finish: $crawl_DB_name" $LOG_HOME/$crawl_DB_name-$create_time.log

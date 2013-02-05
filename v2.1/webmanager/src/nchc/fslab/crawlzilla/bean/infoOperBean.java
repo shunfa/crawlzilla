@@ -13,7 +13,10 @@ public class infoOperBean {
 		String startTime, finishTime;
 		startTime = getMessage(dbName, "start_time");
 		finishTime = new String(getMessage(dbName, "finish_time"));
-		if (!startTime.equals("null") && !finishTime.equals("null")) {
+		if (finishTime.equals("null")) {
+			finishTime = System.currentTimeMillis() + "";
+		}
+		if (!startTime.equals("null")) {
 			int sHr, sMin, sSec, start, finish;
 			start = Integer.parseInt(startTime);
 			finish = Integer.parseInt(finishTime);
@@ -74,8 +77,8 @@ public class infoOperBean {
 
 	public static void main(String args[]) throws IOException {
 		infoOperBean iOB = new infoOperBean();
-		System.out.println(iOB.getMessage("NCHC_20130131-2", "status"));
-		System.out.println(iOB.getSpendTime("NCHC_3"));
+		System.out.println(iOB.getMessage("jspTest3", "status"));
+		System.out.println(iOB.getSpendTime("jspTest3"));
 		iOB.changeHideInfoFlag("NCHC_20130131-2", true);
 	}
 }
