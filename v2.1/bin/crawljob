@@ -56,7 +56,7 @@ function nutch_solr_index(){
    # restart solr 
     $bin/services solr restart
 
-   $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/* | tee $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log
+   $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8080/solr/$crawl_DB_name $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/* | tee $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log
 }
 
 # create webmanager of crawlzilla
