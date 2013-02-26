@@ -43,7 +43,6 @@ public class dbOperation extends HttpServlet {
 		String targetURL = "/systemMassage.jsp";
 		if (operationCMD.equals("Hide")) {
 			String DBName = request.getParameter("dbName");
-			;
 			infoOperBean iOB = new infoOperBean();
 			iOB.changeHideInfoFlag(DBName, false);
 		}

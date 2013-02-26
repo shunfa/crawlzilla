@@ -39,7 +39,7 @@ public class crawlJob extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String targetURL = "/searchManager.jsp";
+		String targetURL = "/index.jsp";
 		String oper = request.getParameter("oper");
 
 		if (oper.equals("crawljob")) {
@@ -56,7 +56,6 @@ public class crawlJob extends HttpServlet {
 		RequestDispatcher rd;
 		rd = getServletContext().getRequestDispatcher(targetURL);
 		rd.forward(request, response);
-		// TODO Auto-generated method stub
 	}
 
 }
