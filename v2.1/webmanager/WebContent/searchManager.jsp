@@ -38,7 +38,6 @@
 <!--[if IE]>
 			<link rel="stylesheet" href="./css/ink-ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<![endif]-->
-
 </head>
 <body>
 	<%
@@ -93,13 +92,15 @@
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
 					<td align="center" valign="middle"><label> <select
-							name="operation" id="operation">
+							name="oper" id="operation">
 								<option value="0">Choose</option>
-								<option value="1">Detial</option>
-								<option value="2">Re-Crawl</option>
-								<option value="3">Schdeule</option>
-								<option value="4">Delete</option>
-						</select> <input type="submit" name="opera_submit" id="opera_submit"
+								<option value="detial">Detial</option>
+								<option value="re-crawl">Re-Crawl</option>
+								<option value="schedule">Schedule</option>
+								<option value="deleteDB">Delete</option>
+						</select>
+						<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" /> 
+						<input type="submit" name="opera_submit" id="opera_submit"
 							value="Submit">
 					</label></td>
 				</form>
@@ -135,9 +136,9 @@
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
 					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"status")%> <input type="hidden" name="dbName"
-							value="<%=dbName[i].getName()%>" /> <input type="submit"
-							name="oper" id="opera_submit2" value="Hide"></label></td>
+							"status")%> 
+							<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" /> 
+							<input type="submit"	name="oper" id="opera_submit2" value="hideMesg"></label></td>
 				</form>
 			</tr>
 			<%

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nchc.fslab.crawlzilla.bean.dbOperBean;
 import nchc.fslab.crawlzilla.bean.infoOperBean;
 
 /**
@@ -41,11 +42,21 @@ public class dbOperation extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String operationCMD = request.getParameter("oper");
 		String targetURL = "/systemMassage.jsp";
-		if (operationCMD.equals("Hide")) {
+		if (operationCMD.equals("hideMesg")) {
 			String DBName = request.getParameter("dbName");
 			infoOperBean iOB = new infoOperBean();
 			iOB.changeHideInfoFlag(DBName, false);
+			targetURL = "/searchManager.jsp";
 		}
+
+		if (operationCMD.equals("deleteDB")) {
+			String DBName = request.getParameter("dbName");
+			dbOperBean dbOB = new dbOperBean();
+			dbOB.deleteDB(DBName);
+			System.out.println("delete: " + DBName);
+			targetURL = "/searchManager.jsp";
+		}
+
 		RequestDispatcher rd;
 		rd = getServletContext().getRequestDispatcher(targetURL);
 		rd.forward(request, response);

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class dbOperBean {
 
-	private void deleteDB(String dbName) {
+	public void deleteDB(String dbName) {
 		// db had been checked by the web section
 		String deleteDBCMD = "/opt/crawlzilla/bin/crawljob delete " + dbName;
 		try {
