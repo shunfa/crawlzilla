@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/svn/!svn/ver/456/trunk/v0.3
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/433/trunk/v0.3/LICENSE.txt
+END
+build-crawlzilla.sh
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/433/trunk/v0.3/build-crawlzilla.sh
+END
+README.zh.txt
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/433/trunk/v0.3/README.zh.txt
+END
+README.en.txt
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/433/trunk/v0.3/README.en.txt
+END

@@ -1,0 +1,410 @@
+#!/bin/bash
+# Program:
+#   Chinese Language file for Crawlzilla 
+# Author:
+#   Waue, Shunfa, Rock {waue, shunfa, rock}@nchc.org.tw
+# Version:
+#    1.0
+# History:
+#
+
+############ Lang for master_install -Start ############
+MI_main_echo_1="Welcome to use Crawlzilla, this install program will create a new accunt and to assist you to setup the password of crawler."
+MI_main_echo_2="Please confirm the install infomation of above ：1.Yes 2.No "
+MI_main_echo_3="Installed successfully!"
+MI_main_echo_4="You can visit the manage website ：http://"
+
+## Lang for master_install_func.sh ##
+### [for choose_lang()] ### 
+MI_choose_lang_1="Please select a language: (1)English (2)中文" 
+MI_choose_lang_2="Use (1/2):" 
+
+### [for check_root()]### 
+MI_check_root_1="Please change root to execute it!!!" 
+MI_check_root_2="Identify is root" 
+ 
+### [for check_systemInfo()]### 
+MI_check_sys_1="check_systemInfo" 
+MI_check_sys_2="Your system information is:" 
+
+### [for install_packages()]### 
+MI_install_pack_1="No depend package to install" 
+MI_install_pack_2="Try to automatically install: " 
+MI_install_pack_if_2="Please manually install:" 
+ 
+### [for check_crawlzilla_installed()] ### 
+MI_check_crawlzilla_1="chcheck_crawlzilla_installed" 
+MI_check_crawlzilla_2="System already had Crawlzilla." 
+MI_check_crawlzilla_3="System does not has Crawlzilla." 
+MI_check_crawlzilla_4="Please backup or rename \"/home/crawler/\" then delete user \"crawler\", otherwise install progress will not go on."
+ 
+### [for check_sunJava()] ### 
+MI_check_sunJava_1="check_sunJava" 
+MI_check_sunJava_2="Crawlzilla need Sun Java JDK 1.6.x or above version" 
+MI_check_sunJava_if_1="Java is not Sun version, plz install sun Java 1.6.X" 
+MI_check_sunJava_if_2="Please input your choice:" 
+MI_check_sunJava_if_3="(1)System don't have Sun Java (2)Sun Java is in other path (3)Exit" 
+MI_check_sunJava_if_4="Use (1/2/3): " 
+MI_check_sunJava_if_5="Please install Sun Java manually!" 
+MI_check_sunJava_if_6="Input Sun Java home path(ex. '/usr/lib/jvm/java-6-sun' or using default '/usr' ): " 
+MI_check_sunJava_if_7="It is not Sun Java! Please install Sun Java manually !" 
+MI_check_sunJava_if_8="Java version is too old (it need 1.6.X above)"
+MI_check_sunJava_if_9="System has Sun Java 1.6 above version." 
+MI_check_sunJava_if_10="Please install Sun JAVA 1.6.X or above version" 
+ 
+### [for check_ssh()] ### 
+MI_check_ssh_1="check_ssh" 
+MI_check_ssh_2="System has ssh." 
+MI_check_ssh_3="Please install ssh." 
+MI_check_ssh_4="System has ssh Server (sshd)." 
+MI_check_ssh_5="Please install ssh Server (sshd)." 
+ 
+### [for check_dialog()] ### 
+MI_check_dialog_1="check_dialog" 
+MI_check_dialog_2="System has dialog." 
+MI_check_dialog_3="Please install dialog." 
+	 	 
+#
+MI_set_crawler_passwd_echo_1="Set password for crawler："
+MI_set_crawler_passwd_echo_2="keyin the password again："
+
+#
+MI_select_eth_echo_1="System detect network cards as follows:"
+MI_select_eth_echo_2="Please choose a netword card for Crawlzilla web server. Use (1/2/3)："
+MI_select_eth_echo_6="Crawlzilla will use the IP address of this netwrok."
+MI_select_eth_echo_3="Your choose is：$net_choice"
+MI_select_eth_echo_4="Master IP address is：$net_address"
+MI_select_eth_echo_5="Master MAC address is：$net_MacAddr"
+
+#
+MI_show_master_info_echo_1="Master IP address is："
+MI_show_master_info_echo_2="Master MAC address is： "
+
+
+#
+MI_make_ssh_key_echo_1="Producing SSH Key... "
+MI_make_ssh_key_echo_2="SSH Key has been produced."
+
+#
+MI_set_haoop_site_echo_1="Setting hadoop-site.xml... "
+MI_set_haoop_site_echo_2="Setting hadoop-site.xml finished."
+
+#
+MI_set_nutch_site_echo_1="Setting nutch-site.xml..."
+MI_set_nutch_site_echo_2="Setting http.agent.url at line: $Line_NO..."
+MI_set_nutch_site_echo_3="Editing http.agent.url, delete line $Line_NO."
+MI_set_nutch_site_echo_4="Editing http.agent.url finished."
+MI_set_nutch_site_echo_5="Setting http.agent.email at line：$Line_NO."
+MI_set_nutch_site_echo_6="Editing http.agent.email, delete line $Line_NO."
+MI_set_nutch_site_echo_7="Editing http.agent.email finished."
+MI_set_nutch_site_echo_8="Editing hadoop-site.xmlfinished."
+
+#
+MI_format_HDFS_echo_1="Formatting HDFS..."
+MI_format_HDFS_echo_2="HDFS has been formatted."
+
+#
+MI_start_up_Crawlzilla_echo_1="start up name node [Namenode] ... "
+MI_start_up_Crawlzilla_echo_2="start up job node [JobTracker] ... "
+
+#
+MI_set_hosts_echo_1="Set hosts on master"
+
+#
+MI_install_Nutch_echo_1="Master's IP address is："
+MI_install_Nutch_echo_2="Master's Hostname is："
+
+#
+MI_slave_PassMasterIPAddr_echo_1="Edit MasterIP in slave install file at line $Line_NO"
+MI_slave_PassMasterIPAddr_echo_2="Editing MasterIP..."
+MI_slave_PassMasterIPAddr_echo_3="MasterIP has been set."
+
+#
+MI_slave_PassMaster_Hostname_echo_1="Edit master hostname in slave install file at line $Line_NO"
+MI_slave_PassMaster_Hostname_echo_2="Editing Hostname..."
+MI_slave_PassMaster_Hostname_echo_3="Hostname has been set."
+
+#
+MI_make_slave_install_echo_1="Make the slave installation package "
+
+#
+MI_start_up_tomcat_echo_1="Start up tomcat..."
+MI_start_up_tomcat_echo_2="Please wait about 10 sec..."
+MI_start_up_tomcat_echo_3="Tomcat has been started！"
+
+#
+MI_slave_install_commands_echo_1="For slave install, please refer commands as follows："
+MI_slave_install_commands_echo_20="scp crawler@"
+MI_slave_install_commands_echo_25=":/home/crawler/crawlzilla/source/slave_deploy.sh ."
+MI_slave_install_commands_echo_3="./slave_deploy.sh"
+
+########## Lang for Master Install - End##########
+
+########## Lang for Client Install - Start##########
+
+# [Variables Declaration] #
+## Lang for slave_install ##
+par_echo_1="Your master IP is:"
+par_echo_2="Is this information cooect? (yes/no): "
+par_echo_3="These parameters are correct."
+par_echo_4="Please edit these parameters in this file."
+
+## [Lang for slave_install_fun.sh] ##
+### [for choose_lang()] ###
+choose_lang_1="Please choose your language: (1)English (2)中文"
+choose_lang_2="(1/2):"
+
+### [for check_root()]###
+check_root_1="Please Change root to execute it!!!"
+check_root_2="Identify is root."
+
+### [for check_systemInfo()]###
+check_sys_1="check_systemInfo"
+check_sys_2="Your system information are: "
+
+### [for install_packages()]###
+install_pack_1="install_packages"
+install_pack_2="Check dependent packages"
+install_pack_if_1="will install some packages "
+install_pack_if_2="Please manually install expect, ssh, and dialog."
+
+### [for check_crawlzilla_installed()] ###
+check_crawlzilla_1="chcheck_crawlzilla_installed"
+check_crawlzilla_2="System already had Crawlzilla."
+check_crawlzilla_3="System does not has Crawlzilla."
+
+### [for check_sunJava()] ###
+check_sunJava_1="check_sunJava"
+check_sunJava_2="Crawlzilla need Sun Java JDK 1.6.x or above version"
+check_sunJava_if_1="Java is not Sun version, plz install sun Java 1.6.X"
+check_sunJava_if_2="Please input your choice: "
+check_sunJava_if_3="(1)System don't have Sun Java (2)Sun Java is in other path (3)Exit"
+check_sunJava_if_4="plz input (1/2/3): "
+check_sunJava_if_5="Please install Sun Java manually!"
+check_sunJava_if_6="Input Sun Java home path(ex. '/usr/lib/jvm/java-6-sun' or using default '/usr' ): "
+check_sunJava_if_7="It is not Sun Java! Plz install Sun Java manually !"
+check_sunJava_if_8="Java version is too old (it need 1.6.X above)"
+check_sunJava_if_9="System has Sun Java 1.6 above version."
+check_sunJava_if_10="Please install Sun JAVA 1.6.X or above version"
+
+### [for check_ssh()] ###
+check_ssh_1="check_ssh"
+check_ssh_2="System has ssh."
+check_ssh_3="Please install ssh."
+check_ssh_4="System has ssh Server (sshd)."
+check_ssh_5="Please install ssh Server (sshd)."
+
+### [for check_dialog()] ###
+check_dialog_1="check_dialog"
+check_dialog_2="System has dialog."
+check_dialog_3="Please install dialog."
+
+### scp_master_crawler_sshkey() ###
+scp_sshkey_d1="scp_master_crawler_sshkey"
+scp_sshkey_d2="mkdir -p /home/crawler/"
+scp_sshkey_d3="scp crawler@master:~/.ssh /home/crawler/"
+scp_sshkey_expect_1="Password is error"
+scp_sshkey_s1="scp correct."
+scp_sshkey_s2="scp error,\n(1)plese check crawler password in server\n(2)crawler's authorized_keys in server\n(3)server's network status"
+scp_sshkey_d4="chown -R crawler:crawler /home/crawler/.ssh"
+
+### [for creat_crawler_account()] ###
+create_crawler_d1="creat_crawler_account"
+create_crawler_1="Plz input crawler password of master node: "
+create_crawler_2="plz input crawler password, again: "
+create_crawler_3="Two Passwords match."
+create_crawler_4="Two passwords don't match, please re-input crawler's password."
+create_crawler_s1="System already has crawler, change crawler password."
+create_crawler_s2="Create crawler and change password."
+
+### [for scp_packages()] ###
+scp_packages_d1="scp_packages"
+scp_packages_d2="chown -R crawler:crawler /opt/crawlzilla"
+scp_packages_d3="scp -r crawler@\$1:/opt/crawlzilla/CrawlzillaForClientOf_\$Master_IP_Address.tar.gz /home/crawler/crawlzilla/source"
+
+### [for install_nutch_package()] ###
+install_nutch_package_d1="install_nutch_package"
+
+### [for recall_hostname_ip()] ###
+recall_hostname_ip_d1="recall_hostname_ip"
+recall_hostname_ip_1="net_address is"
+recall_hostname_ip_2="net_MacAddr is"
+recall_hostname_ip_3="System have multiple network device, which network use for this machine: "
+recall_hostname_ip_4="Please choice(1/2/3...): "
+recall_hostname_ip_d2="ssh crawler@\$1 echo \$net_address \$(hostname) \$net_MacAddr \>\> ~/crawlzilla/system/crawl_nodes"
+
+########## Lang for Client Install - End##########
+
+########## Lang for Master Remove - Start##########
+
+# check root
+MR_check_root_1="Please change root to execute it!!!"
+MR_check_root_2="Identify is root, let's continue！"
+
+# shutdown service
+MR_shutdown_service_echo_1="Stop the service of slaves..."
+MR_shutdown_service_echo_2="Stop the service of master..."
+MR_shutdown_service_echo_3="The service of Master"
+
+# remove_folders
+MR_remove_folders_echo_1="Deleting floders and files of Crawlzilla..."
+MR_remove_folders_echo_2="Floders and files has deleted."
+
+# edit_hosts
+MR_edit_hosts_echo_1="Restoring /etc/hosts..."
+MR_edit_hosts_echo_2="/etc/hosts restoring finished."
+
+# user_delete
+MR_user_delete_echo_1="Deleting user: craawler..."
+MR_user_delete_echo_2="crawler has deleted"
+
+# main
+MR_main_echo_1="Warning - this program will remove nutchEZ, if you don't understard what this program to do, please press Ctrl+c to leave！"
+MR_main_echo_2="This program will delete all of crawlzilla's files and folders and delete user crawler."
+MR_main_echo_3="Are you sure to remove this node? y=Yes n=No "
+MR_main_echo_4="Crawlzilla had removed！"
+MR_main_echo_5="You are cancelling this remove procedure！"
+MR_main_echo_6="If you want to remove Crawlzilla of this node, please execute this program again."
+
+MR_main_deluser_1="Do you want to remove everything in /home/crawler/"
+MR_main_deluser_2="yes will remove, no will resolve this directory."
+MR_main_deluser_3="/home/crawler will be delete, all data will be lost."
+MR_main_deluser_4="/home/crawler will be reserved."
+
+# MR
+MR_remove_check_1="Installation is not complete!"
+MR_remove_check_2="Remove forcibly [ y=agree / n=exit ]"
+
+########## Lang for Master Remove - End ##########
+
+########## Lang for Client Remove - Start ##########
+# check root
+CR_check_root_1="Please change root to execute it!!!"
+CR_check_root_2="Identify is root！"
+
+# shutdown service
+CR_shutdown_service_echo_1="Shutdown all service of this node..."
+CR_shutdown_service_echo_2="The service of this node had shutdown."
+
+# remove_folders
+CR_remove_folders_echo_1="Deleting floders and files of Crawlzilla..."
+CR_remove_folders_echo_2="Floders and files has deleted."
+
+# edit_hosts
+CR_edit_hosts_echo_1="Restoring /etc/hosts..."
+CR_edit_hosts_echo_2="/etc/hosts restoring finished."
+CR_edit_hosts_echo_3="WARNNING ! Please check your /etc/hosts correct or not!"
+
+# user_delete
+CR_user_delete_echo_1="Deleting user: crawler..."
+CR_user_delete_echo_2="crawler has deleted"
+
+# main
+CR_main_echo_1="Warning - this program will remove Crawlzilla, if you don't understard what this program to do, please press Ctrl+c to leave！"
+CR_main_echo_2="This program will delete all of nutchEZ's files and folders and delete user crawler."
+CR_main_echo_3="Are you sure to remove this node? y=Yes n=No "
+CR_main_echo_4="Crawlzilla had removed！"
+CR_main_echo_5="You are cancelling this remove procedure！"
+CR_main_echo_6="If you want to remove Crawlzilla of this node, please execute this program again."
+########## Lang for Client Remove - End ##########
+
+########## Lang for crawlzilla - Start ##########
+# [Variables Declaration] #
+## Lang for common ##
+user_error="You aren't crawler，please change to  \"crawler\" !!!"
+
+## [Lang for dialog] ##
+dia_back='= [Crawlzilla Management Interface] ~by NCHC ='
+dia_choose="Please choose what you want to do: "
+dia_backto_main="Back to Main Menu"
+dia_exit="Exit"
+
+## [Lang for prepare_check] ##
+dia_pre_check_title_1="[file crawl_nodes]"
+dia_pre_check_msg_1="Failure：System can't find it!"
+dia_pre_check_title_2="[Update /etc/host]"
+dia_pre_check_yesno_1="You are frist execute Crawlzilla Management Interface"
+dia_pre_check_yesno_2="Please update /etc/hosts !!!"
+pre_check_echo_1="Please enter root's password to update /etc/hosts !!!"
+pre_check_echo_2="root password error，please make sure root's password is correct!!!"
+dia_pre_check_yesno_3="crawl_nodes has modified"
+
+## [Lang for main_menu()] ##
+dia_main_title_1="[Management Options]"
+dia_main_menu_1_1="Check cluster state"
+dia_main_menu_1_2="Fast Startup/Stop all Sevices"
+dia_main_menu_1_3="Setup slave services"
+dia_main_menu_1_4="Setup master services "
+dia_main_menu_1_5="Startup/Shutdown/Restart Tomcat"
+dia_main_menu_1_6="Change Tomcat port"
+dia_main_menu_1_7="Change language"
+dia_main_menu_1_8="Client Install Steps"
+
+
+## [Lang for cluster_status()] ##
+cluster_status_echo_1="[IP] \t\t [Hostname] \t [Network] \t [Computing Ability]"
+cluster_status_echo_2="Start check cluster..."
+cluster_status_read_1="press any key to continue..."
+dia_cluster_status_title_1="[Cluster state]"
+
+## [Lang for fast_manage()] ##
+dia_fast_manage_1="Startup all Computing Nodes and Tomcat"
+dia_fast_manage_2="Shutdown all Computing Nodes and Tomcat"
+
+## [Lang for srver_setup()] ##
+dia_server_title_1="[Server State]"
+dia_server_msg_1="Namenode & Jobtracker shutdown"
+dia_server_msg_2="Jobtracker running, Namenode shutdown"
+dia_server_msg_3="Namenode running, Jobtracker shutdown"
+dia_server_msg_4="Namenode & Jobtracker running"
+dia_server_title_2="[Set Namenode & Jobtracker]"
+dia_server_menu_1_1="Startup Namenode & Jobtracker"
+dia_server_menu_1_2="Shutdown Namenode & Jobtracker"
+dia_server_menu_1_3="Restart Namenode & Jobtracker"
+
+## [Labg for cluster_setup()] ##
+dia_cluster_setup_title_1="[All or part of nodes]"
+dia_cluster_setup_menu_1_1="All nodes"
+dia_cluster_setup_menu_1_2="A part of nodes"
+dia_cluster_setup_title_2="[Select Datanode & Tasktracker Nodes]"
+dia_cluster_setup_check_1="Select Datanode & Tasktracker: "
+dia_cluster_setup_title_3="[Set Datanode & Tasktracker]"
+dia_cluster_setup_menu_2_1="Startup Datanodes & Tasktrackers"
+dia_cluster_setup_menu_2_2="Shutdown Datanodes & Tasktrackers"
+dia_cluster_setup_menu_2_3="Restart Datanodes & Tasktrackers"
+cluster_setup_echo_1="[Startup datanode & tasktracker]"
+cluster_setup_echo_error="Failure：can't connect to ssh "
+cluster_setup_echo_3="[Shutdown datanode & tasktracker]"
+cluster_setup_echo_5="[Restart datanode & tasktracker]"
+
+## [Lang for tomcat_swith()] #
+dia_tomcat_switch_title_1="[Tomcat state]"
+dia_tomcat_switch_msg_1="Tomcat is running !!!"
+dia_tomcat_switch_msg_2="Tomcat doesn't run !!!"
+dia_tomcat_switch_title_2="[The service of Tomcat]"
+dia_tomcat_switch_menu_1_1="Startup Tomcat"
+dia_tomcat_switch_menu_1_2="Stop Tomcat"
+dia_tomcat_switch_menu_1_3="Restart Tomcat"
+tomcat_switch_echo_1="Failure：System can't find it!"
+tomcat_switch_echo_3="[Start up Tomcat]"
+tomcat_switch_echo_4="[Shutdown Tomcat]"
+tomcat_switch_echo_5="[Restart Tomcat]"
+
+## [Lang for tomcat_port()] ##
+dia_tomcat_port_title_1="[Edit Tomcat servel.xml]"
+dia_tomcat_port_msg_1="Edit failure: Can't find the file."
+dia_tomcat_port_title_2="[Change Tomcat Port ]"
+dia_tomcat_port_input_1="Please enter tomcat port NO.(default 8080): "
+
+## [Lang for lang_switch()] ##
+dia_lang_title_1="[Change language]"
+dia_lang_menu_1_1="English"
+dia_lang_menu_1_2="中文"
+
+## [Lang for finish]
+crawlzilla_install_finish="Finish!!! press any key to continue..."
+
+## [Lang for add_crawlzilla_to_initd]
+add_crawlzilla_to_initd_1="Add Crawlzilla service to /etc/init.d"
+add_crawlzilla_to_initd_2="Crawlzilla will startup when booting"
+########## Lang for crawlzilla - End ##########

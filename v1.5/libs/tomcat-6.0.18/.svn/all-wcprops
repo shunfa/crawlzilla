@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18
+END
+annotations-api.jar
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/annotations-api.jar
+END
+el-api.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/el-api.jar
+END
+tomcat-i18n-fr.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/tomcat-i18n-fr.jar
+END
+tomcat-i18n-es.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/tomcat-i18n-es.jar
+END
+catalina.jar
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/catalina.jar
+END
+jasper-el.jar
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/jasper-el.jar
+END
+jasper.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/jasper.jar
+END
+tomcat-coyote.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/tomcat-coyote.jar
+END
+servlet-api.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/servlet-api.jar
+END
+catalina-ant.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/catalina-ant.jar
+END
+tomcat-i18n-ja.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/tomcat-i18n-ja.jar
+END
+tomcat-dbcp.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/tomcat-dbcp.jar
+END
+catalina-tribes.jar
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/catalina-tribes.jar
+END
+catalina-ha.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/catalina-ha.jar
+END
+jsp-api.jar
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/jsp-api.jar
+END
+jasper-jdt.jar
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/528/trunk/v1.5/libs/tomcat-6.0.18/jasper-jdt.jar
+END

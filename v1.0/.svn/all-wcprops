@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/svn/!svn/ver/543/trunk/v1.0
+END
+build_install_package.sh
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/524/trunk/v1.0/build_install_package.sh
+END
+svn_build_web.sh
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/509/trunk/v1.0/svn_build_web.sh
+END

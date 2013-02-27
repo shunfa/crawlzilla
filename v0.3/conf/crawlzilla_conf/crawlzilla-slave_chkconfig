@@ -1,0 +1,93 @@
+#! /bin/sh
+#                       
+# Crawlzilla services  
+#                       
+# chkconfig: 2345 20 90                                                                     
+# description: Starts and stops the Crawlzilla
+
+## [Variables declaration]
+Crawlzilla_Install_Path="/opt/crawlzilla"
+Nutch_Home="$Crawlzilla_Install_Path/nutch"
+Hadoop_daemon="$Nutch_Home/bin/hadoop-daemon.sh"
+   
+   
+## [Functions declaration]
+start_hadoop() {
+if [ -x "$Hadoop_daemon" ]; then
+    if [ "$USER" = "crawler" ]; then
+        $Hadoop_daemon start tasktracker
+        $Hadoop_daemon start datanode
+    else
+        su crawler -c "$Hadoop_daemon start tasktracker"
+        su crawler -c "$Hadoop_daemon start datanode"
+    fi
+else
+    echo "[Error: cann't execute $Hadoop_daemon"
+fi
+}
+
+stop_hadoop() {
+if [ -x "$Hadoop_daemon" ]; then
+    if [ "$USER" = "crawler" ]; then
+        $Hadoop_daemon stop tasktracker
+        $Hadoop_daemon stop datanode
+    else
+        su crawler -c "$Hadoop_daemon stop tasktracker"
+        su crawler -c "$Hadoop_daemon stop datanode"
+    fi  
+else
+    echo "[Error: cann't execute $Hadoop_daemon"
+fi
+}
+
+status_hadoop() {
+if [ "$USER" = "crawler" ]; then
+    jps > /tmp/jps_crawlzilla_$USER
+else                                                                                                  
+    su crawler -c "jps" > /tmp/jps_crawlzilla_$USER
+fi
+ 
+jps_file="/tmp/jps_crawlzilla_$USER"
+# hadoop daemon pid
+DataNode_pid=$(cat $jps_file | grep DataNode | awk '{print $1}')
+TaskTracker_pid=$(cat $jps_file | grep TaskTracker | awk '{print $1}')
+ 
+if [ -n "$TaskTracker_pid" ]; then       
+    echo "TaskTracker is running !"    
+else                                
+    echo "TaskTracker is not running !"
+fi
+ 
+if [ -n "$DataNode_pid" ]; then       
+    echo "DataNode is running !"    
+else                                
+    echo "DataNode is not running !"
+fi
+}
+
+
+## [Main]
+case $1 in
+    start)
+        start_hadoop
+        echo "[start crawlzilla completion !]"
+    ;;
+    stop)
+        stop_hadoop
+        echo "[stop crawlzilla completion !]"
+    ;;
+    restart)
+        $0 stop
+        sleep 3
+        $0 start
+    ;;
+    status)
+        status_hadoop
+    ;;
+    *)
+        echo "Usage: $0 {start/stop/restart/status}"
+        exit 1
+    ;;
+esac
+ 
+exit 0

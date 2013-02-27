@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/516/trunk/v1.0/Crawlzilla_Install/web/tomcat_default/patch/WEB-INF/lib
+END
+IKAnalyzer3.2.8_nutch1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/516/trunk/v1.0/Crawlzilla_Install/web/tomcat_default/patch/WEB-INF/lib/IKAnalyzer3.2.8_nutch1.2.jar
+END
+nutch-1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/508/trunk/v1.0/Crawlzilla_Install/web/tomcat_default/patch/WEB-INF/lib/nutch-1.2.jar
+END

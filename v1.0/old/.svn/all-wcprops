@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/466/trunk/v1.0/old
+END
+scpFilesToSlave.sh
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/466/trunk/v1.0/old/scpFilesToSlave.sh
+END
+re_crawl.sh
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/466/trunk/v1.0/old/re_crawl.sh
+END

@@ -1,0 +1,84 @@
+< 17:21:02 > [DEBUG] - chcheck_crawlzilla_installed 
+< 17:21:02> - 系統尚未安裝 Crawlzilla
+< 17:21:02 > [DEBUG] - hostname = shunfaNCHC is fine! 
+< 17:21:02 > [DEBUG] - check_root 
+< 17:21:02> - 身份是 root
+< 17:21:02 > [DEBUG] - check_systemInfo 
+< 17:21:02> - 作業系統為: 
+< 17:21:02> - Ubuntu , 10.04
+< 17:21:02 > [DEBUG] - 開始自動幫您安裝: 
+< 17:21:02> - 您的系統似乎滿足套件相依性檢查，略過自動安裝步驟
+< 17:21:02 > [DEBUG] - install nothing because install_array=[] 
+< 17:21:02 > [DEBUG] - check_sunJava 
+< 17:21:03> - 系統有 Sun Java 1.6 以上版本
+< 17:21:03 > [DEBUG] - check_ssh 
+< 17:21:03> - 系統已有 ssh.
+< 17:21:03> - 系統已有 ssh Server (sshd).
+< 17:21:03 > [DEBUG] - check_dialog 
+< 17:21:03> - 系統已有 dialog.
+< 17:21:03> - 歡迎使用Crawlzilla, 此安裝程序會為您新建一個crawler帳號並協助您設定密碼
+< 17:21:03> - 請輸入欲設定的crawler密碼：
+< 17:21:05> - 請再輸入一次確認密碼：
+< 17:21:07> - 系統偵測到目前擁有網卡如下：
+< 17:21:07> - (1)  eth0  140.110.102.56
+< 17:21:07> - (2)  eth1  
+< 17:21:07> - 請選擇欲給crawlzilla使用的網卡(1/2/3)：
+< 17:21:08> - 您選擇的網卡為： 1
+< 17:21:08> - Master網路IP位址為： 140.110.102.56
+< 17:21:08> - Master的MAC為：  48:5b:39:59:68:d3  
+< 17:21:08> - 請確認上述的安裝資訊：1.正確 2.不正確 
+< 17:21:10 > [DEBUG] - creat_crawler_account 
+< 17:21:10> - 建立 crawler 使用者並更改密碼
+< 17:21:10 > [DEBUG] - 正在產生SSH Key...  
+< 17:21:11 > [DEBUG] - SSH Key已產生 
+< 17:21:19 > [DEBUG] - move crawlzilla-1.2pack-current.tar.gz ==> /opt/svn_project/crawlzilla/v1.5/packages/Crawlzilla_Install/package/ 
+< 17:21:19 > [DEBUG] - unpack tomcat and nutch to /opt/crawlzilla 
+< 17:21:19 > [DEBUG] - tar -zxvf /opt/svn_project/crawlzilla/v1.5/packages/Crawlzilla_Install/package/crawlzilla-1.2pack-current.tar.gz -C /opt/ >> /opt/svn_project/crawlzilla/v1.5/packages/Crawlzilla_Install/crawlzilla_install-120906.log 
+< 17:21:21> - unpack success!
+< 17:21:21 > [DEBUG] -  /opt/svn_project/crawlzilla/v1.5/packages/Crawlzilla_Install/conf/nutch_conf .. found ! 
+< 17:21:21 > [DEBUG] -  Update the nutch:conf ok! 
+< 17:21:21 > [DEBUG] -  /opt/svn_project/crawlzilla/v1.5/packages/Crawlzilla_Install/conf/tomcat_conf .. found ! 
+< 17:21:21 > [DEBUG] - Update the tomcat:conf ok! 
+< 17:21:21 > [DEBUG] - 設定master上的hosts 
+< 17:21:21> -  Check and Set /etc/hosts finished.
+< 17:21:21 > [DEBUG] - Master的IP位址為： 140.110.102.56  
+< 17:21:21 > [DEBUG] - Master的Hostname為： shunfaNCHC 
+< 17:21:21 > [DEBUG] - echo "140.110.102.56 shunfaNCHC \>\> /home/crawler/crawlzilla/meta/crawl_nodes " 
+< 17:21:21 > [DEBUG] - 正在設定hadoop-site.xml...  
+< 17:21:21 > [DEBUG] - hadoop-site.xml設定完成 
+< 17:21:21 > [DEBUG] - 正在設定nutch-site.xml... 
+< 17:21:21 > [DEBUG] - http.agent.url 設定行號為：... 
+< 17:21:21 > [DEBUG] - 編輯http.agent.url, 刪除行號 . 
+< 17:21:21 > [DEBUG] - 編輯http.agent.url完成 
+< 17:21:21 > [DEBUG] - http.agent.email 設定行號為：. 
+< 17:21:21 > [DEBUG] - 編輯http.agent.email, 刪除行號 . 
+< 17:21:21 > [DEBUG] - 編輯http.agent.email完成 
+< 17:21:21 > [DEBUG] - hadoop-site.xml設定完成 
+< 17:21:21> - 增加 Crawlzilla 服務到 /etc/init.d
+< 17:21:21> - Crawlzilla 預設開機會自動啟動
+< 17:21:21> - 製作slave 的安裝包
+< 17:21:21 > [DEBUG] - 在slave安裝檔修改MasterIP的行號:  
+< 17:21:21 > [DEBUG] - 編輯MasterIP... 
+< 17:21:21 > [DEBUG] - 完成編輯MasterIP. 
+< 17:21:21 > [DEBUG] - 在slave安裝檔修改Hostname, 行號為:  
+< 17:21:21 > [DEBUG] - 編輯Hostname... 
+< 17:21:21 > [DEBUG] - 完成編輯Hostname. 
+< 17:21:26> - 格式化HDFS...
+< 17:21:27 > [DEBUG] - 格式化HDFS完成 
+< 17:21:27> - 啟動資料管理程序[Namenode] ... 
+< 17:21:28 > [DEBUG] - namenode ok 
+< 17:21:28> - 啟動運算管理程序[JobTracker] ... 
+< 17:21:29 > [DEBUG] - jobtracker ok 
+< 17:21:31 > [DEBUG] - start datanode and tasktracker 
+< 17:21:31> - 啟動tomcat...
+< 17:21:31 > [DEBUG] - 等待約10秒... 
+< 17:21:36> - tomcat 已經啟動！
+< 17:21:36> - 安裝成功！
+< 17:21:36> - 請進入管理頁面：http://140.110.102.56:8080
+< 17:21:36> - 網頁管理頁面管理帳號為: admin
+< 17:21:36> - 網頁管理頁面管理密碼為: crawler
+< 17:21:36> - Client安裝可參考以下指令：
+< 17:21:36> - scp crawler@140.110.102.56:/home/crawler/crawlzilla/source/slave_deploy.sh .
+< 17:21:36> - 
+< 17:21:36> - ./slave_deploy.sh
+< 17:21:36> - 恭喜您完成Crawlzilla安裝,按Enter鍵離開...

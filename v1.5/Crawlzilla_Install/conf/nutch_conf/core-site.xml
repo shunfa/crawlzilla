@@ -1,0 +1,11 @@
+<configuration>
+  <property>
+    <name>fs.default.name</name>
+    <value>hdfs://localhost:9000</value>
+  </property>
+  <property>
+  <name>hadoop.tmp.dir</name>
+    <value>/home/crawler/crawlzilla/workspace/hadoop-crawler</value>
+    <description>A base for other temporary directories.</description>
+  </property>
+</configuration>

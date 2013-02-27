@@ -1,0 +1,86 @@
+<configuration>
+<property>
+  <name>http.agent.name</name>
+  <value>nutch</value>
+  <description>HTTP 'User-Agent' request header. </description> 
+</property>
+<property>
+  <name>http.agent.description</name>
+  <value>MyTest</value>
+  <description>Further description</description> 
+</property>
+<property>
+  <name>http.agent.url</name> 
+  <value>set.your.ip.or.domain</value> 
+  <description>A URL to advertise in the User-Agent header. </description> 
+</property>
+<property>
+  <name>http.agent.email</name>
+  <value>your@email</value> 
+  <description>An email address 
+  </description> 
+</property>
+<property>
+  <name>plugin.folders</name>
+  <value>/opt/crawlzilla/nutch/plugins</value>
+  <description>Directories where nutch plugins are located. </description>
+</property>
+<property>
+  <name>plugin.includes</name>
+  <value>protocol-(http|ftp|httpclient|smb)|urlfilter-regex|parse-(text|html|ext|msexcel|mspowerpoint|msword|oo|pdf|rss|zip)|index-(more|basic|anchor)|query-(more|basic|site|url)|response-(json|xml)|summary-basic|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
+  <description> Regular expression naming plugin directory names</description>
+ </property>
+ <property>
+  <name>parse.plugin.file</name>
+  <value>parse-plugins.xml</value>
+  <description>The name of the file that defines the associations between
+  content-types and parsers.</description>
+ </property>
+ <property>
+   <name>db.max.outlinks.per.page</name>
+   <value>-1</value>
+   <description> </description>
+ </property> 
+ <property>
+   <name>http.content.limit</name> 
+   <value>-1</value>
+ </property>
+<property>
+  <name>indexer.mergeFactor</name>
+  <value>500</value>
+  <description>The factor that determines the frequency of Lucene segment
+  merges. This must not be less than 2, higher values increase indexing
+  speed but lead to increased RAM usage, and increase the number of
+  open file handles (which may lead to "Too many open files" errors).
+  NOTE: the "segments" here have nothing to do with Nutch segments, they
+  are a low-level data unit used by Lucene.
+  </description>
+</property>
+
+<property>
+  <name>indexer.minMergeDocs</name>
+  <value>500</value>
+  <description>This number determines the minimum number of Lucene
+  Documents buffered in memory between Lucene segment merges. Larger
+  values increase indexing speed and increase RAM usage.
+  </description>
+</property>
+<property>
+  <name>db.ignore.external.links</name>
+  <value>false</value>
+  <description>If true, outlinks leading from a page to external hosts
+  will be ignored. This is an effective way to limit the crawl to include
+  only initially injected hosts, without creating complex URLFilters.
+  </description>
+</property>
+<property>
+  <name>file.content.limit</name>
+  <value>1000000</value>
+  <description>The length limit for downloaded content, in bytes.
+  If this value is nonnegative (>=0), content longer than it will be truncated;
+  otherwise, no truncation at all.
+  </description>
+</property>
+
+</configuration>
+

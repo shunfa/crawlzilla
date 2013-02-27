@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main
+END
+add_hosts.sh
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/add_hosts.sh
+END
+auto_update.sh
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/auto_update.sh
+END
+lib_crawl_tmp.sh
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/lib_crawl_tmp.sh
+END
+slave_remove
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/slave_remove
+END
+log.sh
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/log.sh
+END
+prepare_go.sh
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/prepare_go.sh
+END
+rm_DB.sh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/rm_DB.sh
+END
+lib_crawl_go.sh
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/lib_crawl_go.sh
+END
+slave_deploy.sh
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/slave_deploy.sh
+END
+fix.sh
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/fix.sh
+END
+slave_install
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/slave_install
+END
+mergecrawl.sh
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/mergecrawl.sh
+END
+tomcat_restart.sh
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/tomcat_restart.sh
+END
+crawlzilla
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/crawlzilla
+END
+duplicate_del.sh
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/duplicate_del.sh
+END
+master_remove
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/master_remove
+END
+lib_crawl_default.sh
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/lib_crawl_default.sh
+END
+go.sh
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/main/go.sh
+END

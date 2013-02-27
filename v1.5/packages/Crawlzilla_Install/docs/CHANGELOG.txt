@@ -1,0 +1,44 @@
+
+------------------------------------------
+= Crawlzilla 0.3.0 Change Log=
+< { rock, waue, shunfa } _at_ nchc.org.tw > 22 Nov 2010
+
+ * Added：slave service will follow system open / close process.
+ * Added：crawling time over 3 hours, user can using fix button to ending this job replacing idle.
+ * Added：check hadoop service status much more completely.
+ * Added：support more logging to debug
+ * Modified: auto checking depend package to skip much install time
+ * Modified：change clientXXX to slaveXXX
+ * Warnning：there are several differences from crawlzilla 0.3.x and 0.2.x including file name and path, so you can't using 0.2.x's index pool to 0.3.x
+ * Fixed：more then 20 bugs
+
+------------------------------------------
+
+------------------------------------------
+ crawlzilla 0.2.2 
+< { rock, waue, shunfa } _at_ nchc.org.tw > 13 Oct 2010 
+
+* verified to support for Ubuntu, Debian, OpenSuse, CentOS, Fedora, CentOS
+* added: setting user name and email to configuration file
+* added: appending system version to log file
+* added: showing crawling depth on Nutch_DB page
+* fix 16 bugs and modified 4 mechanisms.
+------------------------------------------
+
+------------------------------------------
+ crawlzilla 0.2.1.1
+< { rock, waue, shunfa } _at_ nchc.org.tw > 01 Oct 2010 
+
+* tryed to support for OpenSuse, CentOS, Fedora, CentOS
+* added record crawling time and 
+* added recrawl function
+* improved startup/shutdown all services faster
+* fixed 20 bugs , modified 7 mechanisms.
+------------------------------------------
+
+------------------------------------------
+ crawlzilla 0.2.1
+< { rock, waue, shunfa } _at_ nchc.org.tw > 01 Oct 2010 
+
+Main functions were tested fine on Ubuntu and Debian.
+------------------------------------------

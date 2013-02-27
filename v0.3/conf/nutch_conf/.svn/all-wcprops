@@ -1,0 +1,227 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/437/trunk/v0.3/conf/nutch_conf
+END
+nutch-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/nutch-site.xml
+END
+crawl-tool.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/crawl-tool.xml
+END
+subcollections.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/subcollections.xml
+END
+core-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/437/trunk/v0.3/conf/nutch_conf/core-site.xml
+END
+context.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/context.xsl
+END
+commons-logging.properties
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/commons-logging.properties
+END
+domain-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/domain-urlfilter.txt
+END
+crawl-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/crawl-urlfilter.txt
+END
+domain-suffixes.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/domain-suffixes.xsd
+END
+schema.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/schema.xml
+END
+domain-suffixes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/domain-suffixes.xml
+END
+tika-mimetypes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/tika-mimetypes.xml
+END
+common-terms.utf8
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/common-terms.utf8
+END
+sslinfo.xml.example
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/sslinfo.xml.example
+END
+regex-normalize.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/regex-normalize.xml
+END
+hadoop-metrics.properties
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/hadoop-metrics.properties
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/log4j.properties
+END
+hadoop-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/hadoop-site.xml
+END
+masters
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/masters
+END
+prefix-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/prefix-urlfilter.txt
+END
+hdfs-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/437/trunk/v0.3/conf/nutch_conf/hdfs-site.xml
+END
+suffix-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/suffix-urlfilter.txt
+END
+parse-plugins.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/parse-plugins.xml
+END
+automaton-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/automaton-urlfilter.txt
+END
+hadoop-default.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/hadoop-default.xml
+END
+hadoop-default.xml.bek
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/hadoop-default.xml.bek
+END
+slaves
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/437/trunk/v0.3/conf/nutch_conf/slaves
+END
+regex-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/regex-urlfilter.txt
+END
+nutch-default.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/nutch-default.xml
+END
+parse-plugins.dtd
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/parse-plugins.dtd
+END
+nutch-conf.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/nutch-conf.xsl
+END
+hadoop-env.sh
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/437/trunk/v0.3/conf/nutch_conf/hadoop-env.sh
+END
+mapred-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/437/trunk/v0.3/conf/nutch_conf/mapred-site.xml
+END
+configuration.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/configuration.xsl
+END
+httpclient-auth.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/httpclient-auth.xml
+END
+smb.properties
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/smb.properties
+END
+custom-fields.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/conf/nutch_conf/custom-fields.xml
+END

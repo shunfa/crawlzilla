@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf
+END
+nutch-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/nutch-site.xml
+END
+hdfs-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/hdfs-site.xml
+END
+mapred-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/mapred-site.xml
+END
+nutch-conf.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/nutch-conf.xsl
+END
+core-site.xml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/core-site.xml
+END
+hadoop-env.sh
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/hadoop-env.sh
+END
+crawl-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/crawl-urlfilter.txt
+END
+slaves
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/slaves
+END
+masters
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/masters
+END
+regex-urlfilter.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/conf/nutch_conf/regex-urlfilter.txt
+END

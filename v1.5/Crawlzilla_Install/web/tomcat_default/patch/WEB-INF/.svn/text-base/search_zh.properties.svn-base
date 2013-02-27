@@ -1,0 +1,10 @@
+title = \u641C\u5C0B\u7D50\u679C;
+search = \u641C\u5C0B;
+hits =  \u7B2C;<b>{0}-{1}</b>\u9805; (\u5171\u6709; {2} \u9805\u641C\u5C0B\u7D50\u679C;):
+cached = \u7DB2\u9801\u5FEB\u53D6;
+explain = \u8A55\u5206\u8A73\u89E3;
+anchors = \u9328\u9EDE;
+next = \u4E0B\u4E00\u9801;
+clustering = \u5206\u7FA4;
+viewAsText = \u8F49\u7D14\u6587\u5B57;
+showAllHits = \u5217\u51FA\u5168\u90E8\u63D0\u793A;

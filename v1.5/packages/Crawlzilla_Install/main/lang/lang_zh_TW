@@ -1,0 +1,431 @@
+#!/bin/bash
+# Program:
+#   Chinese Language file for Crawlzilla 
+# Author:
+#   Waue, Shunfa, Rock {waue, shunfa, rock}@nchc.org.tw
+# Version:
+#    1.0
+# History:
+#
+
+############ Lang for master_install -Start ############
+MI_main_echo_1="歡迎使用Crawlzilla, 此安裝程序會為您新建一個crawler帳號並協助您設定密碼"
+MI_main_echo_2="請確認上述的安裝資訊：1.正確 2.不正確 "
+MI_main_echo_3="安裝成功！"
+MI_main_echo_4="請進入管理頁面：http://"
+MI_main_echo_5="網頁管理頁面管理帳號為: admin"
+MI_main_echo_6="網頁管理頁面管理密碼為: crawler"
+## Lang for master_install_func.sh ##
+### [for choose_lang()] ### 
+MI_choose_lang_1="請選擇語言: (1)English (2)中文" 
+MI_choose_lang_2="(1/2):" 
+
+### [for check_root()]### 
+MI_check_root_1="請切換成 root 身份執行!!!" 
+MI_check_root_2="身份是 root" 
+ 
+### [for check_systemInfo()]### 
+MI_check_sys_1="check_systemInfo" 
+MI_check_sys_2="作業系統為: " 
+ 
+### [for install_packages()]### 
+MI_install_pack_1="您的系統似乎滿足套件相依性檢查，略過自動安裝步驟" 
+MI_install_pack_2="開始自動幫您安裝:" 
+MI_install_pack_if_2="請手動安裝不足的套件" 
+ 
+### [for check_crawlzilla_installed()] ### 
+MI_check_crawlzilla_1="chcheck_crawlzilla_installed" 
+MI_check_crawlzilla_2="系統先前已安裝Crawlzilla" 
+MI_check_crawlzilla_3="系統尚未安裝 Crawlzilla" 
+MI_check_crawlzilla_4="請資料夾\"/home/crawler/\"備份或改變名稱，然後刪除使用者 \"crawler\",否則安裝程序不會繼續"
+ 
+### [for check_sunJava()] ### 
+MI_check_sunJava_1="check_sunJava" 
+MI_check_sunJava_2="Crawlzilla 需要 Sun Java JDK 1.6 以上的版本" 
+MI_check_sunJava_if_1="Java 並不是 Sun　版本, 請自行安裝 Sun 版本的 Java" 
+MI_check_sunJava_if_2="請輸入您的選擇: " 
+MI_check_sunJava_if_3="(1)系統沒有 Sun Java (2)Sun Java已安裝並於其他路徑 (3)結束" 
+MI_check_sunJava_if_4="請選擇 (1/2/3): " 
+MI_check_sunJava_if_5="請自行安裝 Sun Java 1.6 以上版本" 
+MI_check_sunJava_if_6="請輸入 Sum Java 的家路徑 (例如： '/usr/lib/jvm/java-6-sun'): " 
+MI_check_sunJava_if_7="Java 並不是 Sun　版本, 請自行安裝 Sun 版本的 Java" 
+MI_check_sunJava_if_8="Java 版本太舊 (請更新至 1.6　以上版本)" 
+MI_check_sunJava_if_9="系統有 Sun Java 1.6 以上版本" 
+MI_check_sunJava_if_10="請自行安裝 Sun Java 1.6 以上版本" 
+ 
+### [for check_ssh()] ### 
+MI_check_ssh_1="check_ssh" 
+MI_check_ssh_2="系統已有 ssh." 
+MI_check_ssh_3="請安裝 ssh." 
+MI_check_ssh_4="系統已有 ssh Server (sshd)." 
+MI_check_ssh_5="請安裝 ssh Server (sshd)." 
+ 
+### [for check_dialog()] ### 
+MI_check_dialog_1="check_dialog" 
+MI_check_dialog_2="系統已有 dialog." 
+MI_check_dialog_3="請安裝 dialog." 
+	 	 
+#
+MI_set_crawler_passwd_echo_1="請輸入欲設定的crawler密碼："
+MI_set_crawler_passwd_echo_2="請再輸入一次確認密碼："
+
+#
+MI_select_eth_echo_1="系統偵測到目前擁有網卡如下："
+MI_select_eth_echo_2="請選擇欲給crawlzilla使用的網卡(1/2/3)："
+MI_select_eth_echo_6="此網卡的 IP 位址將為 crawlzilla 主要使用的IP"
+MI_select_eth_echo_3="您選擇的網卡為：$net_choice"
+MI_select_eth_echo_4="Master網路IP位址為："
+MI_select_eth_echo_5="Master的MAC為："
+
+
+#
+MI_show_master_info_echo_1="Master網路IP位址為："
+MI_show_master_info_echo_2="Master的MAC為： "
+
+
+#
+MI_make_ssh_key_echo_1="正在產生SSH Key... "
+MI_make_ssh_key_echo_2="SSH Key已產生"
+
+#
+MI_set_haoop_site_echo_1="正在設定hadoop-site.xml... "
+MI_set_haoop_site_echo_2="hadoop-site.xml設定完成"
+
+#
+MI_set_nutch_site_echo_1="正在設定nutch-site.xml..."
+MI_set_nutch_site_echo_2="http.agent.url 設定行號為：$Line_NO..."
+MI_set_nutch_site_echo_3="編輯http.agent.url, 刪除行號 $Line_NO."
+MI_set_nutch_site_echo_4="編輯http.agent.url完成"
+MI_set_nutch_site_echo_5="http.agent.email 設定行號為：$Line_NO."
+MI_set_nutch_site_echo_6="編輯http.agent.email, 刪除行號 $Line_NO."
+MI_set_nutch_site_echo_7="編輯http.agent.email完成"
+MI_set_nutch_site_echo_8="hadoop-site.xml設定完成"
+
+#
+MI_format_HDFS_echo_1="格式化HDFS..."
+MI_format_HDFS_echo_2="格式化HDFS完成"
+
+#
+MI_start_up_Crawlzilla_echo_1="啟動資料管理程序[Namenode] ... "
+MI_start_up_Crawlzilla_echo_2="啟動運算管理程序[JobTracker] ... "
+
+#
+MI_set_hosts_echo_1="設定master上的hosts"
+
+#
+MI_install_Nutch_echo_1="Master的IP位址為："
+MI_install_Nutch_echo_2="Master的Hostname為："
+
+#
+MI_slave_PassMasterIPAddr_echo_1="在slave安裝檔修改MasterIP的行號: $Line_NO"
+MI_slave_PassMasterIPAddr_echo_2="編輯MasterIP..."
+MI_slave_PassMasterIPAddr_echo_3="完成編輯MasterIP."
+
+#
+MI_slave_PassMaster_Hostname_echo_1="在slave安裝檔修改Hostname, 行號為: $Line_NO"
+MI_slave_PassMaster_Hostname_echo_2="編輯Hostname..."
+MI_slave_PassMaster_Hostname_echo_3="完成編輯Hostname."
+
+#
+MI_make_slave_install_echo_1="製作slave 的安裝包"
+
+#
+MI_start_up_tomcat_echo_1="啟動tomcat..."
+MI_start_up_tomcat_echo_2="等待約10秒..."
+MI_start_up_tomcat_echo_3="tomcat 已經啟動！"
+
+#
+MI_slave_install_commands_echo_1="Client安裝可參考以下指令："
+MI_slave_install_commands_echo_20="scp crawler@"
+MI_slave_install_commands_echo_25=":/home/crawler/crawlzilla/source/slave_deploy.sh ."
+MI_slave_install_commands_echo_3="./slave_deploy.sh"
+
+########## Lang for Master Install - End##########
+
+########## Lang for Client Install - Start##########
+
+CI_finish_echo_1="Crawlzilla 已完成安裝此一Client端"
+
+# [Variables Declaration] #
+## Lang for slave_install ##
+par_echo_1="Master 的 IP位址: "
+par_echo_2="資料是否正確 (yes/no): "
+par_echo_3="資料是正確的"
+par_echo_4="請修改為正確的參數"
+
+## [Lang for slave_install_fun.sh] ##
+### [for choose_lang()] ###
+choose_lang_1="請選擇語言: (1)English (2)中文"
+choose_lang_2="(1/2):"
+
+### [for check_root()]###
+check_root_1="請切換成 root 身份執行!!!"
+check_root_2="身份是 root"
+
+### [for check_systemInfo()]###
+check_sys_1="check_systemInfo"
+check_sys_2="作業系統為: "
+
+### [for install_packages()]###
+install_pack_1="install_packages"
+install_pack_2="檢查套件相依性"
+install_pack_if_1="將會安裝套件"
+install_pack_if_2="請手動安裝 expect, ssh 和 dialog 套件"
+
+### [for check_crawlzilla_installed()] ###
+check_crawlzilla_1="chcheck_crawlzilla_installed"
+check_crawlzilla_2="系統先前已安裝Crawlzilla"
+check_crawlzilla_3="系統尚未安裝 Crawlzilla"
+
+### [for check_sunJava()] ###
+check_sunJava_1="check_sunJava"
+check_sunJava_2="Crawlzilla 需要 Sun Java JDK 1.6 以上的版本"
+check_sunJava_if_1="Java 並不是 Sun　版本, 請自行安裝 Sun 版本的 Java"
+check_sunJava_if_2="請輸入您的選擇: "
+check_sunJava_if_3="(1)系統沒有 Sun Java (2)Sun Java　在其他路徑 (3)結束"
+check_sunJava_if_4="請選擇 (1/2/3): "
+check_sunJava_if_5="請自行安裝 Sun Java 1.6 以上版本"
+check_sunJava_if_6="請輸入 Sum Java 的家路徑 (例如： '/usr/lib/jvm/java-6-sun'): "
+check_sunJava_if_7="Java 並不是 Sun　版本, 請自行安裝 Sun 版本的 Java"
+check_sunJava_if_8="Java 版本太舊 (請更新至 1.6　以上版本)"
+check_sunJava_if_9="系統有 Sun Java 1.6 以上版本"
+check_sunJava_if_10="請自行安裝 Sun Java 1.6 以上版本"
+
+### [for check_ssh()] ###
+check_ssh_1="check_ssh"
+check_ssh_2="系統已有 ssh."
+check_ssh_3="請安裝 ssh."
+check_ssh_4="系統已有 ssh Server (sshd)."
+check_ssh_5="請安裝 ssh Server (sshd)."
+
+### [for check_dialog()] ###
+check_dialog_1="check_dialog"
+check_dialog_2="系統已有 dialog."
+check_dialog_3="請安裝 dialog."
+
+### scp_master_crawler_sshkey() ###
+scp_sshkey_d1="scp_master_crawler_sshkey"
+scp_sshkey_d2="mkdir -p /home/crawler/"
+scp_sshkey_d3="scp crawler@master:~/.ssh /home/crawler/"
+scp_sshkey_expect_1="密碼錯誤"
+scp_sshkey_s1="scp 正確"
+scp_sshkey_s2="scp 失敗,\n(1)請確認 Master 的 crawler 的密碼\n(2)Master 上 crawler's 的 sshkey\n(3)Master 的網路狀態"
+scp_sshkey_d4="chown -R crawler:crawler /home/crawler/.ssh"
+
+### [for creat_crawler_account()] ###
+create_crawler_d1="creat_crawler_account"
+create_crawler_1="請輸入 Master 上 crawler 使用者的密碼: "
+create_crawler_2="請再輸入一次: "
+create_crawler_3="兩次密碼一致"
+create_crawler_4="兩次密碼不一致，請重新輸入"
+create_crawler_s1="系統已經有 crawler，直接更改 crawler 密碼"
+create_crawler_s2="建立 crawler 使用者並更改密碼"
+
+### [for scp_packages()] ###
+scp_packages_d1="scp_packages"
+scp_packages_d2="chown -R crawler:crawler /opt/crawlzilla"
+scp_packages_d3="scp -r crawler@\$1:/opt/crawlzilla/CrawlzillaForClientOf_\$Master_IP_Address.tar.gz /home/crawler/crawlzilla/source"
+
+### [for install_nutch_package()] ###
+install_nutch_package_d1="install_nutch_package"
+
+### [for recall_hostname_ip()] ###
+recall_hostname_ip_d1="recall_hostname_ip"
+recall_hostname_ip_1="網路IP位址是"
+recall_hostname_ip_2="網卡MAC位址是"
+recall_hostname_ip_3="系統有多張網卡，請選擇那張網卡是適用於此環境: "
+recall_hostname_ip_4="請選擇 (1/2/3...): "
+recall_hostname_ip_d2="ssh crawler@\$1 echo \$net_address \$(hostname) \$net_MacAddr \>\> ~/crawlzilla/system/crawl_nodes"
+
+########## Lang for Client Install - End##########
+
+########## Lang for Master Remove - Start##########
+
+# check root
+MR_check_root_1="請切換成 root 身份執行移除程式!!!"
+MR_check_root_2="已確認為root身份, 將繼續執行此移除程式！"
+
+# shutdown service
+MR_shutdown_service_echo_1="停止其他尚未關閉的slaves服務..."
+MR_shutdown_service_echo_2="關閉本機服務..."
+MR_shutdown_service_echo_3="本機服務已關閉"
+
+# remove_folders
+MR_remove_folders_echo_1="正在刪除安裝時所建立的檔案及資料夾..."
+MR_remove_folders_echo_2="安裝時所建立的檔案及資料夾已刪除"
+
+# edit_hosts
+MR_edit_hosts_echo_1="還原/etc/hosts...至安裝 Crawlzilla 前的版本"
+MR_edit_hosts_echo_2="完成修改/etc/hosts"
+
+# user_delete
+MR_user_delete_echo_1="正在刪除crawler使用者..."
+MR_user_delete_echo_2="使用者crawler已刪除"
+
+# main
+MR_main_echo_1="警告 - 此一程式為移除 Crawlzilla 程式, 若您為誤執行此一程式, 請按Ctrl+c離開此程序！"
+MR_main_echo_2="本執行程序將會移除安裝 Crawlzilla 時所新增的檔案及crawler使用者帳號。"
+MR_main_echo_3="請問是否確定移除此一節點：y= 確定 n= 取消 "
+MR_main_echo_4="移除程序已完成！"
+MR_main_echo_5="您已取消移除程序！"
+MR_main_echo_6="若要移除請再重新執行！"
+
+MR_main_deluser_1="你要刪除在 \"/home/crawler/\" 上的所有資料嗎"
+MR_main_deluser_2="yes 將會刪除, no 則會保留"
+MR_main_deluser_3="/home/crawler 將被刪除，所有資料都會消失"
+MR_main_deluser_4="/home/crawler 將被保留，請備份後再自行刪除"
+
+# MR
+MR_remove_check_1="偵測出之前的安裝或移除尚未完全"
+MR_remove_check_2="強致移除嗎 [ y=同意移除 / n=離開 ]"
+
+
+########## Lang for Master Remove - End ##########
+
+########## Lang for Client Remove - Start ##########
+# check root
+CR_check_root_1="請切換成 root 身份執行移除程式!!!"
+CR_check_root_2="已確認為root身份, 將繼續執行此移除程式！"
+
+# shutdown service
+CR_shutdown_service_echo_1="關閉本機服務..."
+CR_shutdown_service_echo_2="本機服務已關閉"
+
+# remove_folders
+CR_remove_folders_echo_1="正在刪除安裝時所建立的檔案及資料夾..."
+CR_remove_folders_echo_2="安裝時所建立的檔案及資料夾已刪除"
+
+# edit_hosts
+CR_edit_hosts_echo_1="還原/etc/hosts...至安裝 Crawlzilla 前的版本"
+CR_edit_hosts_echo_2="完成修改/etc/hosts"
+CR_edit_hosts_echo_3="WARNNING ! 請檢查你的 /etc/hosts 檔案正確與否！"
+
+# user_delete
+CR_user_delete_echo_1="正在刪除crawler使用者..."
+CR_user_delete_echo_2="使用者crawler已刪除"
+
+# main
+CR_main_echo_1="警告 - 此一程式為移除此用戶端的crawl node, 若您為誤執行此一程式, 請按Ctrl+c離開此程序！"
+CR_main_echo_2="本執行程序將會移除安裝 Crawlzilla 時所新增的檔案及crawler使用者帳號。"
+CR_main_echo_3="請問是否確定移除此一節點：y=確定 n=取消 "
+CR_main_echo_4="移除程序已完成！"
+CR_main_echo_5="您已取消移除程序！"
+CR_main_echo_6="若要移除請再重新執行！"
+########## Lang for Client Remove - End ##########
+
+########## Lang for Crawlzilla - Start ##########
+# [Variables Declaration] #
+## Lang for common ##
+user_error="您不是crawler，請切換成 \"crawler\" 使用者 !!!"
+
+## [Lang for dialog] ##
+dia_back='= [Crawlzilla 管理介面] ~by NCHC ='
+dia_choose="請選擇: "
+dia_backto_main="回主選單"
+dia_exit="結束"
+
+## [Lang for prepare_check] ##
+dia_pre_check_title_1="[crawl_nodes 檔案]"
+dia_pre_check_msg_1="失敗：找不到"
+dia_pre_check_title_2="[/etc/host 檔案更新]"
+dia_pre_check_yesno_1="第一次執行 Crawlzilla 管理介面"
+dia_pre_check_yesno_2="請更新 /etc/hosts !!!"
+pre_check_echo_1="請輸入 root 密碼來更新 /etc/hosts !!!"
+pre_check_echo_2="root 密碼錯誤，請先確認 root 密碼是否正確 !!!"
+dia_pre_check_yesno_3="crawl_nodes 檔案已被修改過"
+
+## [Lang for main_menu()] ##
+dia_main_title_1="[管理功能選項]"
+dia_main_menu_1_1="檢查運算叢集環境"
+dia_main_menu_1_2="快速開關所有服務"
+dia_main_menu_1_3="設定從屬(slave)主機"
+dia_main_menu_1_4="設定管理(master)主機"
+dia_main_menu_1_5="設定網站伺服器(Tomcat)"
+dia_main_menu_1_6="更改 Tomcat port"
+dia_main_menu_1_7="更換此選單語言"
+dia_main_menu_1_8="顯示從屬主機安裝步驟"
+dia_main_menu_1_9="系統自動更新"
+dia_main_menu_1_10="密碼重設"
+
+## [Lang for cluster_status()] ##
+cluster_status_echo_1="[位址] \t\t [名稱] \t [網路] \t [運算狀態]"
+cluster_status_echo_2="開始檢查 Cluster...請稍候（node數越多,等待時間越長） "
+cluster_status_read_1="請輸入任何鍵繼續..."
+dia_cluster_status_title_1="[Cluster 狀態]"
+
+## [Lang for fast_manage()] ##
+dia_fast_manage_1="啟動所有運算節點及Tomcat"
+dia_fast_manage_2="關閉所有運算節點及Tomcat"
+
+## [Lang for srver_setup()] ##
+dia_server_title_1="[ 管理主機(Master)狀態]"
+dia_server_msg_1="Namenode & Jobtracker 並未運作"
+dia_server_msg_2="Jobtracker 正在運作, Namenode 並未運作"
+dia_server_msg_3="Namenode 正在運作, Jobtracker 並未運作"
+dia_server_msg_4="Namenode & Jobtracker 正在運作"
+dia_server_title_2="[Namenode & Jobtracker 設定]"
+dia_server_menu_1_1="啟動管理服務 Namenode & Jobtracker"
+dia_server_menu_1_2="停止管理服務 Namenode & Jobtracker"
+dia_server_menu_1_3="重新啟動管理服務(Namenode & Jobtracker)"
+
+## [Labg for cluster_setup()] ##
+dia_cluster_setup_title_1="[全部或部份主機]"
+dia_cluster_setup_menu_1_1="全部主機"
+dia_cluster_setup_menu_1_2="部份主機"
+dia_cluster_setup_title_2="[Datanode & Tasktracker 選擇]"
+dia_cluster_setup_check_1="選擇 Datanode & Tasktracker: "
+dia_cluster_setup_title_3="[Datanode & Tasktracker 設定]"
+dia_cluster_setup_menu_2_1="啟動 Datanodes & Tasktrackers"
+dia_cluster_setup_menu_2_2="停止 Datanodes & Tasktrackers"
+dia_cluster_setup_menu_2_3="重新啟動 Datanodes & Tasktrackers"
+cluster_setup_echo_1="[啟動 datanode & tasktracker]"
+cluster_setup_echo_error="失敗：無法 ssh 到 "
+cluster_setup_echo_3="[停止 datanode & tasktracker]"
+cluster_setup_echo_5="[重新啟動 datanode & tasktracker]"
+
+## [Lang for tomcat_swith()] #
+dia_tomcat_switch_title_1="[Tomcat 狀態]"
+dia_tomcat_switch_msg_1="Tomcat 正在執行 !!!"
+dia_tomcat_switch_msg_2="Tomcat 並未執行 !!!"
+dia_tomcat_switch_title_2="[Tomcat 服務選項]"
+dia_tomcat_switch_menu_1_1="啟動 Tomcat"
+dia_tomcat_switch_menu_1_2="停止 Tomcat"
+dia_tomcat_switch_menu_1_3="重新啟動 Tomcat"
+tomcat_switch_echo_1="失敗：找不到"
+tomcat_switch_echo_3="[啟動 Tomcat]"
+tomcat_switch_echo_4="[停止 Tomcat]"
+tomcat_switch_echo_5="[重新啟動 Tomcat]"
+
+## [Lang for tomcat_port()] ##
+dia_tomcat_port_title_1="[更改 Tomcat servel.xml]"
+dia_tomcat_port_msg_1="失敗: 找不到"
+dia_tomcat_port_title_2="[Tomcat Port 更改]"
+dia_tomcat_port_input_1="請輸入要更改的 Tomcat port 號碼 (預設值為 8080): "
+
+## [Lang for lang_switch()] ##
+dia_lang_title_1="[轉換語言]"
+dia_lang_menu_1_1="英文"
+dia_lang_menu_1_2="中文"
+
+## [Password Change()]
+dia_pwd_reset_1="密碼設定"
+dia_pwd_reset_2="選擇您要修改密碼的目標"
+dia_pwd_reset_3="修改終端機 crawler 的密碼"
+dia_pwd_reset_4="修改網頁上 admin 的密碼"
+dia_pwd_reset_5="您要修改終端機 crawler 的密碼？ （也就是每次下指令crawlzilla 後要輸入的那個密碼）"
+dia_pwd_reset_6="您要重設網站上 admin 的密碼？（重設後用網頁介面設定新密碼）"
+dia_pwd_reset_7="確定重設請按y？[y/n]"
+dia_pwd_reset_8="重設失敗，密碼並未修改"
+dia_pwd_reset_9="重設成功，請盡速登入網站並設置admin密碼"
+dia_pwd_reset_10="此次選擇放棄，您並未重設網頁admin密碼"
+
+dia_ent_to_continue="按Enter後繼續"
+
+## [Lang for install finish ] ##
+crawlzilla_install_finish="恭喜您完成Crawlzilla安裝,按Enter鍵離開..."
+
+## [Lang for add_crawlzilla_to_initd]    
+add_crawlzilla_to_initd_1="增加 Crawlzilla 服務到 /etc/init.d"
+add_crawlzilla_to_initd_2="Crawlzilla 預設開機會自動啟動"
+
+########## Lang for Crawlzilla - End ##########

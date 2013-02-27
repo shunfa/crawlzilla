@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/459/trunk/v1.0/Crawlzilla_Install/conf/crawlzilla_conf
+END
+crawlzilla-slave_chkconfig
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/459/trunk/v1.0/Crawlzilla_Install/conf/crawlzilla_conf/crawlzilla-slave_chkconfig
+END
+crawlzilla-master_chkconfig
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/459/trunk/v1.0/Crawlzilla_Install/conf/crawlzilla_conf/crawlzilla-master_chkconfig
+END
+crawlzilla-slave
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/459/trunk/v1.0/Crawlzilla_Install/conf/crawlzilla_conf/crawlzilla-slave
+END
+crawlzilla-master
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/459/trunk/v1.0/Crawlzilla_Install/conf/crawlzilla_conf/crawlzilla-master
+END

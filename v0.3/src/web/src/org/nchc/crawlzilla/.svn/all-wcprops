@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla
+END
+ReCrawl.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/ReCrawl.java
+END
+UserInfoAttrSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/UserInfoAttrSet.java
+END
+HighFreqTerms.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/HighFreqTerms.java
+END
+Crawl.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/Crawl.java
+END
+NutchDBDelete.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/NutchDBDelete.java
+END
+ProgressNotification.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/ProgressNotification.java
+END
+DataInfoBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/DataInfoBean.java
+END
+Util.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/Util.java
+END
+NutchDBStatusDelete.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/NutchDBStatusDelete.java
+END
+CheckFristLogin.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/CheckFristLogin.java
+END
+Ranges.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/Ranges.java
+END
+NutchDBStatusBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/NutchDBStatusBean.java
+END
+IndexInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/IndexInfo.java
+END
+TermInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/TermInfo.java
+END
+NutchDBSearchDefaultLinkBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/NutchDBSearchDefaultLinkBean.java
+END
+Statistics.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/Statistics.java
+END
+ChangePasswdBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/ChangePasswdBean.java
+END
+NutchDBNumBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/NutchDBNumBean.java
+END
+LoginBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/LoginBean.java
+END
+NutchDBFix.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/433/trunk/v0.3/src/web/src/org/nchc/crawlzilla/NutchDBFix.java
+END

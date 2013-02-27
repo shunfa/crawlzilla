@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/conf/tomcat_conf/Catalina/localhost
+END
+host-manager.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/433/trunk/v0.3/conf/tomcat_conf/Catalina/localhost/host-manager.xml
+END
+manager.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/433/trunk/v0.3/conf/tomcat_conf/Catalina/localhost/manager.xml
+END

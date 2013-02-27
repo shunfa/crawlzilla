@@ -1,0 +1,707 @@
+#!/bin/bash
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Program:
+#   Crawlzilla management interface
+# Author: 
+#   Waue, Shunfa, Rock {waue, shunfa, rock}@nchc.org.tw
+
+[ $USER != "crawler" ] && echo "please enter crawler's password"  && exec su crawler -c "$0" "$@"
+
+# [Variables Declaration] #
+DIALOG="dialog"
+main_choice=
+lang=
+
+# [PATH Declaration] #
+Crawlzilla_Install_PATH="/opt/crawlzilla"
+Tomcat_HOME="/opt/crawlzilla/tomcat"
+Crawlzilla_HOME="/home/crawler/crawlzilla"
+Work_Path=$Crawlzilla_HOME/system
+Manu_Tmp_Path="/home/crawler/crawlzilla/.menu_tmp"
+Hadoop_Daemon="/opt/crawlzilla/nutch/bin/hadoop-daemon.sh"
+PID_Dir="/var/log/crawlzilla/hadoop-pids"
+
+# [Import Library] #
+## Log function
+source "/home/crawler/crawlzilla/system/log.sh" main_menu;
+
+# [Env Declaration] #
+PID="0"
+## menu choise menu_tmp dir check
+if [ ! -d $Manu_Tmp_Path ];then 
+   mkdir $Manu_Tmp_Path;
+fi
+
+
+# [Functions Declaration] #
+
+function CheckPID ( )
+{
+  # $1 is ip , $2 is job
+  local PID_cat="cat $PID_Dir/hadoop-crawler-$2.pid"
+  if [ "$1" == "localhost" ];then 
+    PID=$($PID_cat)
+    ps $PID |grep $PID > /dev/null 2>&1
+  else
+    PID=$(ssh -o StrictHostKeyChecking=no $1 "cat $PID_Dir/hadoop-crawler-$2.pid")
+    ssh -o StrictHostKeyChecking=no $1 "ps $PID |grep $PID > /dev/null 2>&1"
+  fi
+  return $?
+}
+
+function HadoopStart ( )
+{
+if [ ! "$USER" == "crawler" ];then show_info "Error! You are $USER, please change to crawler then execute." ; exit 1; fi
+
+local NODE=$1
+local JOB=$2
+local Daemon_Start="$Hadoop_Daemon start $JOB"
+local sh_do
+declare -i LOCK=0
+while [ $LOCK -lt 3 ]
+do
+  if CheckPID $NODE $JOB; then
+    debug_info "    *** $JOB ($PID) is working "
+    declare -i LOCK=9
+  else
+    declare -i LOCK=LOCK+1
+    show_info "    *** $NODE 's $JOB not work, starting now ... $LOCK *** ";
+    # if service is local such as namenode, skip using ssh
+    if [ "$NODE" == "localhost" ];then
+      $($Daemon_Start >/dev/null  2>&1)
+    else 
+      ssh -o StrictHostKeyChecking=no $NODE "$Daemon_Start >/dev/null  2>&1"
+    fi
+    sleep 1
+  fi
+done
+
+if [ $LOCK -eq 3 ];then
+  show_info "ERROR! $NODE 's $JOB starting failed, please check /var/log/crawlzilla/hadoop-logs/hadoop-crawler-$JOB-*.log"; exit 1;
+elif [ $LOCK -eq 9 ];then
+  show_info "| $NODE | $JOB status .... [RUNNING]"
+else
+  show_info "BUG!! Crawlzilla System Error Bug."; exit 1;
+fi
+}
+
+function HadoopStop ( )
+{
+if [ ! "$USER" == "crawler" ];then show_info "Error! You are $USER, please change to crawler then execute." ; exit 1; fi
+local NODE=$1
+local JOB=$2
+local Daemon_Stop="$Hadoop_Daemon stop $JOB"
+declare -i LOCK=0
+
+while [ $LOCK -lt 3 ]
+do
+  PID=$(ssh -o StrictHostKeyChecking=no $NODE "cat $PID_Dir/hadoop-crawler-$JOB.pid")
+  if CheckPID $NODE $JOB; then
+    # job is work, stop it
+    declare -i LOCK=LOCK+1
+    show_info "   *** $NODE 's $JOB ($PID) is working , stoping now ... $LOCK *** ";
+    debug_info "ssh -o StrictHostKeyChecking=no $NODE $Daemon_Stop 2>/dev/null"
+
+    # if service is local such as namenode, skip using ssh
+    if [ "$NODE" == "localhost" ];then
+      $($Daemon_Stop >/dev/null  2>&1)
+    else
+	ssh -o StrictHostKeyChecking=no $NODE "$Daemon_Stop >/dev/null  2>&1" 
+    fi 
+
+    sleep 3
+  else
+    # job is not work , ok, down work
+    debug_info "   *** $JOB is not working *** "
+    declare -i LOCK=9
+  fi
+done
+
+if [ $LOCK -eq 3 ];then
+  ssh -o StrictHostKeyChecking=no $NODE "kill -9 $PID 2>/dev/null"
+  if [ "$?" == "0" ]; then
+    show_info " $NODE 's $JOB ($PID) is killed, status .... [Stopped] "
+  else 
+    show_info "Error! Stop  $NODE 's $JOB failed"; exit 1;
+  fi 
+  show_info "please check $NODE 's /var/log/crawlzilla/hadoop-logs/hadoop-crawler-$JOB-*.log"
+elif [ $LOCK -eq 9 ];then
+  show_info "| $NODE | $JOB status .... [Stopped]"
+else
+  show_info "BUG!! Crawlzilla System Error Bug."; exit 1;
+fi
+}
+
+
+## [Pre-check for language] 
+function prepare_lang(){
+
+ if [ ! -e $Manu_Tmp_Path/lang ] ;then
+    # first time
+    
+    lang=$(locale | grep 'LANG=' | cut -d "=" -f2 | cut -d ":" -f1 )
+    if [ "$lang" == "zh_TW" ] || [ "$lang" == "zh_TW.utf8" ] || \
+    [ "$lang" == "zh_TW:zh" ] || [ "$lang" == "zh_TW.UTF8" ] ;then
+	ln -sf $Work_Path/lang/lang_zh_TW $Manu_Tmp_Path/lang
+    else
+	ln -sf $Work_Path/lang/lang_en_US $Manu_Tmp_Path/lang
+    fi
+ fi
+ source $Manu_Tmp_Path/lang
+}
+
+
+## [Pre-Check for crawl_nodes file] ##
+function prepare_check(){ 
+# 若無 crawlzilla_nodes　則跳出
+if [ ! -e "${Crawlzilla_HOME}/system/crawl_nodes" ]; then
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_pre_check_title_1" \
+    --msgbox "$dia_pre_check_msg_1 $Crawlzilla_HOME/system/crawl_nodes !!!" 10 40
+    exit
+fi
+
+# 判斷是否有存在檔案remove_list， 若有表示有node被移除
+# 整理crawl_nodes及hosts清單
+
+if [ -e "${Crawlzilla_HOME}/system/remove_list" ]; then
+  for node in `cat ${Crawlzilla_HOME}/system/remove_list`;
+  do
+    LineNO=`cat ${Crawlzilla_HOME}/system/crawl_nodes | grep -n $node | sed 's/:.*//g'`
+    sed -i ''$LineNO'd' ${Crawlzilla_HOME}/system/crawl_nodes
+    LineNO_hosts=`cat ${Crawlzilla_HOME}/system/hosts | grep -n $node | sed 's/:.*//g'`
+    sed -i ''$LineNO_hosts'd' ${Crawlzilla_HOME}/system/hosts
+  done
+  rm ${Crawlzilla_HOME}/system/remove_list
+fi
+
+# 判斷 crawl_nodes　和 crawl_nodes.back
+# 第一次執行則要求 user　更新 /etc/hosts
+
+if [ ! -e "${Crawlzilla_HOME}/system/crawl_nodes.bak" ]; then
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_pre_check_title_2" \
+    --msgbox "$dia_pre_check_yesno_1\n$dia_pre_check_yesno_2" 10 55
+
+    $Work_Path/duplicate_del "${Crawlzilla_HOME}/system/crawl_nodes"
+    $Work_Path/duplicate_del $Work_Path/hosts && $Work_Path/add_hosts ${Crawlzilla_HOME}/system/crawl_nodes $Work_Path/hosts
+#    su root -c "$Work_Path/duplicate_del /etc/hosts && $Work_Path/add_hosts ${Crawlzilla_HOME}/system/crawl_nodes /etc/hosts"
+    #　若密碼輸入失敗則跳出
+    if [ $? == "1" ]; then
+        show_info "$pre_check_echo_2"
+
+        exit
+    fi 
+    cp -f "${Crawlzilla_HOME}/system/crawl_nodes" "${Crawlzilla_HOME}/system/crawl_nodes.bak"
+
+# 若 crawl_nodes 被更新過，則要求更新 /etc/hosts
+elif [ ${Crawlzilla_HOME}/system/crawl_nodes -nt ${Crawlzilla_HOME}/system/crawl_nodes.bak ]; then
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_pre_check_title_2" \
+    --msgbox "$dia_pre_check_yesno_3\n$dia_pre_check_yesno_2" 10 55
+
+    $Work_Path/duplicate_del "${Crawlzilla_HOME}/system/crawl_nodes"
+    cp -f "${Crawlzilla_HOME}/system/crawl_nodes" "${Crawlzilla_HOME}/system/crawl_nodes.bak"
+    $Work_Path/duplicate_del $Work_Path/hosts && $Work_Path/add_hosts ${Crawlzilla_HOME}/system/crawl_nodes $Work_Path/hosts
+#    su root -c "$Work_Path/duplicate_del /etc/hosts && $Work_Path/add_hosts ${Crawlzilla_HOME}/system/crawl_nodes /etc/hosts"
+    #　若密碼輸入失敗則跳出                   
+    if [ $? == "1" ]; then                    
+        show_info "$pre_check_echo_2="
+        exit                                  
+    fi
+fi
+
+# scp hosts to slave hosts 
+for node in `cat ${Crawlzilla_HOME}/system/crawl_nodes|awk '{print $1}'`;
+do
+  scp -o StrictHostKeyChecking=no /etc/hosts crawler@$node:${Crawlzilla_HOME}/system/hosts
+done
+}
+
+## [Tomcat] ##
+function Tomcat_Shutdown ( )
+{
+
+    show_info "$tomcat_switch_echo_4"
+    tom_pids=$(ps x | grep -v 'grep' | grep "tomcat" | awk '{print $1}')
+    # $Tomcat_HOME/bin/shutdown.sh # this way much more bug
+    for tom_pid in $tom_pids
+    do
+        kill -9 $tom_pid 2>/dev/null
+    done
+}
+
+## [Main Menu] ##
+function main_menu(){
+main_choice="$Manu_Tmp_Path/main_choice"
+
+$DIALOG --clear --backtitle "$dia_back" \
+    --title "$dia_main_title_1" \
+        --menu "$dia_choose" 18 60 9 \
+        "cluster_status" "$dia_main_menu_1_1" \
+        "fast_manage"  "$dia_main_menu_1_2" \
+        "cluster_setup" "$dia_main_menu_1_3" \
+        "master_setup" "$dia_main_menu_1_4" \
+        "tomcat_switch" "$dia_main_menu_1_5" \
+        "tomcat_port" "$dia_main_menu_1_6" \
+        "lang_switch" "$dia_main_menu_1_7" \
+        "slave_install" "$dia_main_menu_1_8" \
+        "exit" "$dia_exit" 2>$main_choice
+}
+
+## [Cluster Status (datanode & tasktracker)] ##
+function cluster_status(){
+IP_list=$(cat $Crawlzilla_HOME/system/crawl_nodes | grep -v '^$' | grep -v '#'  | awk '{print $1}')
+clusterStatus="$Manu_Tmp_Path/clusterStatus"
+rm $clusterStatus 2> /dev/null
+echo -e "$cluster_status_echo_1" >>$clusterStatus   # main bar [IP] [Hostname]...
+echo -e "------------------------------------------------------------------------" >>$clusterStatus
+echo -e "\n$cluster_status_echo_2"
+for ip in $IP_list
+do
+    # Check Network status
+    ip_status="online"
+    ping -c1 -w1 $ip 2>&1 > /dev/null || ip_status="offline"
+    # Check Hadoop/Nutch service through ssh
+    Task_Data_status="shutdown"
+    if [ $ip_status == "online" ]; then
+      # Check datanode or tasktracker run or not
+      DataNode_status="down"
+      TaskTracker_status="down"
+      # CheckPID <ipaddr> <job> => receive 0 , job is running;
+      if CheckPID $ip datanode ;then DataNode_status="ok"; fi
+      if CheckPID $ip tasktracker ;then TaskTracker_status="ok"; fi
+      if [ "$DataNode_status" == "ok" ];then
+	if [ "$TaskTracker_status" == "ok" ];then
+	  Task_Data_status="Run"
+	else
+	  Task_Data_status="Warn(T)"
+	fi
+      else
+	if [ "$TaskTracker_status" == "ok" ];then
+	  Task_Data_status="Warn(D)"
+	else
+	  Task_Data_status="Down"
+	fi
+      fi
+
+    fi
+
+    host_name=$(cat $Crawlzilla_HOME/system/crawl_nodes | grep $ip | awk '{print $2}')
+    echo -e "$ip  $host_name \t\t $ip_status \t $Task_Data_status" >>$clusterStatus
+done
+
+#read -p "$cluster_status_read_1"
+$DIALOG --clear --backtitle "$dia_back" \
+     --title "$dia_cluster_status_title_1" --textbox $clusterStatus 20 80
+    # Back to main menu 
+    # DONOT: read -p "Press enter to countine..."
+    main_menu
+    menu_choose
+}
+
+## [Fast Manage (namenode, jobtracker, datanode, tasktracker and tomcat)]
+function fast_manage(){
+  fastStatus=$Manu_Tmp_Path/fastStatus
+  $DIALOG --clear --backtitle "$dia_back" --title "$dia_server_title_2" \
+      --menu "$dia_choose" 15 65 3 \
+      "startup" "$dia_fast_manage_1" \
+      "shutdown" "$dia_fast_manage_2" \
+      "main" "$dia_backto_main" 2>$fastStatus
+  if [ "$(cat $fastStatus)" == "startup" ]; then
+    fast_startup_all    
+    # Back to main menu
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+  elif [ "$(cat $fastStatus)" == "shutdown"  ]; then
+    fast_shutdown_all
+    # Back to main menu        
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+
+  elif [ "$(cat $fastStatus)" == "main" ]; then
+    # DONOT: read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+  fi
+}
+
+
+## [Server Setup (namenode & jobtracker)] ##
+function master_setup ( )
+{
+serverSetup=$Manu_Tmp_Path/serverSetup
+
+if CheckPID localhost namenode ;then N_status="ok"; fi
+if CheckPID localhost jobtracker ;then J_status="ok"; fi
+
+if [ "$N_status" == "ok" ];then
+  if [ "$N_status" == "ok" ];then
+    ## N & J run
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_server_title_1" \
+    --msgbox "$dia_server_msg_4" 7 50
+  else 
+    ## N run , but J not
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_server_title_1" \
+    --msgbox "$dia_server_msg_3" 7 50
+  fi
+else 
+  if [ "$N_status" == "ok" ];then
+    ## J run , but N not
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_server_title_1" \
+    --msgbox "$dia_server_msg_2" 7 50
+  else 
+    ## N & J down
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_server_title_1" \
+    --msgbox "$dia_server_msg_1" 7 50
+
+  fi
+fi
+
+$DIALOG --clear --backtitle "$dia_back" --title "$dia_server_title_2" \
+    --menu "$dia_choose" 15 65 4 \
+    "start" "$dia_server_menu_1_1" \
+    "shutdown" "$dia_server_menu_1_2" \
+    "restart" "$dia_server_menu_1_3" \
+    "main" "$dia_backto_main" 2>$serverSetup
+
+if [ "$(cat $serverSetup)" == "start" ]; then
+   #  ori
+   #    HadoopStart $(hostname) namenode
+   #    HadoopStart $(hostname) namenode
+    HadoopStart localhost namenode
+    HadoopStart localhost jobtracker
+    # Back to main menu
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+elif [ "$(cat $serverSetup)" == "shutdown" ]; then
+    HadoopStop localhost jobtracker
+    HadoopStop localhost namenode
+    # Back to main menu
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+elif [ "$(cat $serverSetup)" == "restart" ]; then
+    HadoopStop localhost jobtracker
+    HadoopStop localhost namenode
+    sleep 3
+    HadoopStart localhost namenode
+    sleep 3
+    HadoopStart localhost jobtracker
+    # Back to main menu
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+elif [ "$(cat $serverSetup)" == "main" ]; then
+    # DONOT: read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+else
+    exit
+fi
+
+}
+
+
+## [Cluster Setup (datanode & tasktracker)] ##
+function cluster_setup(){
+# 從 crawl_nodes 讀出 ip　和 hostname
+#IP_list=$(cat $Crawlzilla_HOME/system/crawl_nodes | grep -v '^$' | grep -v '#' | awk '{print $1}')
+#HOST_list=$(cat $Crawlzilla_HOME/system/crawl_nodes | grep -v '^$' | grep -v '#' | awk '{print $2}')
+LIST_status="off"
+allpart="$Manu_Tmp_Path/allpart"
+runNodes="$Manu_Tmp_Path/runNodes"
+clusterSetup="$Manu_Tmp_Path/clusterSetup"
+
+$DIALOG --clear --backtitle "$dia_back" \
+    --title "$dia_cluster_setup_title_1" \
+    --menu "$dia_choose" 15 55 3 \
+    "All" "$dia_cluster_setup_menu_1_1" \
+    "Part" "$dia_cluster_setup_menu_1_2" \
+    "Main" "$dia_backto_main" 2>$allpart
+
+# 判斷是否選 all　和 part，若是 all　直接到服務選單，若是 part 則先到機器選單
+if [ "$(cat $allpart)" == "All" ]; then
+     cat $Crawlzilla_HOME/system/crawl_nodes | grep -v '^$' | grep -v '#'  | awk '{print $1}' >$runNodes
+elif [ "$(cat $allpart)" == "Part" ]; then
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_cluster_setup_title_2" \
+    --checklist "$dia_cluster_setup_check_1" 15 55 7 $(cat $Crawlzilla_HOME/system/crawl_nodes | \
+    grep -v '^$' | grep -v '#'  | awk '{print $1 "\t" $2 "\t" "$LIST_status" }') 2>$runNodes
+#    read -p "$runNodes and $(cat $runNodes)"
+elif [ "$(cat $allpart)" == "Main" ]; then
+    # DONOT: read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+else
+    exit
+fi
+
+if [ -z "$(cat $runNodes)" ]; then
+    exit
+else
+   $(cat $runNodes) | sed -i 's/"//g' $runNodes 
+fi
+
+$DIALOG --clear --backtitle "$dia_back" --title "$dia_cluster_setup_title_3" \
+    --menu "$dia_choose" 15 65 4 \
+    "start" "$dia_cluster_setup_menu_2_1" \
+    "shutdown" "$dia_cluster_setup_menu_2_2" \
+    "restart" "$dia_cluster_setup_menu_2_3" \
+    "main" "$dia_backto_main" 2>$clusterSetup
+
+if [ "$(cat $clusterSetup)" == "start" ]; then
+    echo -e "\n$cluster_setup_echo_1"
+    for node in $(cat $runNodes) 
+    do
+    HadoopStart $node datanode
+    HadoopStart $node tasktracker
+    done
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+elif [ "$(cat $clusterSetup)" == "shutdown" ]; then
+    echo -e "\n$cluster_setup_echo_3"
+    for node in $(cat $runNodes)
+    do
+    HadoopStop $node datanode
+    HadoopStop $node tasktracker
+    done
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+elif [ "$(cat $clusterSetup)" == "restart"  ]; then
+    echo -e "\n$cluster_setup_echo_5"
+    for node in $(cat $runNodes)
+    do  
+    HadoopStop $node datanode
+    HadoopStop $node tasktracker
+    HadoopStart $node datanode
+    HadoopStart $node tasktracker
+    done
+
+    read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+
+elif [ "$(cat $clusterSetup)" == "main"  ]; then
+    # DONOT : read -p "Press Enter to continue.. "
+    main_menu
+    menu_choose
+else    
+    exit
+fi
+   # Back to main menu
+#    read -p "Press Enter to continue.. "
+#    main_menu       
+#    menu_choose
+}
+
+## [Tomcat Severice start/stop/restart] ##
+function tomcat_switch(){
+tom_pids=$(ps x | grep -v 'grep' | grep "tomcat" | awk '{print $1}')
+if [ -n "$tom_pids" ]; then
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_tomcat_switch_title_1" \
+        --msgbox "$dia_tomcat_switch_msg_1" 7 50
+else
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_tomcat_switch_title_1" \
+        --msgbox "$dia_tomcat_switch_msg_2" 7 50
+fi
+tomcatSwitch="$Manu_Tmp_Path/tomcatSwitch"
+$DIALOG --clear --backtitle "$dia_back" --title "$dia_tomcat_switch_title_2" \
+    --menu "$dia_choose" 15 55 4 \
+        "start" "$dia_tomcat_switch_menu_1_1" \
+        "shutdown" "$dia_tomcat_switch_menu_1_2" \
+        "restart" "$dia_tomcat_switch_menu_1_3" \
+        "main" "$dia_backto_main" 2>$tomcatSwitch
+
+if [ "$(cat $tomcatSwitch)" == "exit" ]; then
+    exit 0
+
+elif [ "$(cat $tomcatSwitch)" == "main" ]; then
+    # DONOT: read -p "Press enter to countine..."
+    main_menu
+    menu_choose
+fi
+
+# jude $Tomcat_HOME/bin/startup.sh 
+if [ ! -e $Tomcat_HOME/bin/startup.sh ]; then
+    show_info "\n$tomcat_switch_echo_1 $Tomcat_HOME/bin/startup.sh"
+    exit
+fi
+
+if [ ! -e $Tomcat_HOME/bin/shutdown.sh ]; then
+    show_info "\n$tomcat_switch_echo_1 $Tomcat_HOME/bin/shutdown.sh"
+    exit
+fi
+
+if [ "$(cat $tomcatSwitch)" == "start" ]; then
+    if $Tomcat_HOME/bin/startup.sh > /dev/null 2>&1 ; then
+      show_info "$tomcat_switch_echo_3"
+    else
+      show_info "Error! Tomcat start error"
+    fi
+elif [ "$(cat $tomcatSwitch)" == "shutdown" ]; then
+      Tomcat_Shutdown
+elif [ "$(cat $tomcatSwitch)" == "restart" ]; then
+      Tomcat_Shutdown
+      show_info "$tomcat_switch_echo_3"
+      $Tomcat_HOME/bin/startup.sh  > /dev/null 2>&1
+      show_info "$tomcat_switch_echo_5"
+else
+    exit 1
+fi
+
+    # Back to main menu
+    read -p "Press enter to countine..."
+    main_menu       
+    menu_choose
+}
+
+## [Tomcat Port Change] ##
+function tomcat_port(){
+
+if [ ! -e $Tomcat_HOME/conf/server.xml ]; then
+    $DIALOG --clear --backtitle "$dia_back" --title "$dia_tomcat_port_title_1" \
+        --msgbox "$dia_tomcat_port_msg_1 $Tomcat_HOME/conf/server.xml !!!" 10 50
+    exit
+fi
+tomcatPort="$Manu_Tmp_Path/tomcatPort"
+$DIALOG --clear --backtitle "$dia_back" --title "$dia_tomcat_port_title_2" \
+    --inputbox "$dia_tomcat_port_input_1" 10 55 2>$tomcatPort
+
+if [ -z "$(cat $tomcatPort)" ]; then
+         # Back to main menu
+         read -p "Press enter to countine..."
+         main_menu
+         menu_choose
+else
+    modify_line_nu=$(cat -n $Tomcat_HOME/conf/server.xml | grep -v SSL | grep 'HTTP/1.1' | grep '<Connector' | awk '{print $1}')
+    sed -i "${modify_line_nu}c <Connector port=\"$(cat $tomcatPort)\" protocol=\"HTTP/1.1\"" $Tomcat_HOME/conf/server.xml
+
+    Tomcat_Shutdown
+    $Tomcat_HOME/bin/startup.sh > /dev/null 2>&1
+    show_info "$tomcat_switch_echo_5"
+fi
+
+    # Back to main menu
+    read -p "Press enter to countine..."
+    main_menu       
+    menu_choose
+}
+
+
+## [Language Change] ##
+function lang_switch(){
+langSwitch="$Manu_Tmp_Path/langSwitch"
+$DIALOG --clear --backtitle "$dia_back" --title "$dia_lang_title_1" \
+    --menu "$dia_choose" 15 55 3 \
+    "en_US" "$dia_lang_menu_1_1" \
+    "zh_TW" "$dia_lang_menu_1_2" \
+    "main" "$dia_backto_main" 2>$langSwitch
+#
+if [ "$(cat $langSwitch)" == "en_US" ]; then
+    # source $Work_Path/lang/lang_en_US # original
+    ln -sf $Work_Path/lang/lang_en_US $Manu_Tmp_Path/lang
+    source $Manu_Tmp_Path/lang
+elif [ "$(cat $langSwitch)" == "zh_TW" ]; then
+    # source $Work_Path/lang/lang_zh_TW
+    ln -sf $Work_Path/lang/lang_zh_TW $Manu_Tmp_Path/lang
+    source $Manu_Tmp_Path/lang
+fi
+    main_menu
+    menu_choose
+}
+
+function slave_install (){
+  cat /home/crawler/crawlzilla/source/README.txt
+  read -p "Press enter to countine..."
+  main_menu
+  menu_choose
+}
+
+#function for fast_start_all computing nodes and tomcat server
+function fast_startup_all(){
+  # startup tomcat
+
+  Tomcat_Shutdown
+  $Tomcat_HOME/bin/startup.sh > /dev/null 2>&1
+  show_info "$tomcat_switch_echo_3"
+
+  # startup namenode and jobtracker
+  HadoopStart localhost namenode
+  sleep 3
+  HadoopStart localhost jobtracker
+
+  # startup datanode and tasktracker
+  IP_list=$(cat $Crawlzilla_HOME/system/crawl_nodes | grep -v '^$' | grep -v '#'  | awk '{print $1}')
+  for ip in $IP_list
+    do
+      HadoopStart $ip datanode
+      HadoopStart $ip tasktracker
+    done
+}
+
+#function for fast_shutdown_all computing nodes and tomcat server
+function fast_shutdown_all(){
+  # shutdown tomcat
+  Tomcat_Shutdown 
+  IP_list=$(cat $Crawlzilla_HOME/system/crawl_nodes | grep -v '^$' | grep -v '#'  | awk '{print $1}')
+  # shutdown datanode and tasktracker
+  for ip in $IP_list
+    do
+      HadoopStop $ip datanode
+      HadoopStop $ip tasktracker
+    done
+
+  # shutdown namenode and jobtracker
+  HadoopStop localhost jobtracker
+  HadoopStop localhost namenode
+  sleep 3
+}
+
+## [Menu_choose] ##
+function menu_choose(){
+case $(cat $main_choice) in
+    "cluster_status")
+        cluster_status;;
+    "cluster_setup")
+        cluster_setup;;
+    "fast_manage")
+        fast_manage;;
+    "master_setup")    
+        master_setup;;
+    "tomcat_switch")
+        tomcat_switch;;
+    "tomcat_port")
+        tomcat_port;;
+    "lang_switch")
+        lang_switch;;
+    "slave_install")
+        slave_install;;
+esac
+}
+
+# [Main Code] #
+if [ $USER != "crawler" ]; then
+    show_info "\n$user_error"
+    exit
+fi
+
+prepare_lang
+prepare_check
+main_menu
+menu_choose

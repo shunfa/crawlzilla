@@ -1,0 +1,101 @@
+@CHARSET "UTF-8";
+	fieldset{
+	border:4px solid #C0C0C0;
+	}
+	
+	fieldset:hover{
+	background-color:lightgrey;
+	}
+	
+	legend{
+	color:#06c;
+	font-size:150%;
+	font-weight:800; 
+	background:#fff;
+	font-style:italic;
+	} 
+	
+	label{
+	font-weight:bold;
+	}
+	
+	textarea{
+	font-size:90%;
+	border:black 2px solid; 
+	background-color:#99CC99;
+	width:80%;
+	}
+	
+	.inputText{
+	width:80%;
+	}
+
+	.redfont{
+	color:#8b0000;
+	font-weight:800;  
+	}
+	
+	.lightblue{
+	color:#0000cd;
+	font-weight:600;
+	}
+	
+	.photo_border{
+	border:2px solid black;
+	}
+	
+	/* for crawlstatus.jsp*/
+	.crawl_status{
+	align:center;
+	text-align:center; 
+	}
+	
+	.crawl_status_p{
+	font-style:italic;
+	font-weight:bold;
+	}
+	
+	.crawl_status_legend{
+	margin:auto;	
+	color:#990000;
+	font-size:150%;
+	font-weight:800; 
+	background:#fff;
+	font-style:italic;
+	}
+	
+	/* .nutch_DB_table{
+	border:black 2px solid;
+	width:90%; 
+	}
+	*/
+	
+	table, th, td{
+	border:1px solid green;
+	margin:auto;	
+	}
+	
+	tr:hover{
+	background-color:lightgrey;
+	}
+
+	
+	th{
+	background-color:green;
+	color:white;
+	}
+	
+	.hiddlen{
+	display:none;
+	}
+	
+	.show{
+	display:block;
+	}
+	
+	.blackfont{
+	color:#000000;
+	font-size:80%;
+	font-weight:100; 
+	
+	}

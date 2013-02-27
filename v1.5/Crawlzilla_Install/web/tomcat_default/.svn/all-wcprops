@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/532/trunk/v1.5/Crawlzilla_Install/web/tomcat_default
+END
+patch.sh
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/528/trunk/v1.5/Crawlzilla_Install/web/tomcat_default/patch.sh
+END

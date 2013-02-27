@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent
+END
+nutch_DB.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/nutch_DB.jsp
+END
+crawl.js
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/crawl.js
+END
+sysinfo.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/sysinfo.jsp
+END
+change_PW.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/change_PW.jsp
+END
+changePW.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/changePW.jsp
+END
+usersetup.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/usersetup.jsp
+END
+index.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/index.jsp
+END
+login.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/login.jsp
+END
+crawl.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/crawl.jsp
+END
+logout.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/logout.jsp
+END
+usersetupset.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/usersetupset.jsp
+END
+crawlstatus.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/crawlstatus.jsp
+END
+crawl_dup_filename.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/crawl_dup_filename.jsp
+END
+adminLogin.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/adminLogin.jsp
+END
+crawlerror.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/433/trunk/v0.3/src/web/WebContent/crawlerror.jsp
+END

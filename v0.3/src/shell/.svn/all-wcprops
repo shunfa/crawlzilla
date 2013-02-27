@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/456/trunk/v0.3/src/shell
+END
+scpFilesToSlave.sh
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/433/trunk/v0.3/src/shell/scpFilesToSlave.sh
+END
+slave_install_func.sh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/433/trunk/v0.3/src/shell/slave_install_func.sh
+END
+slave_remove
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/433/trunk/v0.3/src/shell/slave_remove
+END
+counter.sh
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/433/trunk/v0.3/src/shell/counter.sh
+END
+log.sh
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/433/trunk/v0.3/src/shell/log.sh
+END
+install_func.sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/433/trunk/v0.3/src/shell/install_func.sh
+END
+rm_DB.sh
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/433/trunk/v0.3/src/shell/rm_DB.sh
+END
+duplicate_del
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/433/trunk/v0.3/src/shell/duplicate_del
+END
+slave_deploy.sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/433/trunk/v0.3/src/shell/slave_deploy.sh
+END
+fix.sh
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/433/trunk/v0.3/src/shell/fix.sh
+END
+slave_install
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/433/trunk/v0.3/src/shell/slave_install
+END
+tomcat_restart.sh
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/433/trunk/v0.3/src/shell/tomcat_restart.sh
+END
+crawlzilla
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/433/trunk/v0.3/src/shell/crawlzilla
+END
+install
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/433/trunk/v0.3/src/shell/install
+END
+re_crawl.sh
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/433/trunk/v0.3/src/shell/re_crawl.sh
+END
+add_hosts
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/433/trunk/v0.3/src/shell/add_hosts
+END
+master_remove
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/433/trunk/v0.3/src/shell/master_remove
+END
+go.sh
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/433/trunk/v0.3/src/shell/go.sh
+END

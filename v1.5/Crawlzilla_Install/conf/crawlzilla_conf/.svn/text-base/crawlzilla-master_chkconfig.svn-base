@@ -1,0 +1,161 @@
+#! /bin/sh
+#
+# Crawlzilla services
+#
+# chkconfig: 2345 20 90
+# description: Starts and stops the Crawlzilla
+
+## [Variables declaration]
+Crawlzilla_Install_Path="/opt/crawlzilla"
+Tomcat_Home="$Crawlzilla_Install_Path/tomcat"
+Nutch_Home="$Crawlzilla_Install_Path/nutch"
+Hadoop_daemon="$Nutch_Home/bin/hadoop-daemon.sh"
+
+
+## [Functions declaration]
+start_tomcat() {
+if [ -x "$Tomcat_Home/bin/startup.sh" ]; then
+    if [ "$USER" = "crawler" ]; then
+        $Tomcat_Home/bin/startup.sh
+    else
+        su crawler -c "$Tomcat_Home/bin/startup.sh"
+    fi
+else
+    echo "[Error: cann't execute $Tomct_Home/bin/startup.sh]"
+fi
+}
+
+start_hadoop() {
+if [ -x "$Hadoop_daemon" ]; then
+    if [ "$USER" = "crawler" ]; then
+        $Hadoop_daemon start namenode
+        $Hadoop_daemon start jobtracker
+        $Hadoop_daemon start tasktracker
+        $Hadoop_daemon start datanode
+    else
+        su crawler -c "$Hadoop_daemon start namenode"
+        su crawler -c "$Hadoop_daemon start jobtracker"
+        su crawler -c "$Hadoop_daemon start tasktracker"
+        su crawler -c "$Hadoop_daemon start datanode"
+    fi
+else
+    echo "[Error: cann't execute $Hadoop_daemon"
+fi
+}
+
+stop_tomcat() {
+if [ -x "$Tomcat_Home/bin/shutdown.sh" ]; then
+    if [ "$USER" = "crawler" ]; then
+        $Tomcat_Home/bin/shutdown.sh
+    else
+        su crawler -c "$Tomcat_Home/bin/shutdown.sh"
+    fi
+else
+    echo "Error: cann't execute $Tomcat_Home/bin/shutdown.sh"
+fi
+
+# check tomcat daemon, if exit use kill command to kill tomcat
+tomcat_pids=$(ps ax | grep -v grep | grep "tomcat" | awk '{print $1}')
+if [ -n "$tomcat_pids" ]; then
+    for tomcat_pid in $tomcat_pids
+    do
+        kill -9 $tomcat_pid 2>/dev/null
+    done
+fi
+}
+
+stop_hadoop() {
+if [ -x "$Hadoop_daemon" ]; then
+    if [ "$USER" = "crawler" ]; then
+        $Hadoop_daemon stop namenode
+        $Hadoop_daemon stop jobtracker                                                               
+        $Hadoop_daemon stop tasktracker
+        $Hadoop_daemon stop datanode
+    else
+        su crawler -c "$Hadoop_daemon stop namenode"
+        su crawler -c "$Hadoop_daemon stop jobtracker"
+        su crawler -c "$Hadoop_daemon stop tasktracker"
+        su crawler -c "$Hadoop_daemon stop datanode"
+    fi  
+else
+    echo "[Error: cann't execute $Hadoop_daemon"
+fi
+}
+
+status_tomcat() {
+tomcat_pids=$(ps ax | grep -v grep | grep "tomcat" | awk '{print $1}')
+if [ -n "$tomcat_pids" ]; then
+    echo "Tomcat is running !"
+else
+    echo "Tomcat in not running !"
+fi
+}
+
+status_hadoop() {
+if [ "$USER" = "crawler" ]; then
+    jps > /tmp/jps_crawlzilla_$USER
+else
+    su crawler -c "jps" > /tmp/jps_crawlzilla_$USER
+fi
+
+jps_file="/tmp/jps_crawlzilla_$USER"
+# hadoop daemon pid
+NameNode_pid=$(cat $jps_file | grep NameNode | awk '{print $1}')                                                                                  
+DataNode_pid=$(cat $jps_file | grep DataNode | awk '{print $1}')
+JobTracker_pid=$(cat $jps_file | grep JobTracker | awk '{print $1}')
+TaskTracker_pid=$(cat $jps_file | grep TaskTracker | awk '{print $1}')
+
+if [ -n "$NameNode_pid" ]; then
+    echo "NameNode is running !"
+else
+    echo "NameNode is not running !"
+fi
+
+if [ -n "$TaskTracker_pid" ]; then       
+    echo "TaskTracker is running !"    
+else                                
+    echo "TaskTracker is not running !"
+fi
+
+if [ -n "$DataNode_pid" ]; then       
+    echo "DataNode is running !"    
+else                                
+    echo "DataNode is not running !"
+fi
+
+if [ -n "$JobTracker_pid" ]; then       
+    echo "JobTracker is running !"    
+else                                
+    echo "JobTracker is not running !"
+fi
+}
+
+
+## [Main]
+case $1 in
+    start)
+        start_tomcat
+        start_hadoop
+        echo "[start crawlzilla completion !]"
+    ;;
+    stop)
+        stop_tomcat
+        stop_hadoop
+        echo "[stop crawlzilla completion !]"
+    ;;
+    restart)
+        $0 stop
+        sleep 3
+        $0 start
+    ;;
+    status)
+        status_tomcat
+        status_hadoop
+    ;;
+    *)
+        echo "Usage: $0 {start/stop/restart/status}"
+        exit 1
+    ;;
+esac
+
+exit 0

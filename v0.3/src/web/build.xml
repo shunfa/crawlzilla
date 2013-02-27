@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<project name="crawlzilla" default="dist" basedir=".">
+      
+    <!--如果目錄結構如下  
+        project  
+            ... src                 JAVA 原始碼路徑
+            ... WebRoot             網頁(jps,html)放得資料夾路徑
+                ... WEB-INF	    WEB-INF 的資料夾路徑
+                    ...lib          網頁專案jar 包路徑
+            ... build               暫存的編譯後的class目錄路徑
+            ... dist                war 和javadoc資料夾路徑  
+            ... build.xml           ant的腳本
+    -->  
+      
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="WEB-INF/lib"/>  
+    <property name="webRoot.dir" value="WebContent"/>
+    <property name="web-inf.dir" value="${webRoot.dir}/WEB-INF"/>  
+
+    <property name="build.dir" value="/tmp/crawlzilla-web-build"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="tomcat.lib.dir" value="/opt/tomcat/lib"/>
+      
+    <!-- 初始化 classpath -->  
+    <path id="project.classpath">  
+        <fileset dir="${webRoot.dir}/${lib.dir}">  
+            <include name="**/*.jar"/>  
+        </fileset>  
+        <fileset dir="${tomcat.lib.dir}">  
+            <include name="**/*.jar"/>  
+        </fileset>  
+          
+        <pathelement location="${build.dir}/classes"/>  
+        <pathelement path="${java.class.path}"/>  
+    </path>  
+      
+    <!-- 删除之前的目錄結構 -->  
+    <target name="clean">  
+        <delete dir="${build.dir}"/>  
+        <delete dir="${dist.dir}/${ant.project.name}.war"/> 
+	<tstamp>
+	    <format property="nowstamp" pattern="yyyyMMdd" locale="tw"/>
+	</tstamp>
+    <!-- 已經有其他備份機制
+	<move file="${dist.dir}/${ant.project.name}.war" tofile="${dist.dir}/${ant.project.name}.war.${nowstamp}"/> -->
+    </target>
+      
+    <!--起始目錄結構 -->  
+    <target name="init">  
+        <mkdir dir="${build.dir}/classes"/>
+        <mkdir dir="${dist.dir}"/>  
+    </target>  
+      
+    <!-- 編譯 Java -->  
+    <target name="compile" depends="init" description="compile java source">  
+        <javac srcdir="${src.dir}" destdir="${build.dir}/classes">  
+            <classpath refid="project.classpath"/>   
+        </javac>  
+          
+        <copy todir="${build.dir}/classes">  
+            <fileset dir="${src.dir}">  
+                <include name="**/*.xml"/>  
+                <include name="**/*.jar"/>  
+                <include name="**/*.properties"/>  
+            </fileset>  
+        </copy>  
+    </target>  
+      
+    <!-- 打包 class文件成 jar包 -->  
+    <target name="pack" depends="compile">  
+        <jar jarfile="${web-inf.dir}/lib/${ant.project.name}.jar">
+            <fileset dir="${build.dir}/classes">  
+                <include name="**/*"/>  
+            </fileset>  
+        </jar>  
+    </target>  
+  
+    <!-- 把路徑打包成war -->  
+    <target name="dist" depends="pack">  
+        <war destfile="${dist.dir}/${ant.project.name}.war" basedir="${webRoot.dir}" webxml="${web-inf.dir}/web.xml"/>  
+    </target>  
+</project>

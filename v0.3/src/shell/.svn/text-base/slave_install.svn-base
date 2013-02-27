@@ -1,0 +1,124 @@
+#!/bin/bash
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# Program:
+#   Check root identity and change root to exectue slave_install.sh
+# Author: 
+#   Waue, Shunfa, Rock {waue, shunfa, rock}@nchc.org.tw
+
+
+# change root to run
+[ "`id -u`" != "0" ] && exec sudo su -c "$0" "$@"
+
+# Master IP here
+Master_IP_Address=your.master.ip.here
+# Master Hostname here
+Master_Hostname=your_master_hostname_here
+# local para
+Linux_Distribution="";
+Linux_Version="";
+Crawler_Passwd="xxxxxxxxxx";
+autoSlaveInstallFlag="no";
+Work_Path=`dirname "$0"`
+
+if [ -f $Work_Path/slave_install_func.sh ];then
+  Work_Path=`cd "$Work_Path"; pwd`
+elif [ -f $Work_Path/bin/slave_install_func.sh ];then
+  Work_Path=`cd "$Work_Path/bin"; pwd`;
+else
+  echo "Import the installation libraries of slave Error!!!"
+  exit 1;
+fi
+SYS_VER=`cat $Work_Path/version`
+source "$Work_Path/slave_install_func.sh";
+source "$Work_Path/log.sh" slave_install;
+
+# load default language
+load_default_lang
+
+# check Crawlzilla is already installed
+check_crawlzilla_installed
+
+# check hostname can't be localhost
+check_hostname_localhost
+
+# check whether user is root
+check_root
+
+# Language Choice
+#choose_lang
+
+# ask para
+yesno="no"
+show_info "$par_echo_1 $Master_IP_Address"
+if [ "$autoSlaveInstallFlag" == "no" ]; then
+  read -p "$par_echo_2" yesno
+ 
+  else 
+    yesno=yes
+fi
+            
+if [ "$yesno" == "yes" ] || [ "$yesno" == "y" ] ; then
+    show_info "$par_echo_3"
+else
+    show_info "$par_echo_4"
+    exit
+fi
+
+# findout system information
+check_systemInfo
+
+# install default package (such as: ssh, expect, dialog )
+install_packages
+
+
+
+# check sun java 6
+check_sunJava
+
+# check openssh, openssh-server
+check_ssh
+
+# check dialog
+check_dialog
+
+# create crawler and its password Crawler_Passwd 
+creat_crawler_account
+
+# check master is connected ? ok will copy ssh-keys,  if not then break
+scp_master_crawler_sshkey $Master_IP_Address
+
+# scp  master's setup and install data
+scp_packages $Master_IP_Address
+
+# change /etc/hosts owner from root to crawler
+check_set_hosts
+
+# install and startup 
+install_nutch_package
+
+# add crawlzilla init.d script (make slave startup crawlzilla when booting)
+add_crawlzilla_to_initd
+
+# start up hadoop service
+startup_hadoop_service
+
+# return Hostname and slave ip to Master Server
+recall_hostname_ip $Master_IP_Address
+show_info "$CI_finish_echo_1"
+change_ownship crawler /home/crawler/crawlzilla
+if [ "$autoSlaveInstallFlag" == "no" ]; then
+  read -p "press any key to continue..."
+fi

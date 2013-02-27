@@ -1,0 +1,109 @@
+#!/bin/bash
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# change as root to run install
+[ "`id -u`" != "0" ] && exec sudo su -c "$0" "$@"
+
+# paramaters declare
+Linux_Distribution=""
+autoSlaveInstallFlag="no"
+Work_Path=`dirname "$0"`
+if [ -f $Work_Path/install_func.sh ];then
+  Work_Path=`cd "$Work_Path"; pwd`
+elif [ -f $Work_Path/bin/install_func.sh ];then
+  Work_Path=`cd "$Work_Path/bin"; pwd`;
+else
+  echo "Import install-function-library error !!! ";
+  exit 1;
+fi
+
+SYS_VER=`cat $Work_Path/version`
+
+# Log to /var/log/crawlzilla/shell-logs
+source "$Work_Path/log.sh" master_install;
+# Source functions
+source "$Work_Path/install_func.sh";
+### real code #####
+
+main () {
+
+#  show_info "是否產生Slave節點自動安裝檔案：yes/no"
+#  read autoSlaveInstallFlag
+  show_info "$MI_main_echo_1"
+  set_install_information
+  show_master_info
+  show_info "$MI_main_echo_2"
+  read confirm
+  if [ "$confirm" == "1" ]; then
+    creat_crawler_account $Crawler_Passwd
+    make_ssh_key
+    unzip_nV2_pack
+    mkdir_Home_Var
+    # change /etc/hosts owner from root to crawler
+    check_set_hosts
+    install_Nutch
+    link_Chown   
+    # Add crawlzilla service to init.d (Crawlzilla startup when booting)
+    add_crawlzilla_to_initd
+    # make web default password
+    su crawler -c "echo "crawler" > /home/crawler/crawlzilla/system/.passwd"
+    chmod 600 /home/crawler/crawlzilla/system/.passwd
+    
+    # 設定自動安裝參數
+    if [ "$autoSlaveInstallFlag" == "yes" ]; then
+      set_auto_slave
+    fi
+    make_slave_install
+    # restart system
+    format_HDFS
+    start_up_Crawlzilla
+    start_up_tomcat
+
+    # instalation finished
+    show_info "$MI_main_echo_3"
+#   show_info "Install Successfully!!"
+    show_info "$MI_main_echo_4$MasterIP_Address:8080"
+#   show_info "Visit http://$MasterIP_Address:8080"
+    slave_install_commands
+ 
+
+  elif [ "$confirm" == "2" ]; then
+    show_info "Again.."
+    main
+  else
+    exit 0
+  fi
+}
+
+function check_info ( ) {
+  check_crawlzilla_installed
+  check_hostname_localhost
+  check_root
+  check_systemInfo
+  install_packages
+  check_sunJava
+  check_ssh
+  check_dialog
+}
+
+load_default_lang
+check_info
+main
+generateReadme
+change_ownship crawler /home/crawler/crawlzilla
+show_info $crawlzilla_install_finish
+read

@@ -1,0 +1,223 @@
+#!/bin/bash
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Program:
+#   remove shell script for slave uninstall
+# Author:
+#   Waue, Shunfa, Rock {waue, shunfa, rock}@nchc.org.tw
+# Version:
+#    1.0
+# History:
+#    
+
+if [ -f "/opt/crawlzilla/main/slave_remove" ];then
+  Work_Path="/opt/crawlzilla/main";
+elif [ -f $Work_Path/slave_remove ];then
+  Work_Path=`cd "$Work_Path"; pwd`
+else
+  echo "Import install-function-library error !!! ";
+  exit 1;
+fi
+
+if [ -d "/opt/crawlzilla/main/lang" ];then
+  Lang_Path="/opt/crawlzilla/main/lang"
+elif [ -d "$Work_Path/lang" ];then
+  Lang_Path="$Work_Path/lang"
+else
+  echo "No language package existed."
+fi
+
+
+
+
+# [ System Load] #
+# Master IP here
+Master_IP_Address=master.ip
+
+## language load 
+lang=$(locale | grep 'LANGUAGE=' | cut -d "=" -f2 | cut -d ":" -f1 )
+if [ "$lang" == "zh_TW" ] || [ "$lang" == "zh_TW.utf8" ] || \
+   [ "$lang" == "zh_TW:zh" ];then
+    source $Lang_Path/lang_zh_TW
+else
+    source $Lang_Path/lang_en_US
+fi
+
+#  [ Function Description ] #
+
+function error_info ( )
+{ 
+    echo -e "\033[1;35;40m ERROR: $1 \033[0m" 
+}
+function show_info ( ) 
+{
+    echo -e "\033[1;32;40m $1 \033[0m"
+}
+
+# check root
+function check_root ( )
+{
+  [ "`id -u`" != "0" ] && echo "please enter password of $USER:"  && exec sudo su -c "$0" "$@"
+  if [ $USER != "root" ]; then
+    show_info "$MR_check_root_1" # "請切換成 root 身份執行移除程式!!!"
+    exit
+  fi
+  show_info "$MR_check_root_2" # "已確認為root身份, 將繼續執行此移除程式！"
+}
+
+# check root
+function check_root ( )
+{
+  [ "`id -u`" != "0" ] && echo "please enter password of $USER:"  && exec sudo su -c "$0" "$@"
+  if [ $USER != "root" ]; then
+    show_info "$CR_check_root_1" # "請切換成 root 身份執行移除程式!!!"
+    exit
+  fi
+  show_info "$CR_check_root_2" # "已確認為root身份, 將繼續執行此移除程式！"
+}
+
+# shutdown service
+function shutdown_service () {
+  show_info "$CR_shutdown_service_echo_1" # "關閉本機服務..."
+  su crawler -c "/opt/crawlzilla/nutch/bin/hadoop-daemon.sh stop datanode"
+  su crawler -c "/opt/crawlzilla/nutch/bin/hadoop-daemon.sh stop tasktracker"
+  if [ -e /var/log/crawlzilla/hadoop-pids/hadoop-crawler-datanode.pid ] || \
+   [ -e /var/log/crawlzilla/hadoop-pids/hadoop-crawler-tasktracker.pid ] ;then
+    kill -9 $(cat /var/log/crawlzilla/hadoop-pids/hadoop-crawler-datanode.pid) > /dev/null 2>&1 
+     #if [ ! $? -eq 0 ];then echo "datanode error !";fi
+    kill -9 $(cat /var/log/crawlzilla/hadoop-pids/hadoop-crawler-tasktracker.pid) > /dev/null 2>&1
+     #if [ ! $? -eq 0 ];then echo "tasktracker error !";fi
+  else 
+   echo "Hadoop never startup yet"
+  fi
+
+  show_info "$CR_shutdown_service_echo_2" # "本機服務已關閉"
+}
+
+# 移除檔案及資料夾
+function remove_folders () {
+  show_info "$CR_remove_folders_echo_1" # "正在刪除安裝時所建立的檔案及資料夾..."
+  rm /usr/bin/crawlzilla_remove
+  rm -rf /opt/crawlzilla
+  rm -rf /var/log/crawlzilla
+  show_info "$CR_remove_folders_echo_2" # "安裝時所建立的檔案及資料夾已刪除"
+}
+
+
+# 還原/etc/hosts
+function edit_hosts () {
+  show_info "$CR_edit_hosts_echo_1" # "修改/etc/hosts..."
+  if [ -e /home/crawler/crawlzilla/meta/hosts.bak ];then 
+    rm /etc/hosts 
+    cp /home/crawler/crawlzilla/meta/hosts.bak /etc/hosts
+    show_info "$CR_edit_hosts_echo_2" # "完成修改/etc/hosts"
+  elif [ -e /home/crawler/crawlzilla/meta/hosts ];then
+    rm /etc/hosts
+    cp /home/crawler/crawlzilla/meta/hosts /etc/hosts
+    show_info "still using the /etc/hosts created by crawlzilla "
+  elif [ -f /etc/hosts ];then
+    show_info " WARNNING ! Please check your /etc/hosts correct or not!"
+  else
+    show_info " BUG ! /etc/hosts error !!!"
+  fi
+}
+
+function edit_remove_list ( ) 
+{
+# 透過scp master上的檔案判斷是否有網路or master是否有開啟
+ su crawler -c "scp -o StrictHostKeyChecking=no crawler@$Master_IP_Address:/opt/crawlzilla/main/go.sh /opt/crawlzilla/main/"
+  if [ -e "/opt/crawlzilla/main/go.sh" ] ;then
+    Client_Hostname=$(hostname)
+    IP_Address=$(cat /etc/hosts | grep $Client_Hostname | awk '{print $1}')
+    su crawler -c "ssh -o StrictHostKeyChecking=no $Master_IP_Address echo $IP_Address \>\> ~/crawlzilla/system/remove_list"
+    remove_flag=0
+  elif [ ! -e "/opt/crawlzilla/main/go.sh" ] ;then
+    remove_flag=1
+  fi
+}
+
+
+# 移除使用者
+function user_delete () {
+  show_info "$CR_user_delete_echo_1" # "正在刪除crawler使用者..."
+  userdel -rf crawler >/dev/null 2>&1
+  groupdel crawler >/dev/null 2>&1
+  show_info "$CR_user_delete_echo_2" # "使用者crawler已刪除"
+}
+
+# remove crawlzilla init.d script
+remove_crawlzilla_to_initd() {
+linux_dist=$(lsb_release -i | awk '{print $3}')
+# for debian system
+if [ "$linux_dist" = "Ubuntu" ] || [ "$linux_dist" = "Debian" ]; then
+    update-rc.d -f  crawlzilla remove
+    rm /etc/init.d/crawlzilla
+    # for rpm system                                                                                
+elif [ "$linux_dist" = "CentOS" ] || [ "$linux_dist" = "Fedora" ] || [ "$linux_dist" = "SUSE" ]; then
+    chkconfig --del crawlzilla
+    rm /etc/init.d/crawlzilla
+else
+    show_info "Please delete /etc/init.d/ crawlzilla file manually."
+fi
+}
+
+# Main function
+function main () {
+  show_info "$CR_main_echo_1" #"警告 - 此一程式為移除此用戶端的crawl node, 若您為誤執行此一程式, 請按Ctrl+c離開此程序！"
+  show_info "$CR_main_echo_2" #"本執行程序將會移除安裝crawlzilla時所新增的檔案及crawler使用者帳號"
+  # confirm 
+  LOCK=0
+  while [ "$LOCK" == "0" ];
+  do
+ 	# 詢問是否繼續
+	read -p "$CR_main_echo_3" confirm # "請問是否確定移除此一節點：1.確定 2.取消"
+	# 確認移除
+	if [ "$confirm" == "y" ]; then
+	  shutdown_service
+	  remove_folders
+	  edit_remove_list
+	  edit_hosts
+	  user_delete
+      remove_crawlzilla_to_initd
+	  show_info "$CR_main_echo_4" # "移除程序已完成！"
+	  if [ "$remove_flag" == "y" ]; then
+	      show_info "You need to edit /home/crawler/crawlzilla/meta/crawl_nodes "
+	      show_info "located at $Master_IP_Address manually because the connection is losted."
+	  fi
+          LOCK=1; 
+	elif [ "$confirm" == "n" ]; then
+	  show_info "$CR_main_echo_5" # "您已取消移除程序！"
+	  show_info "$CR_main_echo_6" # "若要移除請再重新執行！"
+          LOCK=1; 
+	else
+	  show_info "Hint: y => yes, n => exit "
+	  show_info "Please enter y or n"
+	fi
+  done
+}
+
+# [ Process Go ]
+check_root
+if [ ! -e "/home/crawler/crawlzilla" ] || [ ! -e "/opt/crawlzilla" ] ; then
+  show_info "Installation is not complete!"
+  show_info "Remove forcibly[1=agree/2=exit]"
+  read -p "[y/n]: " force_do_remove
+  if [ ! "$force_do_remove" == "y" ];then
+    exit 0;
+  fi
+fi
+main
+

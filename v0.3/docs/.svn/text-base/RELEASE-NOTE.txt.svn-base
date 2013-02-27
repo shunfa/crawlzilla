@@ -1,0 +1,10 @@
+This release of Crawlzilla (0.2.2) 
+includes major enhancements, changes and bug fixes. 14/Oct/2010
+
+MAJOR ENHANCEMENTS and CHANGES:
+ * Most of the linux distribution (Ubuntu, Debian, OpenSuse, CentOS, Fedora, CentOS) was tested and ran correctly.
+ * Improve install and remove speed.
+ * System was check more detail than do ection.
+
+BUG FIXES
+
