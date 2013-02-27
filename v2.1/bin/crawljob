@@ -76,6 +76,8 @@ function delete_search_DB(){
     delete_line_NO=`cat -n /opt/crawlzilla/solr/example/solr/solr.xml | grep $DB_name | awk 'NR==1 {print "" $1}'`
     log_echo "delete solr line: $delete_line_NO" $LOG_HOME/$DB_name-$create_time.log
     log_echo "sed -i "$delete_line_NO"d $SOLR_HOME/example/solr/solr.xml" $LOG_HOME/$DB_name-$create_time.log
+    # back solr
+    cp $SOLR_HOME/example/solr/solr.xml $SOLR_HOME/example/solr/solr.xml.bak.$create_time
     sed -i "$delete_line_NO"d $SOLR_HOME/example/solr/solr.xml
     log_echo "Restart Solr" $LOG_HOME/$DB_name-$create_time.log
     $bin/services solr restart  

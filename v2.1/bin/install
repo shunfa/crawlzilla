@@ -55,7 +55,7 @@ function install_nutch(){
   mv $CRAWLZILLA_HOME/apache-nutch-1.6 $NUTCH_HOME
   show_echo "mv $CRAWLZILLA_HOME/apache-nutch-1.6 $NUTCH_HOME"
   # cp conf
-  cp ../conf/nutch-site.xml.czl_version  $NUTCH_HOME/conf/nutch-site.xml
+  cp -r ../conf/nutch-site.xml.czl_version  $NUTCH_HOME/conf/nutch-site.xml
   if [ ! -d $URLS ]; then
     mkdir -p $URLS
   fi
@@ -77,7 +77,7 @@ function install_solr(){
 }
 
 function integrate_tomcat_solr(){
-
+  echo "integrate_tomcat_solr"
 
 
 }
@@ -94,6 +94,7 @@ function main(){
   if [ ! -d $LOG_HOME ]; then
      mkdir -p $LOG_HOME
   fi
+  USERNAME=`cat /tmp/username`
   log_echo "Start Install .." $LOG_HOME/System.log
   show_echo "Start Install .."
   log_echo "Username: $USERNAME" $LOG_HOME/System.log
@@ -103,7 +104,7 @@ function main(){
   check_package
   install_nutch
   install_solr
-  cp $bin $CRAWLZILLA_HOME
+  cp -r ../$bin $CRAWLZILLA_HOME
   sudo chown -R $USERNAME:$USERNAME $CRAWLZILLA_HOME
   sudo chown -R $USERNAME:$USERNAME $LOG_HOME
   startup_services

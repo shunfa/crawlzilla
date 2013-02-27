@@ -28,7 +28,7 @@ public class infoOperBean {
 			finish = Integer.parseInt(finishTime);
 			System.out.println("" + (finish - start));
 			sHr = ((finish - start) / 3600);
-			sMin = ((finish - start) / 60);
+			sMin = ((finish - start - 3600 * sHr) / 60);
 			sSec = ((finish - start) % 60);
 			// System.out.println("H: "+ sHr + ", M: " + sMin + ", S: " + sSec);
 			spendTime = (sHr >= 10 ? sHr : "0" + sHr) + ":"
@@ -95,8 +95,8 @@ public class infoOperBean {
 
 	public static void main(String args[]) throws IOException {
 		infoOperBean iOB = new infoOperBean();
-		System.out.println(iOB.getMessage("jspTest4", "status"));
-		System.out.println(iOB.getSpendTime("jspTest4"));
+		System.out.println(iOB.getMessage("nchc-test1", "status"));
+		System.out.println(iOB.getSpendTime("nchc-test1"));
 		// iOB.changeHideInfoFlag("NCHC_20130131-2", true);
 	}
 }
