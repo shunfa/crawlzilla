@@ -59,14 +59,32 @@
 			<li><a href="settings.jsp">Settings</a></li>
 			<li><a href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
-			<li><a href="login.jsp">Login/Logout</a></li>
+			<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+			<li><a href="login.jsp">Login</a></li>
+			<% } else { %>
+			<li><a href="logout.jsp">Logout</a></li>
+			<% }  %>
 		</ul>
 	</nav>
 
 	<header class="ink-container ink-for-m ink-for-s">
 		<div class="ink-vspace"></div>
 	</header>
-
+<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+<div class="ink-container ink-vspace">
+<br>Please Login First!
+<br><a href="login.jsp">Login</a>
+</div>
+<%
+	response.setHeader("Refresh", "1; URL=login.jsp");
+	}
+	//# Login, display the home page
+	else {
+%>
 	<div class="ink-container ink-vspace">
 		<h1 class="">Seaech Engine List</h1>
 		<table width="100%" height="121" border="0">
@@ -94,9 +112,11 @@
 					<td align="center" valign="middle"><label> <select
 							name="oper" id="operation">
 								<option value="0">Choose</option>
+								<!-- 
 								<option value="detial">Detial</option>
 								<option value="re-crawl">Re-Crawl</option>
 								<option value="schedule">Schedule</option>
+								 -->
 								<option value="deleteDB">Delete</option>
 						</select>
 						<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" /> 
@@ -185,6 +205,7 @@
 		</table>
 		<p>&nbsp;</p>
 	</div>
+	<% } %>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">

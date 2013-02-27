@@ -57,7 +57,13 @@
 			<li><a
 				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
-			<li class="active"><a href="login.jsp">Login/Logout</a></li>
+			<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+			<li><a href="login.jsp">Login</a></li>
+			<% } else { %>
+			<li><a href="logout.jsp">Logout</a></li>
+			<% }  %>
 		</ul>
 	</nav>
 
@@ -75,6 +81,7 @@
 					<h4>Please Typing Admin's Password:</h4>
 					<form id="login" method="post" action="login.do">
 						<input type="password" name="admin_password" id="admin_password">
+						<input type="hidden" name="oper" value="admin_login" />
 						</p>
 						<p>
 							<input type="submit" name="submit" id="submit" value="Submit">

@@ -47,7 +47,19 @@
 			<p>Make Your Own Search Engine Friendly!</p>
 		</div>
 	</header>
-
+<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+<div class="ink-container ink-vspace">
+<br>Please Login First!
+<br><a href="login.jsp">Login</a>
+</div>
+<%
+	response.setHeader("Refresh", "1; URL=login.jsp");
+	}
+	//# Login, display the home page
+	else {
+%>
 	<nav class="ink-container ink-navigation">
 		<ul class="horizontal menu">
 			<li class="active"><a href="index.jsp">Home</a></li>
@@ -57,7 +69,13 @@
 			<li><a
 				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
-			<li><a href="login.jsp">Login/Logout</a></li>
+			<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+			<li><a href="login.jsp">Login</a></li>
+			<% } else { %>
+			<li><a href="logout.jsp">Logout</a></li>
+			<% }  %>
 		</ul>
 	</nav>
 
@@ -73,6 +91,7 @@
 		<p>Message here</p>
 		<a href="javascript:history.back();">Back to Previous Page.</a>
 	</div>
+	<% } %>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">

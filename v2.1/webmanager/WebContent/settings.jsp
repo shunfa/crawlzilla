@@ -57,7 +57,13 @@
 			<li><a
 				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
-			<li><a href="login.jsp">Login/Logout</a></li>
+			<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+			<li><a href="login.jsp">Login</a></li>
+			<% } else { %>
+			<li><a href="logout.jsp">Logout</a></li>
+			<% }  %>
 		</ul>
 	</nav>
 
@@ -67,21 +73,39 @@
 			<p>Make Your Own Search Engine Friendly!</p>
 		</div>
 	</header>
-
+<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+<div class="ink-container ink-vspace">
+<br>Please Login First!
+<br><a href="login.jsp">Login</a>
+</div>
+<%
+	response.setHeader("Refresh", "1; URL=login.jsp");
+	}
+	//# Login, display the home page
+	else {
+%>
 	<div class="ink-container ink-vspace">
 		<h4>Settings		</h4>
 		<table width="70%" height="113" border="0">
 		  <tr>
-		    <td align="center" valign="middle">What You Want to Change?</td>
-            <form id="change" method="post" action="change.do" >
+		    <td align="center" valign="middle">Change Language?</td>
+            <form id="change" method="post" action="changeLang.do" >
 		    <td align="center" valign="middle"><label>
 		      <select name="opers" id="opers">
 		        <option value="0">Choose</option>
-		        <option value="1">Language</option>
-		        <option value="2">Password</option>
+		        <option value="1">English</option>
+		        <option value="2">Chinese</option>
 	          </select>
 	        </label>
 	        <input type="submit" name="submit" id="submit" value="Submit"></td></form>
+	      </tr>
+	      <tr>
+		    <td align="center" valign="middle">Change Password?</td>
+		    <td align="center" valign="middle"><label>
+		    <a href="changePW.jsp"> Press Here</a>
+		      </td>
 	      </tr>
 		  <tr>
 		    <td align="center" valign="middle">&nbsp;</td>
@@ -94,6 +118,7 @@
 	  </table>
 <br>
 	</div>
+	<% } %>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">

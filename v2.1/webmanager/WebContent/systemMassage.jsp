@@ -57,7 +57,13 @@
 			<li><a
 				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
-			<li><a href="login.jsp">Login/Logout</a></li>
+			<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+			<li><a href="login.jsp">Login</a></li>
+			<% } else { %>
+			<li><a href="logout.jsp">Logout</a></li>
+			<% }  %>
 		</ul>
 	</nav>
 

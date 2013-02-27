@@ -57,7 +57,13 @@
 			<li><a
 				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
-			<li><a href="login.jsp">Login/Logout</a></li>
+				<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+			<li><a href="login.jsp">Login</a></li>
+			<% } else { %>
+			<li><a href="logout.jsp">Logout</a></li>
+			<% }  %>
 		</ul>
 	</nav>
 
@@ -67,7 +73,19 @@
 			<p>Make Your Own Search Engine Friendly!</p>
 		</div>
 	</header>
-
+	<%
+if (session.getAttribute("loginFlag") != "true") {
+%>
+<div class="ink-container ink-vspace">
+<br>Please Login First!
+<br><a href="login.jsp">Login</a>
+</div>
+<%
+	response.setHeader("Refresh", "1; URL=login.jsp");
+	}
+	//# Login, display the home page
+	else {
+%>
 	<div class="ink-container ink-vspace">
 		<h4>Welcome to Use Crawlzilla!</h4>
 		<p>Functions as following:</p>
@@ -81,6 +99,7 @@
 		<p>4. Settings</p>
 		<br>
 	</div>
+	<% } %>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">
