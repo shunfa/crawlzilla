@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/crawlzillaWeb/!svn/ver/5/demo/WebContent/include
+END
+header.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/crawlzillaWeb/!svn/ver/3/demo/WebContent/include/header.jsp
+END
+IDBList.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/crawlzillaWeb/!svn/ver/3/demo/WebContent/include/IDBList.jsp
+END
+footer.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/crawlzillaWeb/!svn/ver/3/demo/WebContent/include/footer.jsp
+END
+rightside.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/crawlzillaWeb/!svn/ver/5/demo/WebContent/include/rightside.jsp
+END

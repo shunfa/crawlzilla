@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>crawlzilla</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+   <servlet>
+      <description>to operate IBD, such as recrawl, delete...etc.</description>
+      <display-name>IDBOperate</display-name>
+      <servlet-name>IDBOperate</servlet-name>
+      <servlet-class>org.nchc.crawlzilla.servlet.IDBOperate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>IDBOperate</servlet-name>
+      <url-pattern>/IDBOperate.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <description>to shown IBD detial information</description>
+      <display-name>IDBDetial</display-name>
+      <servlet-name>IDBDetial</servlet-name>
+      <servlet-class>org.nchc.crawlzilla.servlet.IDBDetial</servlet-class>
+    </servlet>
+    <servlet-mapping>
+  		<servlet-name>IDBDetial</servlet-name>
+  		<url-pattern>/IDBDetial.do</url-pattern>
+  	</servlet-mapping>
+
+    <servlet>
+      <description>for user login</description>
+      <display-name>Login</display-name>
+      <servlet-name>Login</servlet-name>
+      <servlet-class>org.nchc.crawlzilla.servlet.Login</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>Login</servlet-name>
+      <url-pattern>/Login.do</url-pattern>
+    </servlet-mapping>
+  
+    <servlet>
+      <description>for user registration</description>
+      <display-name>Register</display-name>
+      <servlet-name>Register</servlet-name>
+      <servlet-class>org.nchc.crawlzilla.servlet.Register</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>Register</servlet-name>
+      <url-pattern>/Register.do</url-pattern>
+    </servlet-mapping>
+    
+
+    
+    <servlet>
+      <description>for submit crawl jobs</description>
+      <display-name>Crawl</display-name>
+      <servlet-name>Crawl</servlet-name>
+      <servlet-class>org.nchc.crawlzilla.servlet.Crawl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>Crawl</servlet-name>
+      <url-pattern>/Crawl.do</url-pattern>
+    </servlet-mapping>
+ 
+    <servlet>
+      <description>schedule</description>
+      <display-name>crawl_schedule</display-name>
+      <servlet-name>crawlSchedule</servlet-name>
+      <servlet-class>org.nchc.crawlzilla.servlet.crawlSchedule</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>crawlSchedule</servlet-name>
+      <url-pattern>/crawlSchedule.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <description>for member management</description>
+      <display-name>MemberManagement</display-name>
+      <servlet-name>memberManager</servlet-name>
+      <servlet-class>org.nchc.crawlzilla.servlet.memberManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+  		<servlet-name>memberManager</servlet-name>
+  		<url-pattern>/memberManager.do</url-pattern>
+  	</servlet-mapping>
+  	
+
+</web-app>

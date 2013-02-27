@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/servlet
+END
+memberManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/servlet/memberManager.java
+END
+Register.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/servlet/Register.java
+END
+crawlSchedule.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/servlet/crawlSchedule.java
+END
+Crawl.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/servlet/Crawl.java
+END
+Login.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/servlet/Login.java
+END
+IDBOperate.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/servlet/IDBOperate.java
+END

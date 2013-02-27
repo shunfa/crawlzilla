@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean
+END
+NutchDBStatusBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/NutchDBStatusBean.java
+END
+orderBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/orderBean.java
+END
+sendMailBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/sendMailBean.java
+END
+IDBOperateBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/IDBOperateBean.java
+END
+IDBDetailBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/IDBDetailBean.java
+END
+memberListBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/memberListBean.java
+END
+RegisterBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/RegisterBean.java
+END
+OperFileBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/OperFileBean.java
+END
+ChangePasswdBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/ChangePasswdBean.java
+END
+NutchDBNumBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/NutchDBNumBean.java
+END
+LoginBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/LoginBean.java
+END
+crawlBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/crawlzillaWeb/!svn/ver/3/CrawlzillaWeb1.2/src/org/nchc/crawlzilla/bean/crawlBean.java
+END
