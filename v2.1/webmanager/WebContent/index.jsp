@@ -43,8 +43,8 @@
 
 	<header class="ink-container ink-for-l">
 		<div class="ink-vspace">
-			<h1 class="">Crawlzilla Management</h1>
-			<p>Make Your Own Search Engine Friendly!</p>
+			<h1 class=""><a href="index.jsp"><img src="imgs/crawlzilla-header-signbo.png"></a></h1>
+			<p>Make Your Own Search Engine Friendly!</p> 
 		</div>
 	</header>
 
