@@ -40,6 +40,20 @@ function check_package(){
     log_echo "wget nutch package: $NUTCH_PKG_LINK" $LOG_HOME/System.log
     mv $NUTCH_PKG $PACKAGES_HOME
   fi
+
+  if [ ! -f $PACKAGES_HOME/$TOMCAT_PKG ]; then
+    wget $NUTCH_PKG_LINK -O $TOMCAT_PKG
+    log_echo "wget tomcat package: $TOMCAT_PKG_LINK" $LOG_HOME/System.log
+    mv $TOMCAT_PKG $PACKAGES_HOME
+  fi
+
+  if [ ! -f $PACKAGES_HOME/$CZL_WAR ]; then
+    wget $CZL_WAR_LINK -O $CZL_WAR
+    log_echo "wget crawlzilla war: $CZL_WAR_LINK" $LOG_HOME/System.log
+  fi
+
+
+
 }
 
 # check JAVA
@@ -76,17 +90,26 @@ function install_solr(){
   cp ../conf/solr.xml.czl_version $SOLR_HOME/example/solr/solr.xml
 }
 
-function integrate_tomcat_solr(){
-  echo "integrate_tomcat_solr"
+### install and setup tomcat
+function install_solr(){
+  show_echo "install tomcat ..."
+  log_echo "install tomcat" $LOG_HOME/System.log
+## extract tar
+  tar zxvf $PACKAGES_HOME/$TOMCAT_PKG -C $CRAWLZILLA_HOME
+# mv folder
+  mv $CRAWLZILLA_HOME/apache-tomcat-7.0.37 $CRAWLZILLA_HOME/tomcat
+  cp $PACKAGES_HOME/$CZL_WAR $CRAWLZILLA_HOME/tomcat/webapps
+ }
 
-
-}
 
 function startup_services(){
   # solr
   log_echo "Startup Solr .." $LOG_HOME/System.log
   cd $SOLR_HOME/example/
   java -jar $SOLR_HOME/example/start.jar & 
+
+  # tomcat
+  . $CRAWLZILLA_HOME/tomcat/bin/startup.sh
 }
 
 

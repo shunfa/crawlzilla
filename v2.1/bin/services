@@ -9,13 +9,21 @@ bin=`cd "$bin"; pwd`
 function check_solr_service(){
     log_echo "check solr service" $LOG_HOME/System.log
     solr_flag=0;
-    solr_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
-    solr_temp_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
-    if [ "$solr_pid" != "" ] && [ "$solr_pid" == "$solr_temp_pid" ];then
-      solr_flag=1;
-      echo $solr_pid
-      log_echo "solr pid: $solr_pid" $LOG_HOME/System.log
+#    solr_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
+#    solr_temp_pid=`ps aux | grep "solr\/example\/start.jar" | awk 'NR==1 {print " " $2}'`
+    solr_pid=`jps | grep start.jar | awk 'NR==1 {print " " $1}'`
+
+    if [ "$solr_pid" != "" ];then
+	solr_flag=1;
+        echo $solr_pid
+	jps | grep start.jar
+	log_echo "solr pid: $solr_pid" $LOG_HOME/System.log
     fi
+#    if [ "$solr_pid" != "" ] && [ "$solr_pid" == "$solr_temp_pid" ];then
+#      solr_flag=1;
+#      echo $solr_pid
+#      log_echo "solr pid: $solr_pid" $LOG_HOME/System.log
+#    fi
 
     if [ "$solr_flag" == "1" ]; then
       log_echo "Solr Started!" $LOG_HOME/System.log
