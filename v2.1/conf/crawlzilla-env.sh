@@ -15,7 +15,7 @@ export LOG_HOME="/var/log/crawlzilla/v2.1"
 ## Package URLs
 export NUTCH_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-nutch-1.6-bin.tar.gz/download"
 export SOLR_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-solr-4.0.0.tgz/download"
-export TOMCAT_LINK=""
+export TOMCAT_LINK="https://sourceforge.net/projects/crawlzilla/files/original-package/apache-tomcat-7.0.37.tar.gz/download"
 export CZL_WEB_LINK=""
 
 function show_echo(){
