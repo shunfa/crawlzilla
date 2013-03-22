@@ -100,6 +100,7 @@ function install_tomcat(){
 # mv folder
   mv $CRAWLZILLA_HOME/apache-tomcat-7.0.37 $CRAWLZILLA_HOME/tomcat
   cp $PACKAGES_HOME/$CZL_WAR $CRAWLZILLA_HOME/tomcat/webapps
+  log_echo "cp $PACKAGES_HOME/$CZL_WAR $CRAWLZILLA_HOME/tomcat/webapps" $LOG_HOME/System.log
  }
 
 

@@ -5,6 +5,7 @@ cd $bin
 # export path
 . ../conf/crawlzilla-env.sh
 create_time=`date '+%Y-%m-%d-%R'`
+declare -i reindexCount=0
 
 function nutch_crawl_job(){
     # nutch crawl
@@ -137,6 +138,9 @@ function check_solr_result(){
 }
 
 function reindex_db(){
+# stop solr service and solrindex pid
+  
+# reindex
   echo "fixing solr index" > $CRAWLDB/$crawl_DB_name/.meta/status
   $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/* | tee $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log
   check_solr_result
