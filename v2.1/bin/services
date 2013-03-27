@@ -71,6 +71,13 @@ function stop_solr(){
     fi
 }
 
+# TODO
+function check_crawlJobStatus(){
+    echo "check crawl job status";
+# ps aux | grep $DBName | crawlzilla
+# if == "", no process
+# else on processing
+}
 
 function main(){
 #    log_echo "call service shell." $LOG_HOME/System.log
