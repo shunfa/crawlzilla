@@ -13,12 +13,19 @@ function check_crawlJobStatus(){
     fi
 # shunfa@vm-demo ~ $ ps aux |  grep crawljob | grep nchc_en
 # shunfa    8744  0.0  0.0   4704   352 ?        S     3月15   0:00 /bin/bash /opt/crawlzilla/bin/crawljob crawljob nchc_en 3
-
-
-
-# if == "", no process
-# else on processing
 }
+
+function delete_crawlJobProcess(){
+    show_echo "delete Crawl Job Process";
+#   get crawl job PID
+    check_crawlJobStatus
+    if [ "$strCrawlJobProcessID" != "" ]; then
+	show_echo "PID is $strCrawlJobProcessID";
+	log_echo "kill DB: $DBName" $LOG_HOME/System.log
+	kill -9 $strCrawlJobProcessID;
+    fi
+}
+
 
 function main(){
     if [ "$1" == "" ]; then
@@ -29,7 +36,12 @@ function main(){
     if [ "$1" == "check" ] && [ "$2" != "" ]; then
 	show_echo "$1, $2"
 	DBName=$2
+	check_crawlJobStatus
 	show_echo "check $2 crawljob status..."
+    fi
+    if [ "$1" == "delete" ] && [ "$2" != "" ]; then
+	DBName=$2
+	delete_crawlJobProcess
     fi
 }
 
