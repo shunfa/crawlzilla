@@ -1,0 +1,36 @@
+#!/bin/bash
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+. ../conf/crawlzilla-env.sh
+
+# TODO
+function check_crawlJobStatus(){
+    echo "check crawl job status";
+# ps aux | grep $DBName | crawlzilla
+    strCrawlJobProcessID=`ps aux | grep crawljob |  grep $DBName | awk 'NR==1 {print " " $2}'`
+    if [ "$strCrawlJobProcessID" != "" ]; then
+	show_echo "PID is $strCrawlJobProcessID"
+    fi
+# shunfa@vm-demo ~ $ ps aux |  grep crawljob | grep nchc_en
+# shunfa    8744  0.0  0.0   4704   352 ?        S     3月15   0:00 /bin/bash /opt/crawlzilla/bin/crawljob crawljob nchc_en 3
+
+
+
+# if == "", no process
+# else on processing
+}
+
+function main(){
+    if [ "$1" == "" ]; then
+	show_echo "./crawlJobServ Oper DBName"
+    fi
+#   check crawljob
+#   $1="check", "delete" $2="job name"
+    if [ "$1" == "check" ] && [ "$2" != "" ]; then
+	show_echo "$1, $2"
+	DBName=$2
+	show_echo "check $2 crawljob status..."
+    fi
+}
+
+main $1 $2
