@@ -2,6 +2,7 @@
 
 bin=`dirname "$0"`
 bin=`cd "$bin"; pwd`
+cd $bin
 . ../conf/crawlzilla-env.sh
 
 if [ "`id -u`" != "0" ]; then
