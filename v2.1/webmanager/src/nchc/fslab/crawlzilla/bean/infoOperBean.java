@@ -38,6 +38,32 @@ public class infoOperBean {
 		return spendTime;
 	}
 
+	public boolean checkIdle(String dbName) throws IOException {
+		boolean booIdleFlag = false;
+		String startTime, finishTime;
+		startTime = getMessage(dbName, "start_time");
+		finishTime = new String(getMessage(dbName, "finish_time"));
+// TODO: check process
+		
+		if (!startTime.equals("null")) {
+			int sHr, start, finish;
+			if (finishTime.equals("null")) {
+				finishTime = System.currentTimeMillis() / 1000 + "";
+				System.out.println("F: " + finishTime);
+				System.out.println("S: " + startTime);
+			}
+
+			start = Integer.parseInt(startTime);
+			finish = Integer.parseInt(finishTime);
+			System.out.println("" + (finish - start));
+			sHr = ((finish - start) / 3600);
+			if (sHr >= 3) {
+				booIdleFlag = true;
+			}
+		}
+		return booIdleFlag;
+	}
+
 	public boolean _checkDB(String dbName, String filePath) {
 		File file = new File("/opt/crawlzilla/crawlDB/" + dbName + "/.meta/"
 				+ filePath);

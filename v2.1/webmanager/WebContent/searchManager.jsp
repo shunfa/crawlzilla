@@ -169,6 +169,43 @@ if (session.getAttribute("loginFlag") != "true") {
 		<p>&nbsp;</p>
 	</div>
 	<div class="ink-container ink-vspace">
+		<h1 class="">Idle Jobs</h1>
+		<table width="100%" height="121" border="0">
+			<tr>
+				<td align="center" valign="middle"><strong>CrawlDB
+						Name</strong></td>
+				<td align="center" valign="middle"><strong>Create Time</strong></td>
+				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
+				<td align="center" valign="middle"><strong>Depth</strong></td>
+				<td align="center" valign="middle"><strong>Status</strong></td>
+			</tr>
+			<%
+				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
+					if (getDBInfoBean.checkIdle(dbName[i].getName())) {
+			%>
+			<tr>
+				<form id="db_opera2" method="post" action="dbopera.do">
+					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
+							"create_time")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
+							"depth")%></td>
+					<td align="center" valign="middle">
+					<label>
+							<input type="hidden" name="dbName"	value="<%=dbName[i].getName()%>" /> 
+							<input type="submit"	name="oper" id="opera_submit2" value="Kill">
+					</label></td>
+				</form>
+			</tr>
+			<%
+				}
+				}
+			%>
+		</table>
+		<p>&nbsp;</p>
+	</div>
+	<div class="ink-container ink-vspace">
 		<h1 class="">Fail Jobs</h1>
 		<table width="100%" height="121" border="0">
 			<tr>
