@@ -43,8 +43,8 @@ public class infoOperBean {
 		String startTime, finishTime;
 		startTime = getMessage(dbName, "start_time");
 		finishTime = new String(getMessage(dbName, "finish_time"));
-// TODO: check process
-		
+		// TODO: check process
+
 		if (!startTime.equals("null")) {
 			int sHr, start, finish;
 			if (finishTime.equals("null")) {
@@ -62,6 +62,12 @@ public class infoOperBean {
 			}
 		}
 		return booIdleFlag;
+	}
+
+	public String _getPID(String dbName) throws IOException {
+		String srtCMD = "/opt/crawlzilla/bin/crawlJobServ check " + dbName;
+		Runtime.getRuntime().exec(srtCMD);
+		return getMessage(dbName, "pid");
 	}
 
 	public boolean _checkDB(String dbName, String filePath) {
@@ -121,8 +127,8 @@ public class infoOperBean {
 
 	public static void main(String args[]) throws IOException {
 		infoOperBean iOB = new infoOperBean();
-		System.out.println(iOB.getMessage("nchc-test1", "status"));
-		System.out.println(iOB.getSpendTime("nchc-test1"));
+		
+		System.out.println(iOB.checkIdle("NCHC_2"));
 		// iOB.changeHideInfoFlag("NCHC_20130131-2", true);
 	}
 }

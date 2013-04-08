@@ -109,8 +109,8 @@ if (session.getAttribute("loginFlag") != "true") {
 					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
-					<td align="center" valign="middle"><label> <select
-							name="oper" id="operation">
+					<td align="center" valign="middle"><label> 
+					<select	name="oper" id="operation">
 								<option value="0">Choose</option>
 								<!-- 
 								<option value="detial">Detial</option>
@@ -120,8 +120,7 @@ if (session.getAttribute("loginFlag") != "true") {
 								<option value="deleteDB">Delete</option>
 						</select>
 						<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" /> 
-						<input type="submit" name="opera_submit" id="opera_submit"
-							value="Submit">
+						<input type="submit" name="opera_submit" id="opera_submit"	value="Submit">
 					</label></td>
 				</form>
 			</tr>
@@ -177,7 +176,7 @@ if (session.getAttribute("loginFlag") != "true") {
 				<td align="center" valign="middle"><strong>Create Time</strong></td>
 				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
 				<td align="center" valign="middle"><strong>Depth</strong></td>
-				<td align="center" valign="middle"><strong>Status</strong></td>
+				<td align="center" valign="middle"><strong>Operations</strong></td>
 			</tr>
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
@@ -192,6 +191,7 @@ if (session.getAttribute("loginFlag") != "true") {
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
 					<td align="center" valign="middle">
+					<!-- Operation: re-index, kill job -->
 					<label>
 							<input type="hidden" name="dbName"	value="<%=dbName[i].getName()%>" /> 
 							<input type="submit"	name="oper" id="opera_submit2" value="Kill">
