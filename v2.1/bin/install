@@ -1,9 +1,6 @@
 #!/bin/bash
-
 bin=`dirname "$0"`
 bin=`cd "$bin"; pwd`
-cd $bin
-. ../conf/crawlzilla-env.sh
 
 if [ "`id -u`" != "0" ]; then
   echo `whoami` > /tmp/username
@@ -11,6 +8,9 @@ fi
 
 # change as root to run install
 [ "`id -u`" != "0" ] && exec sudo su -c "$0" "$@"
+
+cd $bin
+. ../conf/crawlzilla-env.sh
 
 # check package and create folders
 function check_package(){
