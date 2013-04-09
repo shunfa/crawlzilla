@@ -8,6 +8,9 @@ function check_crawlJobStatus(){
     echo "check crawl job status";
 # ps aux | grep $DBName | crawlzilla
     strCrawlJobProcessID=`ps aux | grep crawljob |  grep $DBName | awk 'NR==1 {print " " $2}'`
+
+#  TODO: for loop 
+    strJobList=`ps aux | grep crawljob | grep 'S ' | awk 'NR==    1 {print " " $14}'`
     if [ "$strCrawlJobProcessID" != "" ]; then
 	show_echo "PID is $strCrawlJobProcessID"
     fi
