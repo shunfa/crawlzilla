@@ -184,7 +184,8 @@ if (session.getAttribute("loginFlag") != "true") {
 			</tr>
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
-					if (getDBInfoBean.checkIdle(dbName[i].getName())) {
+					if (getDBInfoBean.checkIdle(dbName[i].getName()) && !getDBInfoBean.getMessage(dbName[i].getName(),
+							"status").equals("finish")) {
 			%>
 			<tr>
 				<form id="indexManager" method="post" action="indexManager.do">
