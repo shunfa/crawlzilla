@@ -26,6 +26,9 @@ function check_solr_service(){
 #      log_echo "solr pid: $solr_pid" $LOG_HOME/System.log
 #    fi
 
+    if [ "$solr_pid" == "" ];then
+	echo "solr not start!"
+    fi
     if [ "$solr_flag" == "1" ]; then
       log_echo "Solr Started!" $LOG_HOME/System.log
       show_echo "Solr Started !"

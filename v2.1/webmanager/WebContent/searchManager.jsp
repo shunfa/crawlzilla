@@ -139,6 +139,7 @@ if (session.getAttribute("loginFlag") != "true") {
 				<td align="center" valign="middle"><strong>Create Time</strong></td>
 				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
 				<td align="center" valign="middle"><strong>Depth</strong></td>
+				<td align="center" valign="middle"><strong>PID</strong></td>
 				<td align="center" valign="middle"><strong>Status</strong></td>
 			</tr>
 			<%
@@ -154,6 +155,7 @@ if (session.getAttribute("loginFlag") != "true") {
 					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean._getPID(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"status")%> 
 							<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" /> 
@@ -176,6 +178,7 @@ if (session.getAttribute("loginFlag") != "true") {
 				<td align="center" valign="middle"><strong>Create Time</strong></td>
 				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
 				<td align="center" valign="middle"><strong>Depth</strong></td>
+				<td align="center" valign="middle"><strong>PID</strong></td>
 				<td align="center" valign="middle"><strong>Operations</strong></td>
 			</tr>
 			<%
@@ -190,6 +193,7 @@ if (session.getAttribute("loginFlag") != "true") {
 					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean._getPID(dbName[i].getName())%></td>
 					<td align="center" valign="middle">
 					<!-- Operation: re-index, kill job -->
 					<label>
@@ -229,6 +233,7 @@ if (session.getAttribute("loginFlag") != "true") {
 					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
+							
 					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"status")%> <input type="hidden" name="dbName"
 							value="<%=dbName[i].getName()%>" /> <input type="submit"

@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import javax.swing.plaf.SliderUI;
 
 public class infoOperBean {
 
@@ -125,10 +128,39 @@ public class infoOperBean {
 		return ipAddr;
 	}
 
+	public String getSolrServiceStatus() throws IOException {
+		String strSolrStatus = "Off";
+		String strCMD = "/opt/crawlzilla/bin/services solr check";
+		String strInLine = "";
+		int intRow = 0;
+		Process proSolrStat = Runtime.getRuntime().exec(strCMD);
+		BufferedReader brSolrStat = new BufferedReader(new InputStreamReader(
+				proSolrStat.getInputStream()));
+		while ((strInLine = brSolrStat.readLine()) != null) {
+			if (intRow == 0) {
+				if (!strInLine.equals("solr not start!")) {
+					strSolrStatus = "On";
+				}
+			}
+			intRow++;
+		}
+		brSolrStat.close();
+		return strSolrStatus;
+	}
+
+	public void changeSolrService(String option) throws IOException {
+		String strCMD = "/opt/crawlzilla/bin/services solr ";
+		if (option.equals("start") && getSolrServiceStatus().equals("Off")) {
+			Runtime.getRuntime().exec(strCMD + "start");
+		} else if (option.equals("stop")) {
+			Runtime.getRuntime().exec(strCMD + "stop");
+		}
+	}
+
 	public static void main(String args[]) throws IOException {
 		infoOperBean iOB = new infoOperBean();
-		
-		System.out.println(iOB.checkIdle("NCHC_2"));
+		System.out.println(iOB.getSolrServiceStatus());
+		// System.out.println(iOB.checkIdle("NCHC_2"));
 		// iOB.changeHideInfoFlag("NCHC_20130131-2", true);
 	}
 }
