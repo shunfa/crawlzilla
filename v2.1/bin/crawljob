@@ -138,11 +138,30 @@ function check_solr_result(){
 }
 
 function reindex_db(){
+# check crawlDB/$DB_name folder
+
+
 # stop solr service and solrindex pid
-  
+    if [ ! -d $CRAWLDB/$DB_name ]; then 
+	show_echo "$DB_name isn't Exist"
+	exit 0
+    fi
+	
+    existSolrFlag=`cat -n /opt/crawlzilla/solr/example/solr/solr.xml | grep $DB_name | awk 'NR==1 {print "" $1}'`
+    if [ "$existSolrFlag" = "" ]; then
+      cp -r $SOLR_HOME/example/solr/collection1 $SOLR_HOME/example/solr/$crawl_DB_name
+      insertLineNO=`cat -n /opt/crawlzilla/solr/example/solr/solr.xml | grep crawlzilla_end | awk 'NR==1 {print "" $1}'`
+      insertLineNO=$(($insertLineNO-1))
+      sed -i ''$insertLineNO'a  <core schema=\"schema.xml\" instanceDir="'$crawl_DB_name'/" name="'$crawl_DB_name'" config=\"solrconfig.xml\" dataDir=\"data\"/> ' $SOLR_HOME/example/solr/solr.xml    
+    fi
+
+    if [ ! -d $SOLR_HOME/example/solr/$crawl_DB_name ]; then
+      cp -r $SOLR_HOME/example/solr/collection1 $SOLR_HOME/example/solr/$crawl_DB_name
+    fi
+
 # reindex
-  echo "fixing solr index" > $CRAWLDB/$crawl_DB_name/.meta/status
-  $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB/$crawl_DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/* | tee $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log
+  echo "fixing solr index" > $CRAWLDB/$DB_name/.meta/status
+  $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$DB_name $CRAWLDB/$DB_name/crawldb -linkdb $CRAWLDB/$DB_name/linkdb $CRAWLDB/$DB_name/segments/* | tee $LOG_HOME/$DB_name-$create_time-solr-std.log
   check_solr_result
 }
 
@@ -164,6 +183,7 @@ function main(){
             echo "please typing db name!"
         else
             DB_name=$2
+	    crawl_DB_name=$2
             show_echo "delete search engine: $DB_name"
             delete_search_DB
         fi
@@ -172,7 +192,8 @@ function main(){
         if [ "$2" = "" ]; then
             echo "please typing db name!"
         else
-            crawl_DB_name=$2
+            DB_name=$2
+	    crawl_DB_name=$2
             show_echo "re-indexing: $DB_name"
             reindex_db
         fi

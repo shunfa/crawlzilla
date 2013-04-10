@@ -20,11 +20,11 @@ export SOLR_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-
 export TOMCAT_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-tomcat-7.0.37.tar.gz/download"
 export CZL_WAR_LINK="https://sourceforge.net/projects/crawlzilla/files/original-package/crawlzillaV2.1-2013-03-06.war/download"
 
-function show_echo(){
+function show_echo (){
   echo -e "\033[1;32;40m $1 \033[0m"
 }
 
-function log_echo(){
+function log_echo (){
   # $1= message
   # $2= log file path
   if [  -f $2 ]; then

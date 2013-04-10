@@ -179,6 +179,7 @@ if (session.getAttribute("loginFlag") != "true") {
 				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
 				<td align="center" valign="middle"><strong>Depth</strong></td>
 				<td align="center" valign="middle"><strong>PID</strong></td>
+				<td align="center" valign="middle"><strong>Status</strong></td>
 				<td align="center" valign="middle"><strong>Operations</strong></td>
 			</tr>
 			<%
@@ -186,7 +187,7 @@ if (session.getAttribute("loginFlag") != "true") {
 					if (getDBInfoBean.checkIdle(dbName[i].getName())) {
 			%>
 			<tr>
-				<form id="db_opera2" method="post" action="dbopera.do">
+				<form id="indexManager" method="post" action="indexManager.do">
 					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"create_time")%></td>
@@ -194,12 +195,20 @@ if (session.getAttribute("loginFlag") != "true") {
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean._getPID(dbName[i].getName())%></td>
-					<td align="center" valign="middle">
-					<!-- Operation: re-index, kill job -->
-					<label>
-							<input type="hidden" name="dbName"	value="<%=dbName[i].getName()%>" /> 
-							<input type="submit"	name="oper" id="opera_submit2" value="Kill">
-					</label></td>
+					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
+							"status")%> </label></td>
+					<!-- Operation: re-index, kill job, delete files -->
+							<td align="center" valign="middle"><label>
+					<select	name="option" id=""option"">
+								<option value="0">Choose</option>
+								<option value="1">Fix</option>
+								<option value="2">Kill Job</option>
+								<option value="3">Deleie</option>
+						</select>
+					</label> 
+					<input type="submit" name="submit" id="submit" value="Submit">
+					<input type="hidden" name="oper"	value="solrService"> 
+					</td>
 				</form>
 			</tr>
 			<%
