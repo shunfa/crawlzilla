@@ -22,11 +22,16 @@ public class changeService extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String targetURL = "/settings.jsp";
+		String targetURL = "/systemMassage.jsp";
+		String tranPageFlag = "false";
+   String tranPage = "settings.jsp";
+		String strMessage = "";
 		String oper = request.getParameter("oper");
 		infoOperBean iOB = new infoOperBean();
 		if (oper.equals("solrService")) {
 			int intOption = Integer.parseInt(request.getParameter("option"));
+			tranPageFlag = "true";
+			strMessage = "Switch Successful, Please return to setting page.";
 			switch (intOption) {
 			case 1:
 				iOB.changeSolrService("start");
@@ -36,6 +41,9 @@ public class changeService extends HttpServlet {
 				break;
 			}
 		}
+		request.setAttribute("tranPageFlag", tranPageFlag);
+		request.setAttribute("strMessage", strMessage);
+		request.setAttribute("tranPage", tranPage);
 		RequestDispatcher rd;
 		rd = getServletContext().getRequestDispatcher(targetURL);
 		rd.forward(request, response);

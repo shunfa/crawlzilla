@@ -75,9 +75,26 @@ if (session.getAttribute("loginFlag") != "true") {
 	</header>
 
 	<div class="ink-container ink-vspace">
+	<%
+			String strMessage = (String) request.getAttribute("strMessage");
+	   String tranPageFlag = "flase";
+			String tranPage = "index.jsp";
+			if(request.getAttribute("tranPageFlag") != null){
+				tranPageFlag = (String) request.getAttribute("tranPageFlag");
+				tranPage = (String) request.getAttribute("tranPage");
+			}
+			
+	%>
 		<h4>System Message:</h4>
-		<p>Message here</p>
+		<p><%= strMessage %></p>
+		<% if(tranPageFlag.equals("true")){
+					// response.sendRedirect(tranPage);
+							response.setHeader("refresh","2;URL=" + tranPage);
+				}			
+			%>
+<% if(tranPageFlag.equals("false")){ %>
 		<a href="javascript:history.back();">Back to Previous Page.</a>
+		<% } %>
 	</div>
 	<footer>
 		<div class="ink-container">

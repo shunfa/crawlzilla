@@ -34,7 +34,6 @@
     <servlet-name>UserLogin</servlet-name>
     <url-pattern>/login.do</url-pattern>
   </servlet-mapping>
-  <!-- 
   <servlet>
     <description>Change Service</description>
     <display-name>Change Service</display-name>
@@ -42,8 +41,7 @@
     <servlet-class>nchc.fslab.crawlzilla.servlet.changeService</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Change Service</servlet-name>
+    <servlet-name>changeService</servlet-name>
     <url-pattern>/changeService.do</url-pattern>
   </servlet-mapping>
-   -->
 </web-app>

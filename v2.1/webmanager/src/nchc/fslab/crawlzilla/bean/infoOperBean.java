@@ -9,8 +9,6 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import javax.swing.plaf.SliderUI;
-
 public class infoOperBean {
 
 	public String getSpendTime(String dbName) throws IOException {
@@ -68,8 +66,9 @@ public class infoOperBean {
 	}
 
 	public String _getPID(String dbName) throws IOException {
-		String srtCMD = "/opt/crawlzilla/bin/crawlJobServ check " + dbName;
-		Runtime.getRuntime().exec(srtCMD);
+		String strCMD = "/opt/crawlzilla/bin/crawlJobServ check " + dbName;
+		Runtime.getRuntime().exec(strCMD);
+		System.out.println(strCMD);
 		return getMessage(dbName, "pid");
 	}
 
@@ -159,7 +158,8 @@ public class infoOperBean {
 
 	public static void main(String args[]) throws IOException {
 		infoOperBean iOB = new infoOperBean();
-		System.out.println(iOB.getSolrServiceStatus());
+		iOB._getPID("Hadoop_4");
+//		System.out.println(iOB.getSolrServiceStatus());
 		// System.out.println(iOB.checkIdle("NCHC_2"));
 		// iOB.changeHideInfoFlag("NCHC_20130131-2", true);
 	}

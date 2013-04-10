@@ -41,7 +41,9 @@ public class crawlJob extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String targetURL = "/index.jsp";
 		String oper = request.getParameter("oper");
-
+		String tranPageFlag = "false";
+		String tranPage = "systemMassage.jsp";
+		String strMessage = "";
 		if (oper.equals("crawljob")) {
 			String DBName = request.getParameter("db_name");
 			String URLs = request.getParameter("crawl_urls");
@@ -52,7 +54,13 @@ public class crawlJob extends HttpServlet {
 			System.out.println("DBName: " + DBName + ", URLs: " + URLs
 					+ ", depth: " + depth);
 			System.out.println(crawlMode);
+			strMessage = "Starting CrawlJob, We will transfer to Search Emging Manager Page.";
+			tranPageFlag = "true";
 		}
+
+		request.setAttribute("tranPageFlag", tranPageFlag);
+		request.setAttribute("strMessage", strMessage);
+		request.setAttribute("tranPage", tranPage);
 		RequestDispatcher rd;
 		rd = getServletContext().getRequestDispatcher(targetURL);
 		rd.forward(request, response);
