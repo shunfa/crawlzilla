@@ -1,0 +1,5 @@
+#!/bin/bash
+# 1. folder: bin, conf, README  
+# 2. war file(current war) -> new war folder
+# 3. write version
+

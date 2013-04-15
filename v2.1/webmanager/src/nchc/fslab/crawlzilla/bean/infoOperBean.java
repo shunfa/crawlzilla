@@ -58,7 +58,7 @@ public class infoOperBean {
 			finish = Integer.parseInt(finishTime);
 			System.out.println("" + (finish - start));
 			sHr = ((finish - start) / 3600);
-			if (sHr >= 3) {
+			if (sHr >= 2) {
 				booIdleFlag = true;
 			}
 		}
