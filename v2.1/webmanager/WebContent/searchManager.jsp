@@ -185,6 +185,7 @@ if (session.getAttribute("loginFlag") != "true") {
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
 					if (getDBInfoBean.checkIdle(dbName[i].getName()) && !getDBInfoBean.getMessage(dbName[i].getName(),
+							"pid").equals("") && !getDBInfoBean.getMessage(dbName[i].getName(),
 							"status").equals("finish")) {
 			%>
 			<tr>
@@ -204,11 +205,12 @@ if (session.getAttribute("loginFlag") != "true") {
 								<option value="0">Choose</option>
 								<option value="1">Fix</option>
 								<option value="2">Kill Job</option>
-								<option value="3">Deleie</option>
+								<option value="3">Delete</option>
 						</select>
 					</label> 
+					<input type="hidden" name="oper"	value="idleJob"> 
+					<input type="hidden" name="dbName"	value="<%=getDBInfoBean.getSpendTime(dbName[i].getName())%>"> 
 					<input type="submit" name="submit" id="submit" value="Submit">
-					<input type="hidden" name="oper"	value="solrService"> 
 					</td>
 				</form>
 			</tr>
@@ -228,7 +230,7 @@ if (session.getAttribute("loginFlag") != "true") {
 				<td align="center" valign="middle"><strong>Create Time</strong></td>
 				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
 				<td align="center" valign="middle"><strong>Depth</strong></td>
-				<td align="center" valign="middle"><strong>Status</strong></td>
+				<td align="center" valign="middle"><strong>Operations</strong></td>
 			</tr>
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
@@ -236,18 +238,26 @@ if (session.getAttribute("loginFlag") != "true") {
 							.equals("fail")) {
 			%>
 			<tr>
-				<form id="db_opera2" method="post" action="dbopera.do">
+				<form id="indexManager" method="post" action="indexManager.do">
 					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"create_time")%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 							"depth")%></td>
-							
-					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"status")%> <input type="hidden" name="dbName"
-							value="<%=dbName[i].getName()%>" /> <input type="submit"
-							name="oper" id="opera_submit2" value="Hide"></label></td>
+					<!-- Operation: re-index, kill job, delete files -->
+							<td align="center" valign="middle"><label>
+					<select	name="option" id=""option"">
+								<option value="0">Choose</option>
+								<option value="1">Fix</option>
+								<option value="3">Delete</option>
+						</select>
+					</label> 
+					<input type="hidden" name="oper"	value="failJob"> 
+					<input type="hidden" name="dbName"	value="<%=getDBInfoBean.getSpendTime(dbName[i].getName())%>"> 
+					<input type="submit" name="submit" id="submit" value="Submit">
+					
+					</td>
 				</form>
 			</tr>
 			<%

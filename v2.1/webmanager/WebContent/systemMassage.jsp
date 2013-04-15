@@ -89,7 +89,7 @@ if (session.getAttribute("loginFlag") != "true") {
 		<p><%= strMessage %></p>
 		<% if(tranPageFlag.equals("true")){
 					// response.sendRedirect(tranPage);
-							response.setHeader("refresh","2;URL=" + tranPage);
+							response.setHeader("refresh","3;URL=" + tranPage);
 				}			
 			%>
 <% if(tranPageFlag.equals("false")){ %>

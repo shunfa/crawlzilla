@@ -39,11 +39,13 @@ public class crawlJob extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String targetURL = "/index.jsp";
 		String oper = request.getParameter("oper");
+		
 		String tranPageFlag = "false";
-		String tranPage = "systemMassage.jsp";
-		String strMessage = "";
+		String tranPage = "searchManager.jsp";
+		String strMessage = "In Processing, Please Wait...";
+		String targetURL = "/systemMassage.jsp";
+		
 		if (oper.equals("crawljob")) {
 			String DBName = request.getParameter("db_name");
 			String URLs = request.getParameter("crawl_urls");

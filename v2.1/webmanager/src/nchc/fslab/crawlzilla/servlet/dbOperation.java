@@ -11,35 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import nchc.fslab.crawlzilla.bean.dbOperBean;
 import nchc.fslab.crawlzilla.bean.infoOperBean;
 
-/**
- * Servlet implementation class dbOperationServlet
- */
 public class dbOperation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public dbOperation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String tranPageFlag = "false";
+		String tranPage = "searchManager.jsp";
+		String strMessage = "In Processing, Please Wait...";
 		String operationCMD = request.getParameter("oper");
 		String targetURL = "/systemMassage.jsp";
 		if (operationCMD.equals("hideMesg")) {
@@ -57,6 +44,9 @@ public class dbOperation extends HttpServlet {
 			targetURL = "/searchManager.jsp";
 		}
 
+		request.setAttribute("tranPageFlag", tranPageFlag);
+		request.setAttribute("strMessage", strMessage);
+		request.setAttribute("tranPage", tranPage);
 		RequestDispatcher rd;
 		rd = getServletContext().getRequestDispatcher(targetURL);
 		rd.forward(request, response);

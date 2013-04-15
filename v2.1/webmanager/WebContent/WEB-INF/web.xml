@@ -44,4 +44,14 @@
     <servlet-name>changeService</servlet-name>
     <url-pattern>/changeService.do</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description>Index Manager</description>
+    <display-name>Index Manager</display-name>
+    <servlet-name>indexManager</servlet-name>
+    <servlet-class>nchc.fslab.crawlzilla.servlet.indexManager</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>indexManager</servlet-name>
+    <url-pattern>/indexManager.do</url-pattern>
+  </servlet-mapping>
 </web-app>
