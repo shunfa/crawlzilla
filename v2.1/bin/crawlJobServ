@@ -48,6 +48,7 @@ function kill_crawlJobProcess(){
 }
 
 function delete_crawlJob(){
+# /opt/crawlzilla/bin/crawljob delete $DBName
 # 1.check crawl Job files
 # 2.delete crawl job files
     if [ ! -d $CRAWLDB/$DBName/ ]; then
@@ -55,8 +56,7 @@ function delete_crawlJob(){
 	log_echo "delete DB fail: $DBName not found!" $LOG_HOME/System.log
 	exit 0
     fi
-    
-    rm -rf $CRAWLDB/$DBName/
+    /opt/crawlzilla/bin/crawljob delete $DBName    
     show_echo "delete DB: $DBName"
     log_echo "delete DB: $DBName" $LOG_HOME/System.log
 }
