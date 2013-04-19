@@ -3,3 +3,13 @@
 # 2. war file(current war) -> new war folder
 # 3. write version
 
+function copyFolder(){
+    echo "step: copy folder to /tmp"
+}
+
+function main(){
+    echo "main function"
+    copyFolder
+}
+
+main
