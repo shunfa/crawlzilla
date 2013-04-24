@@ -18,8 +18,8 @@ export LOG_HOME="/var/log/crawlzilla/v2.1"
 export NUTCH_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-nutch-1.6-bin.tar.gz/download"
 export SOLR_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-solr-4.0.0.tgz/download"
 export TOMCAT_PKG_LINK="http://sourceforge.net/projects/crawlzilla/files/original-package/apache-tomcat-7.0.37.tar.gz/download"
-export CZL_WAR_LINK="https://sourceforge.net/projects/crawlzilla/files/original-package/crawlzillaV2.1-2013-03-06.war/download"
-
+#export CZL_WAR_LINK="https://sourceforge.net/projects/crawlzilla/files/original-package/crawlzillaV2.1-2013-03-06.war/download"
+export CZL_WAR_LINK="https://sourceforge.net/projects/crawlzilla/files/original-package/crawlzillaV2.1-2013-04-24.war/download"
 function show_echo (){
   echo -e "\033[1;32;40m $1 \033[0m"
 }

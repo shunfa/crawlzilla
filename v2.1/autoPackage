@@ -2,14 +2,34 @@
 # 1. folder: bin, conf, README  
 # 2. war file(current war) -> new war folder
 # 3. write version
+DATA_VER=`date +%y%m%d`
+CURRENT_VER=2.1-beta
+ShellTar=Crawlzilla-$CURRENT_VER.$DATA_VER.tar.gz
+WORK_PATH=`pwd`
 
-function copyFolder(){
+function copyFolderandTar(){
+    echo "CrawlzillaV$CURRENT_VER.$DATA_VER" > bin/version
+    if [ -d /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER/ ]; then
+	rm -rf /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER/
+    fi
     echo "step: copy folder to /tmp"
+    echo "mkdir /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER/"
+    mkdir /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER/
+    echo "cp -rf bin conf README /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER/"
+    cp -rf bin conf README /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER/
+    echo "mkdir /tmp/Crawlzilla-$CURRENT_VER.$DATA_VER/warFiles/"
+    mkdir /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER/warFiles/
+    echo "tar -czvf $ShellTar /tmp/CrawlzillaV$CURRENT_VER.$DATA_VER"
+    cd /tmp/
+    tar -czvf $ShellTar CrawlzillaV$CURRENT_VER.$DATA_VER
+    mv $ShellTar $WORK_PATH
+    cd $WORK_PATH
 }
 
 function main(){
     echo "main function"
-    copyFolder
+    copyFolderandTar
+    mv $ShellTar packages/
 }
 
 main
