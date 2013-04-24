@@ -43,8 +43,10 @@
 
 	<header class="ink-container ink-for-l">
 		<div class="ink-vspace">
-			<h1 class=""><a href="index.jsp"><img src="imgs/crawlzilla-header-signbo.png"></a></h1>
-			<p>Make Your Own Search Engine Friendly!</p> 
+			<h1 class="">
+				<a href="index.jsp"><img src="imgs/crawlzilla-header-signbo.png"></a>
+			</h1>
+			<p>Make Your Own Search Engine Friendly!</p>
 		</div>
 	</header>
 
@@ -54,16 +56,19 @@
 			<li><a href="crawljob.jsp">Crawl Job</a></li>
 			<li><a href="searchManager.jsp">Search Engine Manager</a></li>
 			<li class="active"><a href="settings.jsp">Settings</a></li>
-			<li><a
-				href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
+			<li><a href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
 			<%
-if (session.getAttribute("loginFlag") != "true") {
-%>
+				if (session.getAttribute("loginFlag") != "true") {
+			%>
 			<li><a href="login.jsp">Login</a></li>
-			<% } else { %>
+			<%
+				} else {
+			%>
 			<li><a href="logout.jsp">Logout</a></li>
-			<% }  %>
+			<%
+				}
+			%>
 		</ul>
 	</nav>
 
@@ -73,39 +78,52 @@ if (session.getAttribute("loginFlag") != "true") {
 			<p>Make Your Own Search Engine Friendly!</p>
 		</div>
 	</header>
-<%
-if (session.getAttribute("loginFlag") != "true") {
-%>
-<div class="ink-container ink-vspace">
-<br>Please Login First!
-<br><a href="login.jsp">Login</a>
-</div>
-<%
-	response.setHeader("Refresh", "1; URL=login.jsp");
-	}
-	//# Login, display the home page
-	else {
-%>
+	<%
+		if (session.getAttribute("loginFlag") != "true") {
+	%>
 	<div class="ink-container ink-vspace">
-		<h4>Change Password	</h4>
-		<table width="70%" height="113" border="0">
-		  <tr>
-		    <td align="center" valign="middle">Please Typing Infos:</td>
-            <form id="change" method="post" action="changePasswd.do" >
-		      </td>
-	      </tr>
-		  <tr>
-		    <td align="center" valign="middle">&nbsp;</td>
-		    <td align="center" valign="middle">&nbsp;</td>
-	      </tr>
-		  <tr>
-		    <td align="center" valign="middle">&nbsp;</td>
-		    <td align="center" valign="middle">&nbsp;</td>
-	      </tr>
-	  </table>
-<br>
+		<br>Please Login First! <br>
+		<a href="login.jsp">Login</a>
 	</div>
-	<% } %>
+	<%
+		response.setHeader("Refresh", "1; URL=login.jsp");
+		}
+		//# Login, display the home page
+		else {
+	%>
+	<div class="ink-container ink-vspace">
+		<h4>Change Password</h4>
+		<table width="70%" height="113" border="0">
+			<tr>
+				<td align="center" valign="middle">Please Typing Infos:</td>
+				<form id="change" method="post" action="login.do">
+					</td>
+			</tr>
+			<tr>
+				<td align="center" valign="middle">New Password:</td>
+				<td align="center" valign="middle"><input type="password"
+					name="newPassword" id="submit" value="Submit"></td>
+			</tr>
+			<tr>
+				<td align="center" valign="middle">Re-enter again:</td>
+				<td align="center" valign="middle"><input type="password"
+					name="newConPassword" id="submit" value="Submit"></td>
+			</tr>
+			<tr>
+			<td align="center" valign="middle"></td>
+			<td align="center" valign="middle">
+			<input type="hidden" name="oper" value="changePW" />		
+			<input type="submit" name="submit" id="submit" value="Submit">
+		 </td>
+		 </tr>
+		</form>
+		</table>
+
+		<br>
+	</div>
+	<%
+		}
+	%>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">

@@ -57,7 +57,10 @@ public class userLogin extends HttpServlet {
 			if (!strNewPasswd.equals(strConNewPasswd)){
 				strMessage = "Password is not identical, please check again";
 				tranPage = "changePW.jsp";
-			} else {
+			} else if(strNewPasswd.equals("crawler")){
+				strMessage = "Password can not set as \"crawler\"!";
+				tranPage = "changePW.jsp";
+			} 	else {
 				try {
 					adLB.changePW(strNewPasswd);
 				} catch (InterruptedException e) {
