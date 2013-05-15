@@ -160,8 +160,8 @@ function reindex_db(){
     fi
   $bin/services solr restart
 # reindex
-  echo "fixing solr index" > $CRAWLDB/$DB_name/.meta/status
-  $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$DB_name $CRAWLDB/$DB_name/crawldb -linkdb $CRAWLDB/$DB_name/linkdb $CRAWLDB/$DB_name/segments/* | tee $LOG_HOME/$DB_name-$create_time-solr-std.log
+  echo "fixing solr index" > $CRAWLDB/$crawl_DB_name/.meta/status
+  $NUTCH_HOME/bin/nutch solrindex http://127.0.0.1:8983/solr/$crawl_DB_name $CRAWLDB/$DB_name/crawldb -linkdb $CRAWLDB/$crawl_DB_name/linkdb $CRAWLDB/$crawl_DB_name/segments/* | tee $LOG_HOME/$crawl_DB_name-$create_time-solr-std.log
   check_solr_result
 }
 
