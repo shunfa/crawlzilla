@@ -415,32 +415,20 @@ public class IDBDetailforTeacher {
 		termNode = new JSONObject();
 		termJSONB = new JSONObject();
 		termJSONB.put("name", name);
-		
 		termNode.put("name", name);
 		termNode.put("size", size);
 		intermJSArray.put(termNode);
-//		termJSONB.put("children", intermJSArray);
 		termJSONA.put("children", intermJSArray);
 	}
 
 	public void _setJSON() throws JSONException {
-
-		// termNode.put("name", "abv");
-		// termNode.put("size", 100);
-
-		// intermJSArray.put(termNode);
-
 		termJSONA.put("name", "flare");
-		
-
 		System.out.println(termJSONA.toString());
-
 	}
 
 	public static void main(String[] args) throws Exception {
 		IDBDetailforTeacher idbt = new IDBDetailforTeacher();
 		// idbt.setIDBDetail("/home/waue/0401_6/index","/home/waue/0401_6/meta/urls/urls.txt");
-
 		idbt.initIDBDetail("/home/shunfa/dic_index/wiki", "", "");
 		System.out.println(idbt.getContentTopTerms());
 		idbt._setJSON();
