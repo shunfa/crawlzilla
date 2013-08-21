@@ -15,9 +15,16 @@ import org.apache.lucene.store.FSDirectory;
 import org.getopt.luke.HighFreqTerms;
 import org.getopt.luke.IndexInfo;
 import org.getopt.luke.TermInfo;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class IDBDetailforTeacher {
 
+	JSONObject termJSONA = new JSONObject();
+	JSONObject termJSONB = new JSONObject();
+	JSONObject termNode = new JSONObject();
+	JSONArray intermJSArray = new JSONArray();
 	// Path
 	private String Index_Path;
 	private String Url_Path;
@@ -199,17 +206,29 @@ public class IDBDetailforTeacher {
 	String strToLine(TermInfo[] tif) {
 		String val = new String();
 		int count = 0;
-			for (int i = 1; i < tif.length; i++) {
-				if (((tif[i].term.toString().length() > 9) && (count < 500))
-						&& !checkDig(splitString(tif[i].term.toString()))) {
-					count++;
-					val += "Top " + count + ": " + splitString(tif[i].term.toString())
-							+ "\t 出現次數: " + tif[i].docFreq + ""
-							+ (tif[i].term.toString().length() - 8) + "\n";
+		for (int i = 1; i < tif.length; i++) {
+			if (((tif[i].term.toString().length() > 9) && (count < 300))
+					&& !checkDig(splitString(tif[i].term.toString()))) {
+				count++;
+				val += "Top " + count + ": "
+						+ splitString(tif[i].term.toString()) + "\t 出現次數: "
+						+ tif[i].docFreq + " "
+						+ (tif[i].term.toString().length() - 8) + "\n";
+
+				try {
+					_putTermNode(splitString(tif[i].term.toString()),
+							tif[i].docFreq);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("_putTermNode("
+						+ splitString(tif[i].term.toString()) + ", "
+						+ tif[i].docFreq + ");");
+
 			}
 		}
 
-		
 		return val;
 	}
 
@@ -235,7 +254,7 @@ public class IDBDetailforTeacher {
 
 		boolean matchFound = matcher.find();
 		while (matchFound) {
-//			System.out.println(matcher.start() + "-" + matcher.end());
+			// System.out.println(matcher.start() + "-" + matcher.end());
 			for (int i = 0; i <= matcher.groupCount(); i++) {
 				String groupStr = matcher.group(i);
 				// System.out.println(i + ":" + groupStr +
@@ -392,12 +411,40 @@ public class IDBDetailforTeacher {
 		return this.siteTopTerms;
 	}
 
+	public void _putTermNode(String name, int size) throws JSONException {
+		termNode = new JSONObject();
+		termJSONB = new JSONObject();
+		termJSONB.put("name", name);
+		
+		termNode.put("name", name);
+		termNode.put("size", size);
+		intermJSArray.put(termNode);
+//		termJSONB.put("children", intermJSArray);
+		termJSONA.put("children", intermJSArray);
+	}
+
+	public void _setJSON() throws JSONException {
+
+		// termNode.put("name", "abv");
+		// termNode.put("size", 100);
+
+		// intermJSArray.put(termNode);
+
+		termJSONA.put("name", "flare");
+		
+
+		System.out.println(termJSONA.toString());
+
+	}
+
 	public static void main(String[] args) throws Exception {
 		IDBDetailforTeacher idbt = new IDBDetailforTeacher();
 		// idbt.setIDBDetail("/home/waue/0401_6/index","/home/waue/0401_6/meta/urls/urls.txt");
 
 		idbt.initIDBDetail("/home/shunfa/dic_index/wiki", "", "");
 		System.out.println(idbt.getContentTopTerms());
+		idbt._setJSON();
+		System.out.println(idbt.indexInfo.getNumTerms());
 		// startLuke(indexpath);
 	}
 
