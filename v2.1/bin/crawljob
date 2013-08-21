@@ -171,6 +171,7 @@ function main(){
     "crawljob")
         show_echo "crawljob"
         crawl_DB_name=$2
+	DB_name=$2
         depth=$3
         if [ "$crawl_DB_name" != "" ] && [ "$depth" != "" ] ; then
 	   nutch_crawl_job $crawl_DB_name $depth
