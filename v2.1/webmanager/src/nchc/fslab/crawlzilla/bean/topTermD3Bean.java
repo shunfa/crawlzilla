@@ -119,6 +119,16 @@ public class topTermD3Bean {
 		fwriter.close();
 	}
 	
+	public void _genJSONFileforTest(String strIDBName) throws IOException {
+		File saveFile = new File("WebContent/"+strIDBName + ".json");
+		FileWriter fwriter = new FileWriter(saveFile);
+		fwriter.write(jsonLv1.toString());
+		jsonLv1 = new JSONObject();
+		jsonLv2 = new JSONArray();
+		jsonLv3 = new JSONArray();
+		fwriter.close();
+	}
+	
 	public String getJSONStr(String strIDBName) throws IOException {
 		return jsonLv1.toString();
 	}
@@ -126,6 +136,8 @@ public class topTermD3Bean {
 	public static void main(String args[]) throws Exception {
 		topTermD3Bean tTD = new topTermD3Bean();
 		tTD.init("wiki_1");
+		tTD._genJSONFileforTest("wiki_1");
+		tTD._genJSONFileforTest("wiki_1");
 		System.out.println("Max Term Number = " + tTD.intMaxTermNum);
 //		tTD.genJSONFile("wiki_1");
 	}
