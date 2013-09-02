@@ -116,6 +116,9 @@ public class topTermD3Bean {
 		File saveFile = new File("/opt/crawlzilla/tomcat/webapps/crawlzilla/"+strIDBName + ".json");
 		FileWriter fwriter = new FileWriter(saveFile);
 		fwriter.write(jsonLv1.toString());
+		jsonLv1 = new JSONObject();
+		jsonLv2 = new JSONArray();
+		jsonLv3 = new JSONArray();
 		fwriter.close();
 	}
 	

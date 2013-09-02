@@ -42,7 +42,7 @@ function restart_solr(){
       show_echo "Solr Started, process will kill it first."
       log_echo "check solr service" $LOG_HOME/System.log
       kill -9 $solr_pid
-      sleep 5
+      sleep 10
       show_echo "Start Solr......"
       cd $SOLR_HOME/example/
       java -jar $SOLR_HOME/example/start.jar &
