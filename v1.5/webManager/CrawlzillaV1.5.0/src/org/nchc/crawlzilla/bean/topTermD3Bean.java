@@ -24,6 +24,7 @@ public class topTermD3Bean {
 	static JSONArray jsonLv2 = new JSONArray();
 	static JSONArray jsonLv3 = new JSONArray();
 	final int ALL = 0, CHINESE_TERM = 1;
+	
 
 	// Path
 	private String Index_Path;
@@ -245,8 +246,8 @@ public class topTermD3Bean {
 		TermInfo[] ti = HighFreqTerms.getHighFreqTerms(this.reader, null,
 				topNum, field);
 		// this.contentTopTerms = strToHTML(ti);
-		// this.contentTopTerms = strToLine(ti, CHINESE_TERM);
-		this.contentTopTerms = strToLine(ti, ALL);
+		this.contentTopTerms = strToLine(ti, CHINESE_TERM);
+		// this.contentTopTerms = strToLine(ti, ALL);
 	}
 
 	String splitString(String strs) {
@@ -347,6 +348,7 @@ public class topTermD3Bean {
 							+ splitString(tif[i].term.toString()) + ", "
 							+ tif[i].docFreq + ");");
 
+					
 					jsonLv3.put(_genNameSizeNode(
 							splitString(tif[i].term.toString()), tif[i].docFreq));
 					jsonLv2.put(_genNameArrNode(
@@ -366,7 +368,8 @@ public class topTermD3Bean {
 	public static void main(String args[]) throws Exception {
 		topTermD3Bean tJ = new topTermD3Bean();
 		jsonLv1.put("name", "flare");
-		tJ.initIDBDetail("/home/shunfa/dic_index/wiki", "", "");
+//		tJ.initIDBDetail("/home/shunfa/dic_index/wiki", "", "");
+		tJ.initIDBDetail("/opt/crawlzilla/solr/example/solr/wiki_1/data/index", "", "");
 		System.out.println(tJ.numTerm);
 
 		jsonLv1.put("children", jsonLv2);

@@ -33,6 +33,8 @@
 <link rel="stylesheet" href="./css/ink.css">
 <jsp:useBean id="getDBListBean"
 	class="nchc.fslab.crawlzilla.bean.getDBListBean" scope="session" />
+<jsp:useBean id="topTermD3Bean"
+	class="nchc.fslab.crawlzilla.bean.topTermD3Bean" scope="session" />
 <jsp:useBean id="getDBInfoBean"
 	class="nchc.fslab.crawlzilla.bean.infoOperBean" scope="session" />
 <!--[if IE]>
@@ -45,8 +47,10 @@
 	%>
 	<header class="ink-container ink-for-l">
 		<div class="ink-vspace">
-			<h1 class=""><a href="index.jsp"><img src="imgs/crawlzilla-header-signbo.png"></a></h1>
-			<p>Make Your Own Search Engine Friendly!</p> 
+			<h1 class="">
+				<a href="index.jsp"><img src="imgs/crawlzilla-header-signbo.png"></a>
+			</h1>
+			<p>Make Your Own Search Engine Friendly!</p>
 		</div>
 	</header>
 
@@ -60,31 +64,34 @@
 			<li><a href="http://<%=getDBInfoBean.getIPAddr()%>:8983/solr/#/"
 				target="_blank">Solr Admin</a></li>
 			<%
-if (session.getAttribute("loginFlag") != "true") {
-%>
+				if (session.getAttribute("loginFlag") != "true") {
+			%>
 			<li><a href="login.jsp">Login</a></li>
-			<% } else { %>
+			<%
+				} else {
+			%>
 			<li><a href="logout.jsp">Logout</a></li>
-			<% }  %>
+			<%
+				}
+			%>
 		</ul>
 	</nav>
 
 	<header class="ink-container ink-for-m ink-for-s">
 		<div class="ink-vspace"></div>
 	</header>
-<%
-if (session.getAttribute("loginFlag") != "true") {
-%>
-<div class="ink-container ink-vspace">
-<br>Please Login First!
-<br><a href="login.jsp">Login</a>
-</div>
-<%
-	response.setHeader("Refresh", "1; URL=login.jsp");
-	}
-	//# Login, display the home page
-	else {
-%>
+	<%
+		if (session.getAttribute("loginFlag") != "true") {
+	%>
+	<div class="ink-container ink-vspace">
+		<br>Please Login First! <br> <a href="login.jsp">Login</a>
+	</div>
+	<%
+		response.setHeader("Refresh", "1; URL=login.jsp");
+		}
+		//# Login, display the home page
+		else {
+	%>
 	<div class="ink-container ink-vspace">
 		<h1 class="">Seaech Engine List</h1>
 		<table width="100%" height="121" border="0">
@@ -98,19 +105,22 @@ if (session.getAttribute("loginFlag") != "true") {
 			</tr>
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
-					if (getDBInfoBean.getMessage(dbName[i].getName(), "status")
-							.equals("finish")) {
+						if (getDBInfoBean.getMessage(dbName[i].getName(), "status")
+								.equals("finish")) {
+							topTermD3Bean.init(dbName[i].getName());
 			%>
 			<tr>
 				<form id="db_opera" method="post" action="dbopera.do">
-					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
+					<td align="center" valign="middle"><a
+						href="IDBGraph.html?IDB=<%=dbName[i].getName()%>"><%=dbName[i].getName()%></a></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"create_time")%></td>
-					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
+								"create_time")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i]
+								.getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"depth")%></td>
-					<td align="center" valign="middle"><label> 
-					<select	name="oper" id="operation">
+								"depth")%></td>
+					<td align="center" valign="middle"><label> <select
+							name="oper" id="operation">
 								<option value="0">Choose</option>
 								<!-- 
 								<option value="detial">Detial</option>
@@ -118,15 +128,15 @@ if (session.getAttribute("loginFlag") != "true") {
 								<option value="schedule">Schedule</option>
 								 -->
 								<option value="deleteDB">Delete</option>
-						</select>
-						<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" /> 
-						<input type="submit" name="opera_submit" id="opera_submit"	value="Submit">
+						</select> <input type="hidden" name="dbName"
+							value="<%=dbName[i].getName()%>" /> <input type="submit"
+							name="opera_submit" id="opera_submit" value="Submit">
 					</label></td>
 				</form>
 			</tr>
 			<%
 				}
-				}
+					}
 			%>
 		</table>
 	</div>
@@ -144,27 +154,28 @@ if (session.getAttribute("loginFlag") != "true") {
 			</tr>
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
-					if (getDBInfoBean.getMessage(dbName[i].getName(),
-							"show_status_flag").equals("true")) {
+						if (getDBInfoBean.getMessage(dbName[i].getName(),
+								"show_status_flag").equals("true")) {
 			%>
 			<tr>
 				<form id="db_opera2" method="post" action="dbopera.do">
 					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"create_time")%></td>
-					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
+								"create_time")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i]
+								.getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"depth")%></td>
+								"depth")%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean._getPID(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"status")%> 
-							<input type="hidden" name="dbName" value="<%=dbName[i].getName()%>" /> 
-							<input type="submit"	name="oper" id="opera_submit2" value="hideMesg"></label></td>
+								"status")%> <input type="hidden" name="dbName"
+							value="<%=dbName[i].getName()%>" /> <input type="submit"
+							name="oper" id="opera_submit2" value="hideMesg"></label></td>
 				</form>
 			</tr>
 			<%
 				}
-				}
+					}
 			%>
 		</table>
 		<p>&nbsp;</p>
@@ -184,39 +195,43 @@ if (session.getAttribute("loginFlag") != "true") {
 			</tr>
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
-					if (getDBInfoBean.checkIdle(dbName[i].getName()) && !getDBInfoBean.getMessage(dbName[i].getName(),
-							"pid").equals("") && !getDBInfoBean.getMessage(dbName[i].getName(),
-							"status").equals("finish")) {
+						if (getDBInfoBean.checkIdle(dbName[i].getName())
+								&& !getDBInfoBean.getMessage(dbName[i].getName(),
+										"pid").equals("")
+								&& !getDBInfoBean.getMessage(dbName[i].getName(),
+										"status").equals("finish")) {
 			%>
 			<tr>
 				<form id="indexManager" method="post" action="indexManager.do">
 					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"create_time")%></td>
-					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
+								"create_time")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i]
+								.getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"depth")%></td>
+								"depth")%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean._getPID(dbName[i].getName())%></td>
 					<td align="center" valign="middle"><label><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"status")%> </label></td>
+								"status")%> </label></td>
 					<!-- Operation: re-index, kill job, delete files -->
-							<td align="center" valign="middle"><label>
-					<select	name="option" id=""option"">
+					<td align="center" valign="middle"><label> <select
+							name="option" id=""option"">
 								<option value="0">Choose</option>
 								<option value="1">Fix</option>
 								<option value="2">Kill Job</option>
 								<option value="3">Delete</option>
 						</select>
-					</label> 
-					<input type="hidden" name="oper"	value="idleJob"> 
-					<input type="hidden" name="dbName"	value="<%=getDBInfoBean.getSpendTime(dbName[i].getName())%>"> 
-					<input type="submit" name="submit" id="submit" value="Submit">
+					</label> <input type="hidden" name="oper" value="idleJob"> <input
+						type="hidden" name="dbName"
+						value="<%=getDBInfoBean.getSpendTime(dbName[i]
+								.getName())%>">
+						<input type="submit" name="submit" id="submit" value="Submit">
 					</td>
 				</form>
 			</tr>
 			<%
 				}
-				}
+					}
 			%>
 		</table>
 		<p>&nbsp;</p>
@@ -234,40 +249,44 @@ if (session.getAttribute("loginFlag") != "true") {
 			</tr>
 			<%
 				for (int i = 0; i < getDBListBean.getDBNum(); i++) {
-					if (getDBInfoBean.getMessage(dbName[i].getName(), "status")
-							.equals("fail")) {
+						if (getDBInfoBean.getMessage(dbName[i].getName(), "status")
+								.equals("fail")) {
 			%>
 			<tr>
 				<form id="indexManager" method="post" action="indexManager.do">
 					<td align="center" valign="middle"><%=dbName[i].getName()%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"create_time")%></td>
-					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i].getName())%></td>
+								"create_time")%></td>
+					<td align="center" valign="middle"><%=getDBInfoBean.getSpendTime(dbName[i]
+								.getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
-							"depth")%></td>
+								"depth")%></td>
 					<!-- Operation: re-index, kill job, delete files -->
-							<td align="center" valign="middle"><label>
-					<select	name="option" id=""option"">
+					<td align="center" valign="middle"><label> <select
+							name="option" id=""option"">
 								<option value="0">Choose</option>
 								<option value="1">Fix</option>
 								<option value="3">Delete</option>
 						</select>
-					</label> 
-					<input type="hidden" name="oper"	value="failJob"> 
-					<input type="hidden" name="dbName"	value="<%=getDBInfoBean.getSpendTime(dbName[i].getName())%>"> 
-					<input type="submit" name="submit" id="submit" value="Submit">
-					
+					</label> <input type="hidden" name="oper" value="failJob"> <input
+						type="hidden" name="dbName"
+						value="<%=getDBInfoBean.getSpendTime(dbName[i]
+								.getName())%>">
+						<input type="submit" name="submit" id="submit" value="Submit">
+
 					</td>
 				</form>
 			</tr>
 			<%
 				}
-				}
+					}
 			%>
 		</table>
 		<p>&nbsp;</p>
 	</div>
-	<% } %>
+	<%
+		}
+	%>
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">
