@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Search Result</title>
+<script>
+	// alert("hello");
+	function loadXMLDoc(url) {
+		var xmlhttp;
+		var txt, x, xx, i;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				txt = "<table border='1'><tr><th>Title</th><th>Artist</th></tr>";
+				x = xmlhttp.responseXML.documentElement
+						.getElementsByTagName("doc");
+				for (i = 0; i < x.length; i++) {
+					txt = txt + "<tr>";
+					xx = x[i].getElementsByTagName("url");
+					{
+						try {
+							txt = txt + "<td>" + xx[0].firstChild.nodeValue
+									+ "</td>";
+						} catch (er) {
+							txt = txt + "<td> </td>";
+						}
+					}
+					xx = x[i].getElementsByTagName("url");
+					{
+						try {
+							txt = txt + "<td>" + xx[0].firstChild.nodeValue
+									+ "</td>";
+						} catch (er) {
+							txt = txt + "<td> </td>";
+						}
+					}
+					txt = txt + "</tr>";
+				}
+				txt = txt + "</table>";
+				document.getElementById('url').innerHTML = txt;
+			}
+		}
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	}
+</script>
+</head>
+<body>
+	<section id="rawData">
+		q=國網 中心 result name="response" numFound="81" start="0"<br> title
+		= 维基百科，自由的百科全书<br> content = 维基百科，自由的百科全书 维基百科:首页 维基百科，自由的百科全书
+		跳转至...<br> url =
+		http://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5<br>
+		tstamp = 2013-08-30T03:17:50.069Z<br>
+	</section>
+	<section id="info">
+		<h1>搜尋：國網中心，花費 2 ms，81筆紀錄</h1>
+		<br>
+	</section>
+	<section id="displayData">
+		<a href="http://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5">
+			维基百科，自由的百科全书</a><br>
+		<p>维基百科，自由的百科全书 维基百科:首页 维基百科，自由的百科全书 跳转至： 导航 、 搜索 维基百科 海納百川，有容乃大
+			人人可編輯 的自由百科全書 已有 722,230 篇 條目 分类 主题 求助 入门 沙盒 捐款 特色条目 1997年加延地震
+			是于1997年5月10日 协调世界时 7時57分、当地时间12時57分发生在 伊朗 北部 呼罗珊 的一起 重大地震
+			，是该地区自1990年以来最大的一次地震， 矩震级 为7.3，中心位于 马什哈德 以南约270公里的一个名叫阿德库尔（ Ardekul
+			）的乡村。这也是该国1997年所发生的第三场地震，造成严重的灾情， 比尔詹德 － 加延
+			地区变得满目疮痍，有1,567人丧生，超过2,300人受伤，5万人无家可归，超过15,000幢房屋遭到破坏或损毁， 美国地质调查局
+			形容这是1997年最致命的一场地震。其后还发生了约155次余震造成进一步的破坏并迫使幸存者离开。之后的研究发现这场地震是由一个沿伊朗和阿富汗边界地下蔓延的
+			断层 断裂所造成的。最终估计此次灾害的损失约为1亿 美元
+			，许多国家为此紧急捐赠了毛毯、帐篷、衣服和食品，并派出救援队伍协助当地义工寻找被困在废墟下的幸存者。围绕地震 震中
+			的地区几乎全部被毁，这与乡村地区建筑质量不佳有很大关系，联合国建议调整相应建筑法规。按死亡人数计算，自进入20世纪以来，伊朗平均每3,000人就有1人在地震相关事件中遇难，一位美国
+			地球物理学家 建议为了解决持续的公共安全隐患，需要有一个全国范围的重建方案。 其他特色條目 ： 夏朝 － 安息帝國 － 金朝 特色列表 ：
+			加拿大国家公园列表 － 怀俄明州行政区划 － 亚拉巴马州行政区划 候选 存档 所有特色条目 你知道吗？ 作家 橫溝正史 創作的 哪一部小說
+			以手毬歌為故事主軸？ 宇宙中 何種區域 無法直接觀測，卻可以吸入任何物體，甚至光線？ 上海地铁 有 哪些车站 ？ 哪一型列车 。</p>
+		<p>2013-08-30T03:17:50.069Z</p>
+	</section>
+	<div id="txtCDInfo">
+		<button
+			onclick="loadXMLDoc('http://140.110.102.61:8983/solr/wiki_1/select?q=%E5%9C%8B%E7%B6%B2%20%E4%B8%AD%E5%BF%83')">Get
+			info</button>
+	</div>
+</body>
+</html>
