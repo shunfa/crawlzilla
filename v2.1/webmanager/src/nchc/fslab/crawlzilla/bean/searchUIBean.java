@@ -3,9 +3,11 @@ package nchc.fslab.crawlzilla.bean;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +74,8 @@ public class searchUIBean {
 		return inputJSONLine;
 	}
 
-	public void _parseJSON(String strJSON) throws JSONException {
+	public void _parseJSON(String strJSON) throws JSONException,
+			UnsupportedEncodingException {
 
 		String strContent = "", strTitle = "", strURL = "", strTS = "";
 		// System.out.println("--strJSON---" + strJSON);
@@ -126,6 +129,8 @@ public class searchUIBean {
 
 		}
 		System.out.println("Q-" + jsonObjParams.get("q"));
+		System.out.println("Q-utf8: "
+				+ URLEncoder.encode((String) jsonObjParams.get("q"), "UTF-8"));
 		_setPageInfo(this.strIDBName, this.strQuery, this.intStart,
 				this.intEnd, this.intRowNOs, this.intNumberFound);
 
@@ -153,7 +158,6 @@ public class searchUIBean {
 		String strPreHref = "Previous";
 		int intPrePage = 0;
 		if (inEnd < intTotal) {
-
 			strNextHref = "<a	href=\"searchResult.jsp?IDB=" + stIDBName + "&q="
 					+ strQuery + "&start=" + (inStart + inRows - 1) + "&rows="
 					+ inRows + "\">Next</a>";
@@ -166,8 +170,8 @@ public class searchUIBean {
 			if (intPrePage < 0) {
 				intPrePage = 0;
 			}
-			strPreHref = "<a href=\"searchResult.jsp?IDB=wiki_1&q=" + strQuery
-					+ "&start=" + intPrePage + "&rows=" + inRows
+			strPreHref = "<a href=\"searchResult.jsp?IDB=" + stIDBName + "&q="
+					+ strQuery + "&start=" + intPrePage + "&rows=" + inRows
 					+ "\">Previous</a>";
 		} else if (inStart < 1) {
 			strPreHref = "Previous";
@@ -180,11 +184,13 @@ public class searchUIBean {
 
 	public void initAndSetup(String strIPAddress, String strPortNO,
 			String strIDBName, String strQuery, int intStart, int intRowNO)
-			throws JSONException {
+			throws JSONException, UnsupportedEncodingException {
 		this.strInfoHTML = "";
 		this.strHTML = "";
 		this.strPagesHTML = "";
 		// TODO: check solr service
+		// String strQueryt = new String(strQuery.getBytes("BIG5"));
+
 		_parseJSON(_connect(strIPAddress, strPortNO, strIDBName, strQuery,
 				intStart, intRowNO));
 	}
@@ -215,7 +221,7 @@ public class searchUIBean {
 
 	public static void main(String args[]) throws IOException, JSONException {
 		searchUIBean sUI = new searchUIBean();
-		sUI.initAndSetup("140.110.102.61", "8983", "wiki_1", "*.*", 0, 20);
+		sUI.initAndSetup("140.110.102.61", "8983", "wiki_1", "中", 0, 20);
 		// System.out.println("getStatus = " + sUI.getStatus() + ", getQTime = "
 		// + sUI.getQTime() + ", Number Found = " + sUI.getNumberFound());
 		System.out.println(sUI.getResultHTML());

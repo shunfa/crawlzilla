@@ -44,60 +44,52 @@
 
 </head>
 <%
-	request.setCharacterEncoding("UTF-8");
-	String strIPAddress = getDBInfoBean.getIPAddr();
-	String strIDBName = request.getParameter("IDB");
-	String strQueryt = request.getParameter("q");
-	strQueryt = URLEncoder.encode(strQueryt, "BIG5");
-	String strQuery = new String(strQueryt.getBytes("BIG5"));
-	int intStart = Integer.parseInt(request.getParameter("start"));
-	int intRows = Integer.parseInt(request.getParameter("rows"));
-	int intEndRecord = intStart + intRows;
-	if (intEndRecord > getSearchResultBean.getNumberFound()) {
-		intEndRecord = getSearchResultBean.getNumberFound();
+	String strIDBName = "";
+	if (request.getParameter("IDB") != null) {
+		strIDBName = request.getParameter("IDB");
 	}
-	if (intStart == 0) {
-		intStart++;
-	}
-	getSearchResultBean.initAndSetup(strIPAddress, "8983", strIDBName,
-			strQuery, intStart, intRows);
-	// getSearchResultBean.parseJSON(strJSSON);
-	//out.println("strIDBName = " + getSearchResultBean.connect(strIPAddress, "8983",
-	//	strIDBName, strQuery, intStart, intRows));
-	//out.println("getSearchResultBean.connect(" + strIPAddress
-	//		+ ", \"8983\",	" + strIDBName + ", " + strQuery + ", "
-	//		+ intStart + ", " + intRows + ");");
 %>
+<script type="text/javascript">
+	var url = window.location.toString();
+	var str = "";
+	var strIDBName = "";
+	if (url.indexOf("?") != -1) {
+		var ary = url.split("?")[1].split("&");
+		for ( var i in ary) {
+			str = ary[i].split("=")[0];
+			if (str == "IDB") {
+				strIDBName = decodeURI(ary[i].split("=")[1]);
+			}
+		}
+	}
+
+	function searchResultPage() {
+		var keyWord = document.searchIN.searchKey.value;
+		// &q="+keyWord+"&start=0&rows=10"
+
+		// searchResult.jsp?IDB=wiki_1&q=國網&start=11&rows=10
+		location.href = "searchResult.jsp?IDB=" + strIDBName + "&q=" + keyWord
+				+ "&start=0&rows=10";
+	}
+</script>
+
 <body>
 
 	<!-- Add your site or application content here -->
-
 	<header class="ink-container ink-for-l"> </header>
-	<div class="displayResult"
-		style="padding: 30px 60px 90px 120px; border: 0px solid;">
-		<a href="search.jsp?IDB=<%=strIDBName%>"><img src="imgs/crawlzilla-logo.png"></a>
-		<h3>
-			KeyWord:
-			<%=strQuery%>, total Result:
-			<%=getSearchResultBean.getNumberFound()%>, Spent:
-			<%=getSearchResultBean.getQTime()%>ms
-		</h3>
-		<h4>
-			Record <i><%=intStart%></i> to <i><%=intEndRecord%></i>
-			</h4>
-			<div class="pages">
-				<p align="center">
-					<%=getSearchResultBean.getPageInfo()%>
-				</p>
-			</div>
-			<%=getSearchResultBean.getResultHTML()%>
-	</div>
-	<div class="pages">
-		<p align="center">
-			<%=getSearchResultBean.getPageInfo()%>
+	<div class="searchUI" style="padding: 30px 60px 90px 120px;">
+		<p>
+			<a href="search.jsp?IDB=<%=strIDBName%>"><img
+				src="imgs/crawlzilla-logo.png"></a>
 		</p>
+		<br>
+		<form name="searchIN" action="javascript:searchResultPage()">
 
+			<input type="text" name="searchKey" />
+			<button type="button" onclick="searchResultPage()">Search</button>
+		</form>
 	</div>
+
 	<footer>
 		<div class="ink-container">
 			<nav class="ink-navigation">

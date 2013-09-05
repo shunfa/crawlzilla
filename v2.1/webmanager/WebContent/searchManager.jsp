@@ -101,6 +101,7 @@
 				<td align="center" valign="middle"><strong>Create Time</strong></td>
 				<td align="center" valign="middle"><strong>Spend(H:M:S)</strong></td>
 				<td align="center" valign="middle"><strong>Depth</strong></td>
+				<td align="center" valign="middle"><strong>SearchUI</strong></td>
 				<td align="center" valign="middle"><strong>Operation</strong></td>
 			</tr>
 			<%
@@ -119,6 +120,8 @@
 								.getName())%></td>
 					<td align="center" valign="middle"><%=getDBInfoBean.getMessage(dbName[i].getName(),
 								"depth")%></td>
+					<td align="center" valign="middle"><a
+						href="search.jsp?IDB=<%=dbName[i].getName()%>"><%=dbName[i].getName()%></a></td>
 					<td align="center" valign="middle"><label> <select
 							name="oper" id="operation">
 								<option value="0">Choose</option>
