@@ -14,15 +14,15 @@ import org.json.JSONObject;
 public class searchUIBean {
 	int intQtime = 0, intStatus = 0, intNumberFound = 0, intStart = 0,
 			intEnd = 0, intRowNOs = 0;
-	String strHTML = "";
-	String strInfoHTML = "";
-	String strPagesHTML = "";
-	String strKeyWord = "";
-	String strIDBName = "";
-	String strQuery = "";
+	public String strHTML = "";
+	public String strInfoHTML = "";
+	public String strPagesHTML = "";
+	public String strKeyWord = "";
+	public String strIDBName = "";
+	public String strQuery = "";
 	private URLConnection connection;
 
-	private String connect(String strIPAddress, String strPortNO,
+	public String _connect(String strIPAddress, String strPortNO,
 			String strIDBName, String strQuery, int intStart, int intRowNO) {
 		try {
 
@@ -72,23 +72,7 @@ public class searchUIBean {
 		return inputJSONLine;
 	}
 
-	public int getStatus() {
-		return this.intStatus;
-	}
-
-	public int getQTime() {
-		return this.intQtime;
-	}
-
-	public int getNumberFound() {
-		return this.intNumberFound;
-	}
-
-	public int getStart() {
-		return this.intStart;
-	}
-
-	private void parseJSON(String strJSON) throws JSONException {
+	public void _parseJSON(String strJSON) throws JSONException {
 
 		String strContent = "", strTitle = "", strURL = "", strTS = "";
 		// System.out.println("--strJSON---" + strJSON);
@@ -110,10 +94,26 @@ public class searchUIBean {
 		System.out.println("jsonArrayDoc length = " + jsonArrayDoc.length());
 		for (int i = 0; i < jsonArrayDoc.length(); i++) {
 			jsonObjDocContent = jsonArrayDoc.getJSONObject(i);
-			strContent = jsonObjDocContent.getString("content");
-			strTitle = jsonObjDocContent.getString("title");
-			strURL = jsonObjDocContent.getString("url");
-			strTS = jsonObjDocContent.getString("tstamp");
+			if (jsonObjDocContent.has("content")) {
+				strContent = jsonObjDocContent.getString("content");
+			} else {
+				strContent = " no content";
+			}
+			if (jsonObjDocContent.has("title")) {
+				strTitle = jsonObjDocContent.getString("title");
+			} else {
+				strTitle = " no title";
+			}
+			if (jsonObjDocContent.has("url")) {
+				strURL = jsonObjDocContent.getString("url");
+			} else {
+				strURL = "#";
+			}
+			if (jsonObjDocContent.has("tstamp")) {
+				strTS = jsonObjDocContent.getString("tstamp");
+			} else {
+				strTS = "no tstamp";
+			}
 			if (jsonObjDocContent.getString("content").length() > 30) {
 				strContent = jsonObjDocContent.getString("content").substring(
 						0, 300)
@@ -139,10 +139,6 @@ public class searchUIBean {
 				+ "<font size=\"2pt\"><i>" + strTS + "</i></font><br><br></p>";
 	}
 
-	public String getResultHTML() {
-		return this.strHTML;
-	}
-
 	public String getInfoHTML() {
 		String a = "<h1>KeyWord: " + this.strKeyWord + ", total Result: "
 				+ this.intNumberFound + " Spent: " + intQtime
@@ -153,20 +149,25 @@ public class searchUIBean {
 
 	public String _setPageInfo(String stIDBName, String strQuery, int inStart,
 			int inEnd, int inRows, int intTotal) {
-		@SuppressWarnings("unused")
 		String strNextHref = "";
-		@SuppressWarnings("unused")
 		String strPreHref = "Previous";
+		int intPrePage = 0;
 		if (inEnd < intTotal) {
 
 			strNextHref = "<a	href=\"searchResult.jsp?IDB=" + stIDBName + "&q="
-					+ strQuery + "&start=" + (inStart + inRows) + "&rows="
+					+ strQuery + "&start=" + (inStart + inRows - 1) + "&rows="
 					+ inRows + "\">Next</a>";
+		} else {
+			strNextHref = "Next";
 		}
 
-		if (inStart  > 1) {
+		if (inStart > 1) {
+			intPrePage = inStart - inRows;
+			if (intPrePage < 0) {
+				intPrePage = 0;
+			}
 			strPreHref = "<a href=\"searchResult.jsp?IDB=wiki_1&q=" + strQuery
-					+ "&start=" + (inStart - inRows) + "&rows=" + inRows
+					+ "&start=" + intPrePage + "&rows=" + inRows
 					+ "\">Previous</a>";
 		} else if (inStart < 1) {
 			strPreHref = "Previous";
@@ -177,15 +178,47 @@ public class searchUIBean {
 		return this.strPagesHTML;
 	}
 
+	public void initAndSetup(String strIPAddress, String strPortNO,
+			String strIDBName, String strQuery, int intStart, int intRowNO)
+			throws JSONException {
+		this.strInfoHTML = "";
+		this.strHTML = "";
+		this.strPagesHTML = "";
+		// TODO: check solr service
+		_parseJSON(_connect(strIPAddress, strPortNO, strIDBName, strQuery,
+				intStart, intRowNO));
+	}
+
+	public String getResultHTML() {
+		return this.strHTML;
+	}
+
+	public String getPageInfo() {
+		return this.strPagesHTML;
+	}
+
+	public int getStatus() {
+		return this.intStatus;
+	}
+
+	public int getQTime() {
+		return this.intQtime;
+	}
+
+	public int getNumberFound() {
+		return this.intNumberFound;
+	}
+
+	public int getStart() {
+		return this.intStart;
+	}
+
 	public static void main(String args[]) throws IOException, JSONException {
 		searchUIBean sUI = new searchUIBean();
-		String strJSSON = sUI.connect("140.110.102.61", "8983", "wiki_1",
-				"*.*", 0, 20);
-		sUI.parseJSON(strJSSON);
-		System.out.println("getStatus = " + sUI.getStatus() + ", getQTime = "
-				+ sUI.getQTime() + ", Number Found = " + sUI.getNumberFound());
-		System.out.println(sUI.strHTML);
-		System.out.println(sUI.strPagesHTML);
-
+		sUI.initAndSetup("140.110.102.61", "8983", "wiki_1", "*.*", 0, 20);
+		// System.out.println("getStatus = " + sUI.getStatus() + ", getQTime = "
+		// + sUI.getQTime() + ", Number Found = " + sUI.getNumberFound());
+		System.out.println(sUI.getResultHTML());
+		// System.out.println(sUI.strPagesHTML);
 	}
 }
