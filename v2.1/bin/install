@@ -89,6 +89,7 @@ function install_solr(){
   mv $CRAWLZILLA_HOME/apache-solr-4.0.0 $CRAWLZILLA_HOME/solr
   # cp conf
   cp ../conf/schema.xml.czl_version $SOLR_HOME/example/solr/collection1/conf/schema.xml
+  cp ../libs/stopwords.txt $SOLR_HOME/example/solr/collection1/conf/
   cp ../conf/solr.xml.czl_version $SOLR_HOME/example/solr/solr.xml
 }
 
